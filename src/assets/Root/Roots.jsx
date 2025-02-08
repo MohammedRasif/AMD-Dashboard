@@ -5,12 +5,14 @@ import Sidebar from "../component/Sidebar/Sidebar";
 const Roots = () => {
     return (
         <div className="flex">
-            <div>
+            <div className="w-[280px] bg-[#FAF1E6] min-h-screen">
                 <Sidebar/>
             </div>
-            <div>
+            <div className="bg-gray-200 w-full">
+                <div className="h-[90px] bg-white ">
                 <Navbar/>
-                <div>
+                </div>
+                <div className="m-5 bg-white h-full ">
                     <Outlet/>
                 </div>
             </div>
@@ -19,3 +21,4 @@ const Roots = () => {
 }
 
 export default Roots;
+ 
