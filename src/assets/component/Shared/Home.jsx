@@ -1,7 +1,7 @@
 import { AiOutlineRise } from "react-icons/ai";
 import { FaSackDollar } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
-import {  HiOutlineUserGroup } from "react-icons/hi2";
+import { HiOutlineUserGroup } from "react-icons/hi2";
 import { PiCurrencyDollarSimple } from "react-icons/pi";
 
 
@@ -28,38 +28,37 @@ const Home = () => {
     //     { name: 'Slovakia', code: 'SK', gdp: 115 },
     //     { name: 'Spain', code: 'ES', gdp: 1418 },
     //     { name: 'Sweden', code: 'SE', gdp: 591 },
-    // ];
+    //   ];
 
-    // const chartParams = {
+    //   const chartParams = {
     //     yAxis: [
-    //         {
-    //             label: 'GDP (million $USD)',
-    //         },
+    //       {
+    //         label: 'GDP (million $USD)',
+    //       },
     //     ],
     //     series: [
-    //         {
-    //             label: 'GDP',
-    //             dataKey: 'gdp',
-    //             valueFormatter: (v) =>
-    //                 new Intl.NumberFormat('en-US', {
-    //                     style: 'currency',
-    //                     currency: 'USD',
-    //                     compactDisplay: 'short',
-    //                     notation: 'compact',
-    //                 }).format((v || 0) * 1_000_000),
-    //         },
+    //       {
+    //         label: 'GDP',
+    //         dataKey: 'gdp',
+    //         valueFormatter: (v) =>
+    //           new Intl.NumberFormat('en-US', {
+    //             style: 'currency',
+    //             currency: 'USD',
+    //             compactDisplay: 'short',
+    //             notation: 'compact',
+    //           }).format((v || 0) * 1_000_000),
+    //       },
     //     ],
     //     slotProps: { legend: { hidden: true } },
     //     dataset,
     //     width: 600,
     //     height: 400,
     //     sx: {
-    //         [`.${axisClasses.left} .${axisClasses.label}`]: {
-    //             transform: 'translate(-20px, 0)',
-    //         },
+    //       [`.${axisClasses.left} .${axisClasses.label}`]: {
+    //         transform: 'translate(-20px, 0)',
+    //       },
     //     },
-    // };
-
+    //   };
 
     return (
         <div className="bg-white  min-h-full">

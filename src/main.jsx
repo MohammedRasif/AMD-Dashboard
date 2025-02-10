@@ -12,6 +12,7 @@ import AddQuestionnaire from './assets/component/Shared/AddQuestionnaire.jsx';
 import MakeAdmin from './assets/component/Shared/MakeAdmin.jsx';
 import ManaageSubscription from './assets/component/Shared/ManaageSubscription.jsx';
 import Settings from './assets/component/Shared/Settings.jsx';
+import Profile from './assets/component/Shared/Profile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element:<Home/> ,
+      },
+      {
+        path: "/profile",
+        element:<Profile/> ,
       },
       {
         path: "/odermanagement",
