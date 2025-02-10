@@ -8,19 +8,25 @@ import { IoEyeOutline } from "react-icons/io5";
 import { PiCurrencyDollarSimple } from "react-icons/pi";
 import { NavLink } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-
-
+import Calendar from "react-calendar";
+import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid, AreaChart, Area } from "recharts";
+import "react-calendar/dist/Calendar.css";
+import { GoChevronDown } from "react-icons/go";
+import "./Charts.css";
+import "./Celander.css";
 
 const Home = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const calendarRef = useRef(null); // Reference for the calendar modal
+    const modalRef = useRef(null);
 
+    // Initialize state to handle both single date or date range
+    const [value, onChange] = useState(new Date());
 
-    const calendarRef = useRef(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     // Close calendar when clicking outside
     useEffect(() => {
@@ -33,6 +39,24 @@ const Home = () => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    // Close the modal when clicking outside of it
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                setIsModalOpen(false);
+            }
+        };
+
+        // Attach the event listener to the document
+        document.addEventListener('mousedown', handleClickOutside);
+
+        // Cleanup the event listener on component unmount
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    // Sample user data
     const users = [
         {
             id: 1,
@@ -42,11 +66,11 @@ const Home = () => {
             role: "Desktop Support Technician",
             favoriteColor: "Purple",
             img: "https://img.daisyui.com/images/profile/demo/2@94.webp",
-            number: '#12333',
+            number: "#12333",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
             subscription: "Premium",
-            income: "$20"
+            income: "$20",
         },
         {
             id: 2,
@@ -56,11 +80,11 @@ const Home = () => {
             role: "Tax Accountant",
             favoriteColor: "Red",
             img: "https://img.daisyui.com/images/profile/demo/3@94.webp",
-            number: '#12333',
+            number: "#12333",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
             subscription: "free",
-            income: "$20"
+            income: "$20",
         },
         {
             id: 3,
@@ -70,11 +94,11 @@ const Home = () => {
             role: "Office Assistant I",
             favoriteColor: "Crimson",
             img: "https://img.daisyui.com/images/profile/demo/4@94.webp",
-            number: '#12333',
+            number: "#12333",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
             subscription: "free",
-            income: "$20"
+            income: "$20",
         },
         {
             id: 4,
@@ -84,140 +108,214 @@ const Home = () => {
             role: "Community Outreach Specialist",
             favoriteColor: "Indigo",
             img: "https://img.daisyui.com/images/profile/demo/5@94.webp",
-            number: '#12333',
+            number: "#12333",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
             subscription: "free",
-            income: "$20"
+            income: "$20",
         },
     ];
 
+    // Filter users based on search query
+    const filteredUsers = users.filter((user) =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.contactNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.subscription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.income.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
-    // const dataset = [
-    //     { name: 'Austria', code: 'AT', gdp: 471 },
-    //     { name: 'Belgium', code: 'BE', gdp: 583 },
-    //     { name: 'Bulgaria', code: 'BG', gdp: 90.35 },
-    //     { name: 'Croatia', code: 'HR', gdp: 71.6 },
-    //     { name: 'Czech Republic', code: 'CZ', gdp: 291 },
-    //     { name: 'Denmark', code: 'DK', gdp: 400 },
-    //     { name: 'Finland', code: 'FI', gdp: 283 },
-    //     { name: 'France', code: 'FR', gdp: 2779 },
-    //     { name: 'Germany', code: 'DE', gdp: 4082 },
-    //     { name: 'Greece', code: 'GR', gdp: 218 },
-    //     { name: 'Hungary', code: 'HU', gdp: 177 },
-    //     { name: 'Ireland', code: 'IE', gdp: 533 },
-    //     { name: 'Italy', code: 'IT', gdp: 2050 },
-    //     { name: 'Netherlands', code: 'NL', gdp: 1009 },
-    //     { name: 'Poland', code: 'PL', gdp: 688 },
-    //     { name: 'Portugal', code: 'PT', gdp: 255 },
-    //     { name: 'Romania', code: 'RO', gdp: 301 },
-    //     { name: 'Slovakia', code: 'SK', gdp: 115 },
-    //     { name: 'Spain', code: 'ES', gdp: 1418 },
-    //     { name: 'Sweden', code: 'SE', gdp: 591 },
-    //   ];
+    // Charts data
+    const data = [
+        { name: "Jan", uv: 4000, pv: 2400, amt: 2400 },
+        { name: "Feb", uv: 3000, pv: 1398, amt: 2210 },
+        { name: "Mar", uv: 2000, pv: 9800, amt: 2290 },
+        { name: "Apr", uv: 2780, pv: 3908, amt: 2000 },
+        { name: "May", uv: 1890, pv: 4800, amt: 2181 },
+        { name: "Jun", uv: 2390, pv: 3800, amt: 2500 },
+        { name: "Jul", uv: 3490, pv: 4300, amt: 2100 },
+        { name: "Aug", uv: 3490, pv: 4300, amt: 2100 },
+        { name: "Sep", uv: 3140, pv: 4300, amt: 2100 },
+        { name: "Oct", uv: 1648, pv: 4300, amt: 2100 },
+        { name: "Nov", uv: 2344, pv: 4300, amt: 2100 },
+        { name: "Dec", uv: 1245, pv: 4300, amt: 2100 },
+    ];
 
-    //   const chartParams = {
-    //     yAxis: [
-    //       {
-    //         label: 'GDP (million $USD)',
-    //       },
-    //     ],
-    //     series: [
-    //       {
-    //         label: 'GDP',
-    //         dataKey: 'gdp',
-    //         valueFormatter: (v) =>
-    //           new Intl.NumberFormat('en-US', {
-    //             style: 'currency',
-    //             currency: 'USD',
-    //             compactDisplay: 'short',
-    //             notation: 'compact',
-    //           }).format((v || 0) * 1_000_000),
-    //       },
-    //     ],
-    //     slotProps: { legend: { hidden: true } },
-    //     dataset,
-    //     width: 600,
-    //     height: 400,
-    //     sx: {
-    //       [`.${axisClasses.left} .${axisClasses.label}`]: {
-    //         transform: 'translate(-20px, 0)',
-    //       },
-    //     },
-    //   };
+    // Chart 2 data
+    const secondData = [
+        { name: "Jan", subscribers: 70 },
+        { name: "Feb", subscribers: 60 },
+        { name: "Mar", subscribers: 40 },
+        { name: "Apr", subscribers: 55 },
+        { name: "May", subscribers: 45 },
+        { name: "Jun", subscribers: 20 },
+        { name: "Jul", subscribers: 75 },
+        { name: "Aug", subscribers: 40 },
+        { name: "Sep", subscribers: 65 },
+        { name: "Oct", subscribers: 80 },
+        { name: "Nov", subscribers: 70 },
+        { name: "Dec", subscribers: 50 },
+    ];
+
+    // Chart 3 data
+    const theadData = [
+        { name: "Jan", subscribers: 70 },
+        { name: "Feb", subscribers: 60 },
+        { name: "Mar", subscribers: 40 },
+        { name: "Apr", subscribers: 55 },
+        { name: "May", subscribers: 45 },
+        { name: "Jun", subscribers: 20 },
+        { name: "Jul", subscribers: 75 },
+        { name: "Aug", subscribers: 40 },
+        { name: "Sep", subscribers: 65 },
+        { name: "Oct", subscribers: 80 },
+        { name: "Nov", subscribers: 70 },
+        { name: "Dec", subscribers: 50 },
+    ];
+
+    const maxValue = Math.max(...theadData.map((item) => item.subscribers));
 
     return (
-        <div className="  min-h-full">
+        <div className="min-h-full b">
+            {/* Top Cards */}
             <div className="grid grid-cols-3 gap-10 px-7 py-5 bg-white">
-                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5 ">
-                    <div className=" ">
+                {/* Card 1 */}
+                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5">
+                    <div>
                         <HiOutlineUserGroup className="text-[36px]" />
                     </div>
-                    <div className="w-[137px] h-[80px] space-y-5 text-center ">
+                    <div className="w-[137px] h-[80px] space-y-5 text-center">
                         <h1 className="text-[24px] montserrat font-[700]">10</h1>
                         <p className="text-[#8CAB91] text-[16px] font-[500] montserrat">Total User</p>
                     </div>
                 </div>
-                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5 ">
-                    <div className=" ">
+
+                {/* Card 2 */}
+                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5">
+                    <div>
                         <FiUsers className="text-[36px]" />
                     </div>
-                    <div className="w-[137px] h-[80px] space-y-5 text-center ">
+                    <div className="w-[137px] h-[80px] space-y-5 text-center">
                         <div className="flex items-center pl-7">
                             <PiCurrencyDollarSimple className="text-2xl text-[#8CAB91]" />
-                            <h1 className=" absolute text-[24px] montserrat ml-5">1k</h1>
-                            <p className="text-[#8CAB91] text-[14px]  pl-7 pt-1">70%</p>
+                            <h1 className="absolute text-[24px] montserrat ml-5">1k</h1>
+                            <p className="text-[#8CAB91] text-[14px] pl-7 pt-1">70%</p>
                         </div>
-                        <p className="text-[#8CAB91] text-[16px] font-[500] montserrat">Total  subscriber</p>
+                        <p className="text-[#8CAB91] text-[16px] font-[500] montserrat">Total Subscriber</p>
                     </div>
                 </div>
-                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5 ">
-                    <div className=" ">
+
+                {/* Card 3 */}
+                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5">
+                    <div>
                         <FaSackDollar className="text-[36px]" />
                     </div>
-                    <div className="w-[137px] h-[80px] space-y-3 text-center ">
+                    <div className="w-[137px] h-[80px] space-y-3 text-center">
                         <div className="flex items-center pl-7">
                             <PiCurrencyDollarSimple className="text-2xl text-[#8CAB91]" />
-                            <h1 className=" absolute text-[24px] montserrat ml-5">1k</h1>
+                            <h1 className="absolute text-[24px] montserrat ml-5">1k</h1>
                             <AiOutlineRise className="ml-8 mb-4 text-[#8CAB91] text-2xl" />
-
-                            <p className="absolute text-[#8CAB91] text-[14px] pl-14  pt-1">70%</p>
+                            <p className="absolute text-[#8CAB91] text-[14px] pl-14 pt-1">70%</p>
                         </div>
                         <p className="text-[#8CAB91] text-[16px] font-[500] montserrat">Total Income</p>
                     </div>
                 </div>
             </div>
-            {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
-            {/* <BarChart
-                xAxis={[
-                    {
-                        scaleType: 'band',
-                        dataKey: 'code',
-                        valueFormatter: (code, context) =>
-                            context.location === 'tick'
-                                ? code
-                                : `Country: ${dataset.find((d) => d.code === code)?.name} (${code})`,
-                    },
-                ]}
-                {...chartParams}
-            /> */}
 
-            {/* ----------------------------------------------user inpormation--------------------- */}
+            {/* Charts Section */}
+            <div>
+                {/* Subscriber Growth Chart */}
+                <div className="bg-white p-6 mt-5 shadow-lg grid grid-cols-2 items-center">
+                    <div>
+                        <div className="flex items-center justify-between px-8">
+                            <div>
+                                <h2 className="text-lg font-semibold text-center mb-4">Subscriber Growth</h2>
+                            </div>
+                            <div className="w-[84px] h-[34px] bg-[#F1F1F1] flex items-center justify-center space-x-2">
+                                <button>Yearly</button>
+                                <GoChevronDown />
+                            </div>
+                        </div>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis tickFormatter={(value) => `${value}%`} domain={[0, 100]} />
+                                <Tooltip />
+                                <Bar dataKey="uv" fill="#8CAB91" barSize={40} />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+
+                    {/* User Growth Chart */}
+                    <div>
+                        <div className="bg-white p-6 rounded-lg w-full">
+                            <div className="flex items-center justify-between px-8">
+                                <div>
+                                    <h2 className="text-lg font-semibold text-center mb-4">User Growth</h2>
+                                </div>
+                                <div className="w-[84px] h-[34px] bg-[#F1F1F1] flex items-center justify-center space-x-2">
+                                    <button>Yearly</button>
+                                    <GoChevronDown />
+                                </div>
+                            </div>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <AreaChart data={secondData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+                                    <XAxis dataKey="name" tick={{ fill: "#555" }} />
+                                    <YAxis tick={{ fill: "#555" }} domain={[0, 100]} tickFormatter={(value) => `${value}%`} />
+                                    <Tooltip />
+                                    <Area type="monotone" dataKey="subscribers" stroke="#8CAB91" fill="#8CAB91" />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Income Report Chart */}
+                <div className="bg-white mt-5">
+                    <div className="flex items-center justify-between px-5 py-5">
+                        <div>
+                            <h1 className="text-lg font-semibold text-center mb-4">Income Report</h1>
+                        </div>
+                        <div className="w-[84px] h-[34px] bg-[#F1F1F1] flex items-center justify-center space-x-2">
+                            <button>Yearly</button>
+                            <GoChevronDown />
+                        </div>
+                    </div>
+                    <div>
+                        <ResponsiveContainer width="100%" height={300} className="">
+                            <AreaChart data={theadData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+                                <XAxis dataKey="name" tick={{ fill: "#555" }} />
+                                <YAxis tick={{ fill: "#555" }} domain={[0, maxValue]} tickFormatter={(value) => `${(value).toFixed(0)}k`} />
+                                <Tooltip />
+                                <Area type="monotone" dataKey="subscribers" stroke="#8CAB91" fill="#8CAB91" />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+            </div>
+
+            {/* User Information Table */}
             <div className="overflow-x-auto p-6 bg-white shadow-lg mt-5">
-                <div>
+                <div className="flex items-center justify-between">
                     <h1 className="text-[18px]">Subscriber</h1>
-                    <div className="flex items-center space-x-4 bg-white p-4 shadow-md rounded-lg">
-                        {/* 🔍 Search Input */}
+                    <div className="flex items-center space-x-4 bg-white p-4 rounded-lg">
+                        {/* Search Input */}
                         <div className="relative flex items-center border border-gray-300 rounded-lg px-3 py-2 w-72">
                             <FaSearch className="text-gray-400 mr-2" />
                             <input
                                 type="text"
                                 placeholder="Search"
                                 className="outline-none w-full bg-transparent"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
 
-                        {/* 📩 Subscription Button */}
+                        {/* Subscription Button */}
                         <button
                             onClick={() => setIsModalOpen(true)}
                             className="border border-gray-300 px-4 py-2 rounded-lg flex items-center text-gray-700"
@@ -225,92 +323,68 @@ const Home = () => {
                             Subscriber <span className="ml-2">▼</span>
                         </button>
 
-                        {/* 🗓️ Date Picker */}
-                        <div className="relative flex items-center border border-gray-300 rounded-lg px-3 py-2 cursor-pointer">
-                            {/* 📅 Calendar Icon */}
+                        {/* Calendar Icon */}
+                        <div className="flex items-center border p-2 rounded-md border-gray-300">
                             <FaCalendarAlt className="text-gray-500 mr-2" />
-
-                            {/* 📌 Toggle Calendar on Click */}
                             <span
-                                className="text-gray-700"
+                                className="text-gray-700 cursor-pointer"
                                 onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                             >
                                 Starting - Ending ▼
                             </span>
-
-                            {/* 📅 DatePicker (Appears on Click) */}
-                            {isCalendarOpen && (
-                                <div
-                                    ref={calendarRef}
-                                    className="absolute top-12 left-0 bg-white shadow-lg rounded-lg p-4 z-50 flex space-x-4"
-                                >
-                                    {/* 📌 First Date Picker (Start Date) */}
-                                    <DatePicker
-                                        selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
-                                        selectsStart
-                                        startDate={startDate}
-                                        endDate={endDate}
-                                        inline
-                                        initialMonth={new Date(2023, 1)} // February 2023
-                                    />
-
-                                    {/* 📌 Second Date Picker (End Date) */}
-                                    <DatePicker
-                                        selected={endDate}
-                                        onChange={(date) => setEndDate(date)}
-                                        selectsEnd
-                                        startDate={startDate}
-                                        endDate={endDate}
-                                        inline
-                                        initialMonth={new Date(2023, 2)} // March 2023
-                                    />
-                                </div>
-                            )}
                         </div>
-                        {/* 📌 Modal for Subscription */}
+                        {isCalendarOpen && (
+                            <div ref={calendarRef} className="absolute bottom-0 right-24">
+                                <Calendar onChange={onChange} value={value} />
+                            </div>
+                        )}
+
+                        {/* Modal for Subscription */}
                         {isModalOpen && (
-                            <div className="fixed inset-0 flex justify-center items-center">
-                                <div className="bg-white p-6 rounded-lg shadow-lg">
+                            <div className="fixed inset-0 flex justify-end right-72 items-center mt-96">
+                                <div ref={modalRef} className="bg-white p-6 rounded-lg shadow-lg">
                                     <h2 className="text-xl font-semibold mb-3">Select Subscription</h2>
-                                    <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
-                                        Close
-                                    </button>
+                                    <h1 className="border border-gray-400 rounded-md p-2">Premium</h1>
+                                    <h1 className="border border-gray-400 rounded-md p-2 mt-2">Free</h1>
                                 </div>
                             </div>
                         )}
                     </div>
                 </div>
-                <table className="table w-full ">
-                    {/* Table Header */}
+
+                {/* Table with Users */}
+                <table className="table w-full">
                     <thead>
-                        <tr className=" text-gray-700">
-                            <th className="p-3 ">
+                        <tr className="text-gray-700">
+                            <th className="p-3">
                                 <h1>S no.</h1>
                             </th>
-                            <th className="p-3  text-left">Name</th>
-                            <th className="p-3  text-left">Email</th>
-                            <th className="p-3  text-left">Contact Number</th>
-                            <th className="p-3  text-left">Location</th>
-                            <th className="p-3  text-left">Subcription Type</th>
-                            <th className="p-3  text-left">Income</th>
-                            <th className="p-3 ">Action</th>
+                            <th className="p-3 text-left">Name</th>
+                            <th className="p-3 text-left">Email</th>
+                            <th className="p-3 text-left">Contact Number</th>
+                            <th className="p-3 text-left">Location</th>
+                            <th className="p-3 text-left">Subscription Type</th>
+                            <th className="p-3 text-left">Income</th>
+                            <th className="p-3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
-                            <tr
-                                key={user.id}
-                                className="hover:bg-gray-100 transition-all duration-200"
-                            >
-                                <th className="p-3 ">
-                                    <h1 className="text-[14px] font-[500] text-[#555555]">{user.number}</h1>
+                        {filteredUsers.map((user) => (
+                            <tr key={user.id} className="hover:bg-gray-100 transition-all duration-200">
+                                <th className="p-3">
+                                    <h1 className="text-[14px] font-[500] text-[#555555]">
+                                        {user.number}
+                                    </h1>
                                 </th>
-                                <td className="p-3 ">
+                                <td className="p-3">
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle h-12 w-12">
-                                                <img src={user.img} className="rounded-2xl" alt={user.name} />
+                                                <img
+                                                    src={user.img}
+                                                    className="rounded-2xl"
+                                                    alt={user.name}
+                                                />
                                             </div>
                                         </div>
                                         <div>
@@ -319,17 +393,16 @@ const Home = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="p-3 ">
+                                <td className="p-3">
                                     <span className="text-gray-700 font-semibold">{user.email}</span>
-
                                 </td>
-                                <td className="p-3  text-gray-600">{user.contactNumber}</td>
-                                <td className="p-3  text-gray-600">{user.country}</td>
-                                <td className="p-3  text-gray-600">{user.subscription}</td>
-                                <td className="p-3  text-gray-600">{user.income}</td>
-                                <th className="p-3 ">
+                                <td className="p-3 text-gray-600">{user.contactNumber}</td>
+                                <td className="p-3 text-gray-600">{user.country}</td>
+                                <td className="p-3 text-gray-600">{user.subscription}</td>
+                                <td className="p-3 text-gray-600">{user.income}</td>
+                                <th className="p-3">
                                     <NavLink className="text-xl">
-                                        <IoEyeOutline />
+                                        <IoEyeOutline className="ml-10" />
                                     </NavLink>
                                 </th>
                             </tr>
@@ -339,6 +412,6 @@ const Home = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Home;

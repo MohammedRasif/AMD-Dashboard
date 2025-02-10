@@ -1,0 +1,49 @@
+.react-calendar{
+    width: 300px;
+    padding: 5px;
+}
+.react-calendar__navigation button{
+    background-color: #8CAB91;
+    background: #8CAB91;
+}
+.react-calendar__month-view{
+    border: 5px;
+    border-color: black;
+   
+    
+}
+.react-calendar__navigation button:enabled:hover .react-calendar__tile--active:enabled:focus{
+    background-color: #8CAB91;
+    background: #8CAB91;
+}
+/* .bg-gray-200{
+    background-color: #8CAB91;
+} */
+/* .button, input, select, optgroup, textarea,{
+    font: none;
+} */
+ .react-calendar__tile--active{
+    background-color: #8CAB91;
+    background: #8CAB91;
+    border-radius: 20px;
+    padding: 10px;
+    color: black;
+    
+ }
+ .react-calendar__tile--active:enabled:hover{
+    background: #8CAB91;
+    border-radius: 20px;
+    margin: 5px;
+ }
+ .react-calendar__tile--now{
+    background: none;
+ }
+ .react-calendar__tile .react-calendar__month-view__days__day{
+    background: #8CAB91;
+ }
+.element.style {
+    border-radius: 20px;
+}
+.react-calendar__month-view{
+    border: 20px;
+}

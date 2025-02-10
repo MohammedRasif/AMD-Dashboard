@@ -17,8 +17,8 @@ const Sidebar = () => {
                 <NavLink to="/" className={({ isActive }) => "flex items-center justify-between w-[280px]"}>
                     {({ isActive }) => (
                         <div className="flex items-center justify-between w-[280px]">
-                            <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91]" : ""}`}>
+                            <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91] " : ""}`}></div>
+                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
                                 <MdDashboard className="text-[18px]" />
                                 <h1 className="text-[16px] font-[500]">Dashboard</h1>
                             </div>
@@ -30,7 +30,7 @@ const Sidebar = () => {
                     {({ isActive }) => (
                         <div className="flex items-center justify-between w-[280px]">
                             <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91]" : ""}`}>
+                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
                                 <RiShoppingBag3Line className="text-[18px]" />
                                 <h1 className="text-[16px] font-[500]">Order management</h1>
                             </div>
@@ -42,7 +42,7 @@ const Sidebar = () => {
                     {({ isActive }) => (
                         <div className="flex items-center justify-between w-[280px]">
                             <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91]" : ""}`}>
+                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
                                 <LiaAddressCardSolid className="text-[18px]" />
                                 <h1 className="text-[16px] font-[500]">Add questionnaire</h1>
                             </div>
@@ -54,7 +54,7 @@ const Sidebar = () => {
                     {({ isActive }) => (
                         <div className="flex items-center justify-between w-[280px]">
                             <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91]" : ""}`}>
+                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
                                 <LuUserPlus className="text-[18px]" />
                                 <h1 className="text-[16px] font-[500]">Make Admin</h1>
                             </div>
@@ -66,7 +66,7 @@ const Sidebar = () => {
                     {({ isActive }) => (
                         <div className="flex items-center justify-between w-[280px]">
                             <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91]" : ""}`}>
+                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
                                 <MdElectricBolt className="text-[18px]" />
                                 <h1 className="text-[16px] font-[500]">Manage Subscription</h1>
                             </div>
@@ -78,7 +78,7 @@ const Sidebar = () => {
                     {({ isActive }) => (
                         <div className="flex items-center justify-between w-[280px]">
                             <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91]" : ""}`}>
+                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
                                 <IoSettingsSharp className="text-[18px]" />
                                 <h1 className="text-[16px] font-[500]">Settings</h1>
                             </div>
