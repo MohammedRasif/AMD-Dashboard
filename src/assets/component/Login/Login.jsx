@@ -34,6 +34,10 @@ const Login = ({ setIsProfileOpen }) => {
                            <h1 className=" text-[16px] mb-3">Email</h1>
                            <input type="email" name="" className="w-full h-[50px] border border-gray-400 rounded-md" id="" placeholder="Enter you email"/>
                            </div>
+                           <div className="pt-2">
+                           <h1 className=" text-[16px] mb-3">Password</h1>
+                           <input type="email" name="" className="w-full h-[50px] border border-gray-400 rounded-md" id="" placeholder="****************"/>
+                           </div>
                         </div>
                     </div>
                 </motion.div>
