@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
     return (
-        <div>
+        <div className=" ">
 
             <div className="flex items-center justify-center w-[249.99px] h-[73px] pt-[12px] ">
                 <img src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738995829/Group_1000004237_awy135.png" className="w-[53.99px] h-[53.99px] pt-[4.86]" alt="" />

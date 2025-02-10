@@ -12,6 +12,7 @@ import AddQuestionnaire from './assets/component/Shared/AddQuestionnaire.jsx';
 import MakeAdmin from './assets/component/Shared/MakeAdmin.jsx';
 import ManaageSubscription from './assets/component/Shared/ManaageSubscription.jsx';
 import Settings from './assets/component/Shared/Settings.jsx';
+import Login from './assets/component/Login/Login.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         path: "/setting",
         element:<Settings/> ,
       },
+      {
+        path:"/login",
+        element:<Login/>
+      }
     ],
   },
   

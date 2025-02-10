@@ -22,6 +22,8 @@ const Home = () => {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const calendarRef = useRef(null); // Reference for the calendar modal
     const modalRef = useRef(null);
+    const [selectedSubscription, setSelectedSubscription] = useState(''); // Track selected subscription
+
 
     // Initialize state to handle both single date or date range
     const [value, onChange] = useState(new Date());
@@ -83,7 +85,7 @@ const Home = () => {
             number: "#12333",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
-            subscription: "free",
+            subscription: "Free",
             income: "$20",
         },
         {
@@ -97,7 +99,7 @@ const Home = () => {
             number: "#12333",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
-            subscription: "free",
+            subscription: "Free",
             income: "$20",
         },
         {
@@ -111,20 +113,45 @@ const Home = () => {
             number: "#12333",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
-            subscription: "free",
+            subscription: "Free",
+            income: "$20",
+        },
+        {
+            id: 5,
+            name: "Mohammad Rasif",
+            country: "Bangladesh",
+            company: "Wyman-Ledner",
+            role: "Community Outreach Specialist",
+            favoriteColor: "Indigo",
+            img: "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738148405/fotor-2025010923230_1_u9l6vi.png",
+            number: "#12333",
+            email: "mohammadrasif001@gmail.com",
+            contactNumber: "01607115111",
+            subscription: "Premium",
             income: "$20",
         },
     ];
 
-    // Filter users based on search query
-    const filteredUsers = users.filter((user) =>
-        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.contactNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.subscription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.income.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredUsers = users.filter((user) => {
+        // Filter by search query
+        const searchMatch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            user.contactNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            user.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            user.subscription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            user.income.toLowerCase().includes(searchQuery.toLowerCase());
+
+        // Filter by selected subscription type
+        const subscriptionMatch = selectedSubscription === '' || user.subscription === selectedSubscription;
+
+        return searchMatch && subscriptionMatch;
+    });
+
+    // Handle clicking on subscription type
+    const handleSubscriptionSelect = (subscriptionType) => {
+        setSelectedSubscription(subscriptionType);
+        setIsModalOpen(false); // Close the modal after selection
+    };
 
     // Charts data
     const data = [
@@ -341,13 +368,30 @@ const Home = () => {
 
                         {/* Modal for Subscription */}
                         {isModalOpen && (
-                            <div className="fixed inset-0 flex justify-end right-72 items-center mt-96">
-                                <div ref={modalRef} className="bg-white p-6 rounded-lg shadow-lg">
-                                    <h2 className="text-xl font-semibold mb-3">Select Subscription</h2>
-                                    <h1 className="border border-gray-400 rounded-md p-2">Premium</h1>
-                                    <h1 className="border border-gray-400 rounded-md p-2 mt-2">Free</h1>
-                                </div>
-                            </div>
+                           <div className="fixed inset-0 flex justify-end right-72 items-center mt-96">
+                           <div ref={modalRef} className="bg-white p-6 rounded-lg shadow-lg">
+                             <h2 className="text-xl font-semibold mb-3">Select Subscription</h2>
+                             <h1
+                               className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
+                               onClick={() => handleSubscriptionSelect('')}
+                             >
+                               All
+                             </h1>
+                             <h1
+                               className="border border-gray-400 rounded-md p-2 cursor-pointer mt-2"
+                               onClick={() => handleSubscriptionSelect('Premium')}
+                             >
+                               Premium
+                             </h1>
+                             <h1
+                               className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
+                               onClick={() => handleSubscriptionSelect('Free')}
+                             >
+                               Free
+                             </h1>
+                             
+                           </div>
+                         </div>
                         )}
                     </div>
                 </div>
@@ -356,9 +400,7 @@ const Home = () => {
                 <table className="table w-full">
                     <thead>
                         <tr className="text-gray-700">
-                            <th className="p-3">
-                                <h1>S no.</h1>
-                            </th>
+                            <th className="p-3">S no.</th>
                             <th className="p-3 text-left">Name</th>
                             <th className="p-3 text-left">Email</th>
                             <th className="p-3 text-left">Contact Number</th>
@@ -369,11 +411,14 @@ const Home = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredUsers.map((user) => (
-                            <tr key={user.id} className="hover:bg-gray-100 transition-all duration-200">
+                        {filteredUsers.map((user, index) => (
+                            <tr
+                                key={user.id}
+                                className="hover:bg-gray-100 transition-all duration-200"
+                            >
                                 <th className="p-3">
                                     <h1 className="text-[14px] font-[500] text-[#555555]">
-                                        {user.number}
+                                        {index + 1}
                                     </h1>
                                 </th>
                                 <td className="p-3">
@@ -401,9 +446,9 @@ const Home = () => {
                                 <td className="p-3 text-gray-600">{user.subscription}</td>
                                 <td className="p-3 text-gray-600">{user.income}</td>
                                 <th className="p-3">
-                                    <NavLink className="text-xl">
+                                    <button onClick={() => setIsModalOpen(true)} className="text-xl">
                                         <IoEyeOutline className="ml-10" />
-                                    </NavLink>
+                                    </button>
                                 </th>
                             </tr>
                         ))}
