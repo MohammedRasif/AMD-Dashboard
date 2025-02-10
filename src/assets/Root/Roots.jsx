@@ -12,7 +12,7 @@ const Roots = () => {
                 <div className="h-[90px] bg-white ">
                 <Navbar/>
                 </div>
-                <div className="m-5 mr-10 bg-white h-full ">
+                <div className="m-5 mr-10  h-full ">
                     <Outlet/>
                 </div>
             </div>
