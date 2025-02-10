@@ -30,9 +30,9 @@ const Login = ({ setIsProfileOpen }) => {
                         <div className="w-[573px] h-[810px]">
                            <h1 className="text-[48px] font-[500] text-center">Login to Account</h1>
                            <p className="text-[14px] font-[500] text-center">Please enter your email and password to continue</p>
-                           <div>
-                           <h1 className="">Email</h1>
-                           <input type="email" name="" id="" />
+                           <div className="pt-10">
+                           <h1 className=" text-[16px] mb-3">Email</h1>
+                           <input type="email" name="" className="w-full h-[50px] border border-gray-400 rounded-md" id="" placeholder="Enter you email"/>
                            </div>
                         </div>
                     </div>
