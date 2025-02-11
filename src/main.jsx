@@ -13,6 +13,7 @@ import MakeAdmin from './assets/component/Shared/MakeAdmin.jsx';
 import ManaageSubscription from './assets/component/Shared/ManaageSubscription.jsx';
 import Settings from './assets/component/Shared/Settings.jsx';
 import Login from './assets/component/Login/Login.jsx';
+import ForgetPassword from './assets/component/Shared/ForgetPassword.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path:"/login",
         element:<Login/>
+      },
+      {
+        path:"/forgetPassword",
+        element:<ForgetPassword/>
       }
     ],
   },
