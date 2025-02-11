@@ -73,9 +73,9 @@ const Sidebar = () => {
                 </NavLink>
 
                 {/* Manage Subscription */}
-                <div>
+                <div className="pl-[30px]">
                     <button
-                        className="flex items-center justify-between w-full"
+                        className="flex items-center justify-between w-[280px]"
                         onClick={() => setIsOpen(!isOpen)}
                     >
 
@@ -91,12 +91,12 @@ const Sidebar = () => {
                 </div>
                 {/* Submenu (Animated Expand) */}
                 <div
-                    className={` ml-8 overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'}`}
+                    className={` ml-[30px] overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'}`}
                 >
                     <NavLink
                         to="/subscription"
                         className={({ isActive }) =>
-                            ` h-[70px] flex items-center pl-16    text-gray-700 hover:bg-[#8CAB91] hover:text-white transition  ${isActive ? 'bg-[#CBD9CC]' : ''}`
+                            ` h-[70px] flex items-center pl-16 mr-[30px]   text-gray-700 hover:bg-[#8CAB91] hover:text-white transition  ${isActive ? 'bg-[#CBD9CC]' : ''}`
                         }
                     >
                         Subscription
@@ -104,7 +104,7 @@ const Sidebar = () => {
                     <NavLink
                         to="/coupon-code"
                         className={({ isActive }) =>
-                            `flex items-center h-[70px] pl-16 text-gray-700 hover:bg-[#8CAB91] hover:text-white transition  ${isActive ? 'bg-[#CBD9CC]' : ''}`
+                            `flex items-center h-[70px] pl-16 mr-[30px] text-gray-700 hover:bg-[#8CAB91] hover:text-white transition  ${isActive ? 'bg-[#CBD9CC]' : ''}`
                         }
                     >
                         Coupon Code
