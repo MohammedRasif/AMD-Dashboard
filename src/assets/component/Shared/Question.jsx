@@ -28,11 +28,56 @@ const Question = () => {
                     <h1 className="text-2xl font-bold">Childhood</h1>
                 </div>
                 <button
-                    // onClick={() => setIsOpen(true)}
+                     onClick={() => setIsOpen(true)}
                     className="w-[185px] h-[38px] bg-[#8CAB91] text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl">
                     <FaPlus className="text-sm" />
                     <h1>Add New Section</h1>
                 </button>
+                {isOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                        {/* Modal Content */}
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
+                            {/* Close Button */}
+                            <button
+                                className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <FaTimes size={18} />
+                            </button>
+
+                            {/* Modal Heading */}
+                            <h2 className="text-lg font-semibold mb-4">ADD New Section</h2>
+
+                            {/* Input Fields */}
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">Section Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Type here"
+                                    className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                />
+                            </div>
+
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">Number of question</label>
+                                <input
+                                    type="number"
+                                    placeholder="Type here"
+                                    className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                />
+                            </div>
+
+                            {/* Publish Button */}
+                            <button
+                                className="px-3 py-2 bg-[#8CAB91] text-white rounded-md hover:bg-[#7A9B80] transition"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Publish
+                            </button>
+                        </div>
+                    </div>
+                )}
+                
             </div>
             <div className=" bg-white p-10 mt-2">
                 {categories.map((category, index) => (
