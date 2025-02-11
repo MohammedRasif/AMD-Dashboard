@@ -16,6 +16,7 @@ import Login from './assets/component/Login/Login.jsx';
 import ForgetPassword from './assets/component/Shared/ForgetPassword.jsx';
 import Verification from './assets/component/Shared/Verification.jsx';
 import SetNewPassword from './assets/component/Shared/SetNewPassoword.jsx';
+import Congratulation from './assets/component/Shared/Congratulation.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path:"/setNewPassoword",
         element:<SetNewPassword/>
+      },
+      {
+        path:"/congratulation",
+        element:<Congratulation/>
       }
     ],
   },
