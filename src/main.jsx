@@ -14,6 +14,7 @@ import ManaageSubscription from './assets/component/Shared/ManaageSubscription.j
 import Settings from './assets/component/Shared/Settings.jsx';
 import Login from './assets/component/Login/Login.jsx';
 import ForgetPassword from './assets/component/Shared/ForgetPassword.jsx';
+import Verification from './assets/component/Shared/Verification.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path:"/forgetPassword",
         element:<ForgetPassword/>
+      },
+      {
+        path:"/verification",
+        element:<Verification/>
       }
     ],
   },
