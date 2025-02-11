@@ -31,7 +31,7 @@ const OrderDetails = () => {
             {/* Header Section */}
             <div className="flex items-center gap-4 mb-4">
                 <NavLink to="/odermanagement">
-                    <div className="text-white bg-[#8CAB91] rounded-xl px-6 py-2 hover:bg-[#7a9c82] transition">
+                    <div className="text-white bg-[#8CAB91]  px-4 py-2 hover:bg-[#7a9c82] transition">
                         <MdArrowBack className="text-xl" />
                     </div>
                 </NavLink>

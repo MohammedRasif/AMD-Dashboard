@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
+import { NavLink } from 'react-router-dom';
 
 
 const AddQuestionnaire = () => {
@@ -22,7 +23,7 @@ const AddQuestionnaire = () => {
                 <h1 className="text-[24px] font-bold  ">Ouestionnaire</h1>
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="w-[185px] h-[38px] bg-[#8CAB91] text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl">
+                    className="w-[185px] h-[38px] bg-[#8CAB91] mt-2 text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl">
                     <FaPlus className="text-sm" />
                     <h1>Add New Section</h1>
                 </button>
@@ -90,7 +91,9 @@ const AddQuestionnaire = () => {
 
                             {/* Right Section: Icons */}
                             <div className="flex items-center gap-3 text-green-700 text-[24px]">
+                                <NavLink to="/question">
                                 <IoEyeOutline className="cursor-pointer hover:text-green-500 transition" />
+                                </NavLink>
                                 <MdDeleteOutline className="cursor-pointer hover:text-red-500 transition" />
                                 <button
                                     onClick={() => setEditModalOpen(true)}

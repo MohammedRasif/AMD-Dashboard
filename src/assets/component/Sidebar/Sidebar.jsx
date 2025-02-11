@@ -3,9 +3,17 @@ import { LiaAddressCardSolid } from "react-icons/lia";
 import { LuUserPlus } from "react-icons/lu";
 import { MdDashboard, MdElectricBolt } from "react-icons/md";
 import { RiShoppingBag3Line } from "react-icons/ri";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+    const location = useLocation();
+
+    const isActiveo =
+        location.pathname.startsWith("/addquestionnaire") ||
+        location.pathname.startsWith("/question");
+    const isActiveb =
+        location.pathname.startsWith("/odermanagement") ||
+        location.pathname.startsWith("/oderDetails");
     return (
         <div className="  ">
 
@@ -26,28 +34,28 @@ const Sidebar = () => {
                     )}
                 </NavLink>
 
-                <NavLink to="/odermanagement" className={({ isActive }) => "flex items-center justify-between w-[280px]"}>
-                    {({ isActive }) => (
-                        <div className="flex items-center justify-between w-[280px]">
-                            <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
-                                <RiShoppingBag3Line className="text-[18px]" />
-                                <h1 className="text-[16px] font-[500]">Order management</h1>
-                            </div>
+                <NavLink to="/odermanagement">
+                    <div className="flex items-center justify-between w-[280px]">
+                        <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActiveb ? "bg-[#8CAB91]" : ""}`}></div>
+                        <div
+                            className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] 
+            ${isActiveb ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}
+                        >
+                            <RiShoppingBag3Line className="text-[18px]" />
+                            <h1 className="text-[16px] font-[500]">Order management</h1>
                         </div>
-                    )}
+                    </div>
                 </NavLink>
 
-                <NavLink to="/addquestionnaire" className={({ isActive }) => "flex items-center justify-between w-[280px]"}>
-                    {({ isActive }) => (
-                        <div className="flex items-center justify-between w-[280px]">
-                            <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
-                            <div className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActive ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
-                                <LiaAddressCardSolid className="text-[18px]" />
-                                <h1 className="text-[16px] font-[500]">Add questionnaire</h1>
-                            </div>
+                <NavLink to="/addquestionnaire">
+                    <div className="flex items-center justify-between w-[280px]">
+                        <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActiveo ? "bg-[#8CAB91]" : ""}`}></div>
+                        <div
+                            className={`flex items-center space-x-2 justify-start w-[250px] h-[72px] pl-[30px] ${isActiveo ? "bg-[#8CAB91] text-[#FAF1E6]" : ""}`}>
+                            <LiaAddressCardSolid className="text-[18px]" />
+                            <h1 className="text-[16px] font-[500]">Add questionnaire</h1>
                         </div>
-                    )}
+                    </div>
                 </NavLink>
 
                 <NavLink to="/makeadmin" className={({ isActive }) => "flex items-center justify-between w-[280px]"}>
