@@ -40,7 +40,7 @@ const OrderDetails = () => {
 
             {/* User Details Card */}
             <div className="bg-white rounded-lg p-4 container mx-auto w-1/2 shadow-md">
-                
+
                 {/* User Header */}
                 <div className="flex flex-col items-center justify-center bg-[#8CAB91] py-10">
                     <img src={user.img} className="w-28 h-28 rounded-full" alt="User" />
