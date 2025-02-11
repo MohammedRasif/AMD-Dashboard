@@ -6,7 +6,6 @@ import { FiUsers } from "react-icons/fi";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { IoEyeOutline } from "react-icons/io5";
 import { PiCurrencyDollarSimple } from "react-icons/pi";
-import { NavLink } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import Calendar from "react-calendar";
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid, AreaChart, Area } from "recharts";
@@ -368,30 +367,30 @@ const Home = () => {
 
                         {/* Modal for Subscription */}
                         {isModalOpen && (
-                           <div className="fixed inset-0 flex justify-end right-72 items-center mt-96">
-                           <div ref={modalRef} className="bg-white p-6 rounded-lg shadow-lg">
-                             <h2 className="text-xl font-semibold mb-3">Select Subscription</h2>
-                             <h1
-                               className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
-                               onClick={() => handleSubscriptionSelect('')}
-                             >
-                               All
-                             </h1>
-                             <h1
-                               className="border border-gray-400 rounded-md p-2 cursor-pointer mt-2"
-                               onClick={() => handleSubscriptionSelect('Premium')}
-                             >
-                               Premium
-                             </h1>
-                             <h1
-                               className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
-                               onClick={() => handleSubscriptionSelect('Free')}
-                             >
-                               Free
-                             </h1>
-                             
-                           </div>
-                         </div>
+                            <div className="fixed inset-0 flex justify-end right-72 items-center mt-96">
+                                <div ref={modalRef} className="bg-white p-6 rounded-lg shadow-lg">
+                                    <h2 className="text-xl font-semibold mb-3">Select Subscription</h2>
+                                    <h1
+                                        className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
+                                        onClick={() => handleSubscriptionSelect('')}
+                                    >
+                                        All
+                                    </h1>
+                                    <h1
+                                        className="border border-gray-400 rounded-md p-2 cursor-pointer mt-2"
+                                        onClick={() => handleSubscriptionSelect('Premium')}
+                                    >
+                                        Premium
+                                    </h1>
+                                    <h1
+                                        className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
+                                        onClick={() => handleSubscriptionSelect('Free')}
+                                    >
+                                        Free
+                                    </h1>
+
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>
