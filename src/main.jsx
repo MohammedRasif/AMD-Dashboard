@@ -17,6 +17,7 @@ import ForgetPassword from './assets/component/Shared/ForgetPassword.jsx';
 import Verification from './assets/component/Shared/Verification.jsx';
 import SetNewPassword from './assets/component/Shared/SetNewPassoword.jsx';
 import Congratulation from './assets/component/Shared/Congratulation.jsx';
+import OderDetails from './assets/component/Shared/OderDetails.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path:"/congratulation",
         element:<Congratulation/>
+      },
+      {
+        path:"/oderDetails",
+        element:<OderDetails/>
       }
     ],
   },

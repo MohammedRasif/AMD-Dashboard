@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 
 const OrderManagement = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedSubscription, setSelectedSubscription] = useState("");
 
-    // Sample user data
-    const users = [
+      // Sample user data
+      const users = [
         {
             id: 1,
             name: "Hart Hagerty",
             country: "United States",
-            company: "Zemlak, Daniel and Leannon",
-            role: "Desktop Support Technician",
             img: "https://img.daisyui.com/images/profile/demo/2@94.webp",
             email: "hart@example.com",
             contactNumber: "01607115111",
@@ -25,8 +24,6 @@ const OrderManagement = () => {
             id: 2,
             name: "Brice Swyre",
             country: "China",
-            company: "Carroll Group",
-            role: "Tax Accountant",
             img: "https://img.daisyui.com/images/profile/demo/3@94.webp",
             email: "brice@example.com",
             contactNumber: "01607115112",
@@ -37,8 +34,6 @@ const OrderManagement = () => {
             id: 5,
             name: "Mohammad Rasif",
             country: "Bangladesh",
-            company: "Wyman-Ledner",
-            role: "Community Outreach Specialist",
             img: "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738148405/fotor-2025010923230_1_u9l6vi.png",
             email: "mohammadrasif001@gmail.com",
             contactNumber: "01607115111",
@@ -47,19 +42,25 @@ const OrderManagement = () => {
         },
     ];
 
+    // Handle Subscription Selection
+    const handleSubscriptionSelect = (subscriptionType) => {
+        setSelectedSubscription(subscriptionType);
+        setIsModalOpen(false); // Close modal after selection
+    };
+
+    // Filter Users
     const filteredUsers = users.filter((user) => {
         const searchMatch =
             user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
             user.contactNumber.includes(searchQuery) ||
-            user.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.subscription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.income.includes(searchQuery);
+            user.country.toLowerCase().includes(searchQuery.toLowerCase());
 
         const subscriptionMatch = selectedSubscription === "" || user.subscription === selectedSubscription;
 
         return searchMatch && subscriptionMatch;
     });
+
 
     return (
         <div className="p-6">
@@ -85,54 +86,51 @@ const OrderManagement = () => {
                         onClick={() => setIsModalOpen(true)}
                         className="border border-gray-300 px-4 py-2 rounded-lg text-gray-700 flex items-center hover:bg-gray-100 transition"
                     >
-                        Subscriber <span className="ml-2">▼</span>
+                        {selectedSubscription || "Subscriber"} <span className="ml-2">▼</span>
                     </button>
                 </div>
             </div>
 
             {/* Subscription Filter Modal */}
             {isModalOpen && (
-                <div className=" absolute  flex items-center   ml-[1300px] ">
-                    <div className="bg-white p-6 rounded-lg shadow-lg">
-                        <h2 className="text-lg font-semibold mb-4">Subscription Options</h2>
-                        <button
-                            onClick={() => handleSubscriptionSelect("Premium")}
-                            className="block w-full text-left px-4 py-2 rounded-lg hover:bg-gray-200 transition"
-                        >
-                            Premium
-                        </button>
-                        <button
-                            onClick={() => handleSubscriptionSelect("Free")}
-                            className="block w-full text-left px-4 py-2 rounded-lg hover:bg-gray-200 transition"
-                        >
-                            Free
-                        </button>
-                        <button
-                            onClick={() => handleSubscriptionSelect("")}
-                            className="block w-full text-left px-4 py-2 rounded-lg hover:bg-gray-200 transition"
-                        >
-                            All
-                        </button>
-                        <button
-                            onClick={() => setIsModalOpen(false)}
-                            className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                        >
-                            Close
-                        </button>
-                    </div>
+                <div className="absolute top-48 right-0 mr-20 bg-white p-6 rounded-lg shadow-lg w-64">
+                    <h2 className="text-lg font-semibold mb-4">Filter by Subscription</h2>
+                    <button
+                        onClick={() => handleSubscriptionSelect("Premium")}
+                        className="block w-full text-left px-4 py-2 rounded-lg hover:bg-gray-200 transition"
+                    >
+                        Premium
+                    </button>
+                    <button
+                        onClick={() => handleSubscriptionSelect("Free")}
+                        className="block w-full text-left px-4 py-2 rounded-lg hover:bg-gray-200 transition"
+                    >
+                        Free
+                    </button>
+                    <button
+                        onClick={() => handleSubscriptionSelect("")}
+                        className="block w-full text-left px-4 py-2 rounded-lg hover:bg-gray-200 transition"
+                    >
+                        All
+                    </button>
+                    <button
+                        onClick={() => setIsModalOpen(false)}
+                        className="mt-4 w-full bg-[#8CAB91] text-[#FAF1E6] px-4 py-2 rounded-lg "
+                    >
+                        Close
+                    </button>
                 </div>
             )}
 
             {/* User Table */}
             <table className="table-auto w-full border-collapse mt-6 bg-white">
                 <thead>
-                    <tr className="text-gray-700 ">
+                    <tr className="text-gray-700">
                         <th className="p-3">S No.</th>
                         <th className="p-3 text-left">Name</th>
                         <th className="p-3 text-left">Email</th>
                         <th className="p-3 text-left">Contact Number</th>
-                        <th className="p-3 text-left">Status</th>
-                        <th className="p-3 text-left">Location</th>
+                        <th className="p-3 text-left">Subscription</th>
                         <th className="p-3">Action</th>
                     </tr>
                 </thead>
@@ -149,12 +147,13 @@ const OrderManagement = () => {
                             </td>
                             <td className="p-3 text-gray-700">{user.email}</td>
                             <td className="p-3 text-gray-600">{user.contactNumber}</td>
-                            <td className="p-3 text-gray-600">{user.country}</td>
                             <td className="p-3 text-gray-600">{user.subscription}</td>
                             <td className="p-3 text-center">
-                                <button onClick={() => setIsModalOpen(true)} className="text-xl text-gray-700 hover:text-blue-500">
+                                <NavLink to="/oderDetails">
+                                <button className="text-xl text-gray-700 hover:text-blue-500">
                                     <IoEyeOutline />
                                 </button>
+                                </NavLink>
                             </td>
                         </tr>
                     ))}
