@@ -28,7 +28,7 @@ const Question = () => {
                     <h1 className="text-2xl font-bold">Childhood</h1>
                 </div>
                 <button
-                     onClick={() => setIsOpen(true)}
+                    onClick={() => setIsOpen(true)}
                     className="w-[185px] h-[38px] bg-[#8CAB91] text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl">
                     <FaPlus className="text-sm" />
                     <h1>Add New Section</h1>
@@ -39,7 +39,7 @@ const Question = () => {
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                             {/* Close Button */}
                             <button
-                                className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
                                 onClick={() => setIsOpen(false)}
                             >
                                 <FaTimes size={18} />
@@ -59,12 +59,10 @@ const Question = () => {
                             </div>
 
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Number of question</label>
-                                <input
-                                    type="number"
-                                    placeholder="Type here"
-                                    className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
-                                />
+                                <div className="flex items-center justify-between px-2 border border-gray-200 rounded-md">
+                                    <button className="w-full   text-sm font-[100] text-start py-2 pl-2 rounded-md ">Add more question</button>
+                                    <FaPlus className="text-[10px]" />
+                                </div>
                             </div>
 
                             {/* Publish Button */}
@@ -77,7 +75,7 @@ const Question = () => {
                         </div>
                     </div>
                 )}
-                
+
             </div>
             <div className=" bg-white p-10 mt-2">
                 {categories.map((category, index) => (
@@ -107,30 +105,26 @@ const Question = () => {
                                     <div className="bg-white p-5 rounded-lg shadow-lg w-[400px] relative">
                                         {/* Close Button */}
                                         <button
-                                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                                            className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
                                             onClick={() => setEditModalOpen(false)}
                                         >
                                             <FaTimes size={18} />
                                         </button>
 
                                         {/* Modal Heading */}
-                                        <h2 className="text-lg text-black font-semibold mb-4">Edit Section</h2>
+                                        <h2 className="text-lg text-black font-semibold mb-4">Edit Question</h2>
 
                                         {/* Input Fields */}
                                         <div className="mb-4">
-                                            <label className="block text-sm font-medium text-gray-700">Section Name</label>
+                                            <label className="block text-sm font-medium text-gray-700">Question</label>
                                             <input
                                                 type="text"
-                                                className="w-full   border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                               
+                                                className="w-full mt-3   border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                             />
                                         </div>
 
-                                        <div className="mb-4">
-                                            <label className="block text-sm font-medium text-gray-700">Number of question</label>
-                                            <input
-                                                className="w-full  border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
-                                            />
-                                        </div>
+                                        
 
                                         {/* Publish Button */}
                                         <button

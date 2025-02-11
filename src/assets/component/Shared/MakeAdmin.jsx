@@ -64,7 +64,7 @@ const MakeAdmin = () => {
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                             {/* Close Button */}
                             <button
-                                className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
                                 onClick={() => setIsOpen(false)}
                             >
                                 <FaTimes size={18} />
