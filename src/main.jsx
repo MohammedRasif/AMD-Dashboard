@@ -19,6 +19,8 @@ import SetNewPassword from './assets/component/Shared/SetNewPassoword.jsx';
 import Congratulation from './assets/component/Shared/Congratulation.jsx';
 import OderDetails from './assets/component/Shared/OderDetails.jsx';
 import Question from './assets/component/Shared/Question.jsx';
+import Subscription from './assets/component/Shared/Subscription.jsx';
+import CuponCode from './assets/component/Shared/CuponCode.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -75,6 +77,14 @@ const router = createBrowserRouter([
       {
         path:"/question",
         element:<Question/>
+      },
+      {
+        path:"/subscription",
+        element:<Subscription/>
+      },
+      {
+        path:"/coupon-code",
+        element:<CuponCode/>
       }
     ],
   },

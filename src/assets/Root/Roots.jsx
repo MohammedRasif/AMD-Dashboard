@@ -5,7 +5,7 @@ import Sidebar from "../component/Sidebar/Sidebar";
 const Roots = () => {
     return (
         <div className="flex">
-            <div className="w-[280px] bg-[#FAF1E6] min-h-screen">
+            <div className="w-[328px] bg-[#FAF1E6] min-h-screen">
                 <Sidebar/>
             </div>
             <div className="bg-gray-200 w-full">
