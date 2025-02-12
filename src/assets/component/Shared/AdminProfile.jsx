@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { IoCameraReverseOutline } from "react-icons/io5";
 
 const AdminProfile = () => {
     // State to track which section is active
@@ -26,10 +27,14 @@ const AdminProfile = () => {
                         <div>
                             <img
                                 src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738148405/fotor-2025010923230_1_u9l6vi.png"
-                                className="w-[122px] h-[122px] rounded-full "
+                                className="w-[122px] relative h-[122px] rounded-full "
                                 alt=""
                             />
                         </div>
+                        <button className="bg-[#FAF1E6] p-1 rounded-full mt-16 -ml-16 absolute">
+                            <IoCameraReverseOutline />
+
+                        </button>
                         <div className="text-[20px] text-[#FAF1E6]">
                             <h1>Mohammed Rasif</h1>
                             <h1>Admin</h1>
