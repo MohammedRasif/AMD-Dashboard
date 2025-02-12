@@ -15,10 +15,13 @@ const EditSubscription = () => {
                    {/* Package Details */}
                    <div className="flex items-center space-x-3 ">
                        <div className="mt-4 w-1/2 ">
-                           <label className="text-sm font-medium">Package Name</label>
-                           <select className="w-full p-2 border border-[#8CAB91] text-[#8CAB91] mt-1">
-                               <option>Order Hard Copy</option>
-                           </select>
+                       <label className="text-sm font-medium">Package Name</label>
+                        <select className="w-full p-2 border border-[#8CAB91] text-[#8CAB91] mt-1  hover:bg-[#758f79]">
+                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Order Hard Copy</option>
+                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Digital Copy</option>
+                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Premium Package</option>
+                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Limited Edition</option>
+                        </select>
                        </div>
        
                        <div className="mt-4 w-1/2">

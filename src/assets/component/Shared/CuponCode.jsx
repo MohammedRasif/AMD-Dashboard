@@ -50,7 +50,7 @@ const CuponCode = () => {
     ];
     return (
         <div>
-            <NavLink to="/createSubcription" className="flex justify-end text-[#FAF1E6]">
+            <NavLink to="/AddCoupon" className="flex justify-end text-[#FAF1E6]">
                 <div className="flex  items-center  w-[80px] pl-2 py-2 rounded-md mb-3 space-x-2 bg-[#8CAB91] ">
                     <FaPlus />
                     <button>ADD</button>
@@ -82,14 +82,16 @@ const CuponCode = () => {
                                     <span className="text-gray-700 font-semibold">{user.name}</span>
                                 </td>
                                 <th className="p-3">
-                                    <NavLink to="/editSubcription">
+                                    <NavLink >
                                     <button  className="text-xl text-[#8CAB91]">
                                         <FaRegEdit className="ml-10" />
                                     </button>
                                     </NavLink>
                                 </th>
                                 <th className="p-3">
-                                    <button onClick={() => setIsModalOpen(true)} className="text-xl">
+                                    <button 
+                                    
+                                     className="text-xl">
                                         <RiDeleteBin6Line className="ml-10 text-red-500" />
                                     </button>
                                 </th>

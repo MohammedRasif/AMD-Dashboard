@@ -23,6 +23,7 @@ import CuponCode from './assets/component/Shared/CuponCode.jsx';
 import CreateSubscription from './assets/component/Shared/CreateSubscription.jsx';
 import Subscription from './assets/component/Shared/Subscription.jsx';
 import EditSubscription from './assets/component/Shared/EditSubscription.jsx';
+import AddCupon from './assets/component/Shared/AddCupon.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -95,7 +96,11 @@ const router = createBrowserRouter([
       {
         path:"/coupon-code",
         element:<CuponCode/>
-      }
+      },
+      {
+        path:"/AddCoupon",
+        element:<AddCupon/>
+      },
     ],
   },
   
