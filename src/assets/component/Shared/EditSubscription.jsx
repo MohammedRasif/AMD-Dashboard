@@ -3,6 +3,21 @@ import { FiTriangle } from "react-icons/fi";
 const EditSubscription = () => {
     const [price, setPrice] = useState(30);
     const [number, setNumber] = useState(30);
+    const [checkedItems, setCheckedItems] = useState({
+        chat: false,
+        fullBook: false,
+        images: false,
+        pdf: false,
+        discount: false,
+    });
+
+    // Function to toggle the checked status
+    const toggleCheck = (key) => {
+        setCheckedItems((prev) => ({
+            ...prev,
+            [key]: !prev[key],
+        }));
+    };
 
     return (
         <div className="flex items-center justify-center">
@@ -100,15 +115,184 @@ const EditSubscription = () => {
 
                 {/* Package Offer */}
                 <div className="mt-4">
-                    <h2 className="text-sm font-medium">Package Offer</h2>
-                    <ul className="mt-2 text-[16px] font-[500] text-gray-700">
-                        <li>✅ Unlimited chat with the AI Chat Bot.</li>
-                        <li>✅ Access Full Book.</li>
-                        <li>✅ 200 images in Book.</li>
-                        <li>✅ Downloadable soft copy PDF book.</li>
-                        <li>✅ $10 off on physical book.</li>
-                    </ul>
-                </div>
+            <h2 className="text-sm font-medium">Package Offer</h2>
+            <ul className="mt-2 text-[16px] font-[500] text-gray-700">
+                {/* List item 1 */}
+                <li className="flex items-center gap-2">
+                    <label className="flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={checkedItems.chat}
+                            onChange={() => toggleCheck('chat')}
+                            className="hidden" // Hide the default checkbox
+                        />
+                        <span
+                            className={`w-4 h-4 border-2 border-gray-400 rounded-sm flex items-center justify-center transition-colors ${
+                                checkedItems.chat ? 'bg-[#6f8673] border-[#6f8673]' : 'bg-white'
+                            }`}
+                        >
+                            {checkedItems.chat && (
+                                <svg
+                                    className="w-3 h-3 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            )}
+                        </span>
+                    </label>
+                    <span>Unlimited chat with the AI Chat Bot.</span>
+                </li>
+
+                {/* List item 2 */}
+                <li className="flex items-center gap-2">
+                    <label className="flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={checkedItems.fullBook}
+                            onChange={() => toggleCheck('fullBook')}
+                            className="hidden" // Hide the default checkbox
+                        />
+                        <span
+                            className={`w-4 h-4 border-2 border-gray-400 rounded-sm flex items-center justify-center transition-colors ${
+                                checkedItems.fullBook ? 'bg-[#6f8673] border-[#6f8673]' : 'bg-white'
+                            }`}
+                        >
+                            {checkedItems.fullBook && (
+                                <svg
+                                    className="w-3 h-3 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            )}
+                        </span>
+                    </label>
+                    <span>Access Full Book.</span>
+                </li>
+
+                {/* List item 3 */}
+                <li className="flex items-center gap-2">
+                    <label className="flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={checkedItems.images}
+                            onChange={() => toggleCheck('images')}
+                            className="hidden" // Hide the default checkbox
+                        />
+                        <span
+                            className={`w-4 h-4 border-2 border-gray-400 rounded-sm flex items-center justify-center transition-colors ${
+                                checkedItems.images ? 'bg-[#6f8673] border-[#6f8673]' : 'bg-white'
+                            }`}
+                        >
+                            {checkedItems.images && (
+                                <svg
+                                    className="w-3 h-3 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            )}
+                        </span>
+                    </label>
+                    <span>200 images in Book.</span>
+                </li>
+
+                {/* List item 4 */}
+                <li className="flex items-center gap-2">
+                    <label className="flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={checkedItems.pdf}
+                            onChange={() => toggleCheck('pdf')}
+                            className="hidden" // Hide the default checkbox
+                        />
+                        <span
+                            className={`w-4 h-4 border-2 border-gray-400 rounded-sm flex items-center justify-center transition-colors ${
+                                checkedItems.pdf ? 'bg-[#6f8673] border-[#6f8673]' : 'bg-white'
+                            }`}
+                        >
+                            {checkedItems.pdf && (
+                                <svg
+                                    className="w-3 h-3 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            )}
+                        </span>
+                    </label>
+                    <span>Downloadable soft copy PDF book.</span>
+                </li>
+
+                {/* List item 5 */}
+                <li className="flex items-center gap-2">
+                    <label className="flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={checkedItems.discount}
+                            onChange={() => toggleCheck('discount')}
+                            className="hidden" // Hide the default checkbox
+                        />
+                        <span
+                            className={`w-4 h-4 border-2 border-gray-400 rounded-sm flex items-center justify-center transition-colors ${
+                                checkedItems.discount ? 'bg-[#6f8673] border-[#6f8673]' : 'bg-white'
+                            }`}
+                        >
+                            {checkedItems.discount && (
+                                <svg
+                                    className="w-3 h-3 text-white"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            )}
+                        </span>
+                    </label>
+                    <span>$10 off on physical book.</span>
+                </li>
+            </ul>
+        </div>
 
                 {/* Create Button */}
                 <button className=" w-96 ml-32  bg-[#8CAB91] text-white py-2  mt-20  rounded-full hover:bg-[#6f8673] ">

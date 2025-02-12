@@ -13,6 +13,11 @@ import "react-calendar/dist/Calendar.css";
 import { GoChevronDown } from "react-icons/go";
 import "./Charts.css";
 import "./Celander.css";
+import { AnimatePresence, motion } from "framer-motion";
+import { MdOutlineCancel } from "react-icons/md";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const Home = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -22,7 +27,26 @@ const Home = () => {
     const calendarRef = useRef(null); // Reference for the calendar modal
     const modalRef = useRef(null);
     const [selectedSubscription, setSelectedSubscription] = useState(''); // Track selected subscription
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
 
+    // Handle date selection
+    const handleDateChange = (date) => {
+        if (!startDate || (startDate && endDate)) {
+            // If no start date is selected or both start and end dates are selected, reset
+            setStartDate(date);
+            setEndDate(null);
+        } else {
+            // If start date is selected, set the end date
+            setEndDate(date);
+        }
+    };
+
+    // // Format the selected date range
+    // const formattedDateRange = startDate && endDate
+    //     ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+    //     : startDate
+    //     ? `${startDate.toLocaleDateString()} - (Select End Date)`
+    //     : 'Select a date range';
 
     // Initialize state to handle both single date or date range
     const [value, onChange] = useState(new Date());
@@ -203,7 +227,7 @@ const Home = () => {
     const maxValue = Math.max(...theadData.map((item) => item.subscribers));
 
     return (
-        <div className="min-h-full b">
+        <div className="min-h-full relative">
             {/* Top Cards */}
             <div className="grid grid-cols-3 gap-10 px-7 py-5 bg-white">
                 {/* Card 1 */}
@@ -359,15 +383,34 @@ const Home = () => {
                                 Starting - Ending ▼
                             </span>
                         </div>
+
                         {isCalendarOpen && (
-                            <div ref={calendarRef} className="absolute bottom-0 right-24">
-                                <Calendar onChange={onChange} value={value} />
+                            <div ref={calendarRef} className="absolute bottom-0 right-14">
+
+                                <div className="calender"> <DatePicker
+                                    showIcon
+                                    selected={startDate}
+                                    onChange={(dates) => {
+                                        const [start, end] = dates;
+                                        setStartDate(start);
+                                        setEndDate(end);
+                                        if (end) setOpen(false); // Close when date is selected
+                                    }}
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    selectsRange
+                                    monthsShown={1} // Show 2 months
+                                    inline
+                                    className="p-2"
+                                    calendarClassName="gap-4 p-4 " // 👈 THIS MAKES MONTHS SHOW IN A ROW
+
+                                /></div>
                             </div>
                         )}
 
                         {/* Modal for Subscription */}
                         {isModalOpen && (
-                            <div className="fixed inset-0 flex justify-end right-72 items-center mt-96">
+                            <div className="fixed inset-0 flex justify-end right-72 items-center mt-64">
                                 <div ref={modalRef} className="bg-white p-6 rounded-lg shadow-lg">
                                     <h2 className="text-xl font-semibold mb-3">Select Subscription</h2>
                                     <h1
@@ -445,9 +488,88 @@ const Home = () => {
                                 <td className="p-3 text-gray-600">{user.subscription}</td>
                                 <td className="p-3 text-gray-600">{user.income}</td>
                                 <th className="p-3">
-                                    <button onClick={() => setIsModalOpen(true)} className="text-xl">
+                                    <button onClick={() => setIsProfileOpen(true)} className="text-xl cursor-pointer">
                                         <IoEyeOutline className="ml-10" />
                                     </button>
+                                    <AnimatePresence>
+                                        {isProfileOpen && (
+                                            <motion.div
+                                                className="fixed inset-0 flex justify-end -mt-20 pr-10  items-center z-50"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ type: "spring", stiffness: 100, damping: 25 }}
+                                                onClick={() => setIsProfileOpen(false)} // Close when clicking outside
+                                            >
+                                                <motion.div
+                                                    className="relative w-[503px] shadow-lg bg-white rounded-lg"
+                                                    initial={{ y: "-100vh", opacity: 0 }}
+                                                    animate={{ y: "0", opacity: 1 }}
+                                                    exit={{ y: "100vh", opacity: 0 }}
+                                                    transition={{ type: "spring", stiffness: 100, damping: 25 }}
+                                                    onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+                                                >
+                                                    <div>
+                                                        <div className="w-[503px] h-[238px] bg-[#8CAB91] flex items-center justify-center">
+                                                            <div className="text-center">
+                                                                <img
+                                                                    src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738148405/fotor-2025010923230_1_u9l6vi.png"
+                                                                    className="w-[115.98px] h-[124.08px] rounded-full border"
+                                                                    alt=""
+                                                                />
+                                                                <div className="pt-2">
+                                                                    <h1 className="text-[24px] font-[500] text-[#FAF1E6]">
+                                                                        Md Rasif
+                                                                    </h1>
+                                                                    <p className="text-[14px] font-[500]">User</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="absolute top-2 right-2 cursor-pointer">
+                                                                <MdOutlineCancel
+                                                                    className="text-[20px] text-[#FAF1E6]"
+                                                                    onClick={() => setIsProfileOpen(false)} // Close when clicking the cancel icon
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="p-10 space-y-3 text-start">
+                                                            <div>
+                                                                <h1 className="text-[16px] font-[500]">Name</h1>
+                                                                <p className="text-[14px] text-[#555555]">Md Rasif</p>
+                                                            </div>
+                                                            <div>
+                                                                <h1 className="text-[16px] font-[500]">Email</h1>
+                                                                <p className="text-[14px] text-[#555555]">
+                                                                    mahmud@gmail.com
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <h1 className="text-[16px] font-[500]">Contact No</h1>
+                                                                <p className="text-[14px] text-[#555555]">
+                                                                    +919355574544
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <h1 className="text-[16px] font-[500]">Date of birth</h1>
+                                                                <p className="text-[14px] text-[#555555]">17 dec, 2024</p>
+                                                            </div>
+                                                            <div>
+                                                                <h1 className="text-[16px] font-[500]">Subscription Type</h1>
+                                                                <p className="text-[14px] text-[#555555]">
+                                                                    Premium subscription
+                                                                </p>
+                                                            </div>
+                                                            <div>
+                                                                <h1 className="text-[16px] font-[500]">Address</h1>
+                                                                <p className="text-[14px] text-[#555555]">
+                                                                    68/ Joker Vila, Gotham City
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </th>
                             </tr>
                         ))}
