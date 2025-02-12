@@ -1,0 +1,12 @@
+.editor-container {
+    height: 500% !important;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.jodit-container {
+    flex-grow: 1 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+}

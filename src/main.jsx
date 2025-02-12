@@ -27,6 +27,7 @@ import AddCupon from './assets/component/Shared/AddCupon.jsx';
 import TermCondition from './assets/component/Shared/TermCondition.jsx';
 import Privacy from './assets/component/Shared/Privacy.jsx';
 import Notification from './assets/component/Shared/Notification.jsx';
+import AdminProfile from './assets/component/Shared/AdminProfile.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
       {
         path:"/porivacyPolicy",
         element:<Privacy/>
+      },
+      {
+        path:"/adminProfile",
+        element:<AdminProfile/>
       },
     ],
   },
