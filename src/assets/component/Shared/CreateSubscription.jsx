@@ -3,6 +3,9 @@ import { FiTriangle } from "react-icons/fi";
 
 const CreateSubscription = () => {
     const [price, setPrice] = useState(30);
+    const [number, setNumber] = useState(0);
+    const [amoun, setAmount] = useState(0);
+
 
     return (
         <div className="flex items-center justify-center">
@@ -27,23 +30,26 @@ const CreateSubscription = () => {
 
                     <div className="mt-4 w-1/2">
                         <label className="text-sm font-medium">Package Price</label>
-                        <div className="flex items-center border border-[#8CAB91] text-[#8CAB91]  mt-1 relative bg-white">
+                        <div className="flex items-center border border-[#8CAB91] text-[#8CAB91] mt-1 relative bg-white">
+                            {/* Static dollar sign */}
+                            <div className="absolute left-2 text-[#8CAB91]">$
+                            </div>
                             <input
                                 type="text"
-                                value={`$${price}`}
-                                readOnly
-                                className="w-full  p-2 border-none bg-transparent focus:outline-none"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                className="w-full pl-6 p-2 border-none bg-transparent focus:outline-none"
                             />
                             <div className="absolute right-2 flex space-x-1 text-[#8CAB91]">
                                 <button
                                     className="text-gray-600 hover:text-black"
-                                    onClick={() => setPrice((prev) => prev + 1)}
+                                    onClick={() => setPrice((prev) => Number(prev) + 1)}
                                 >
                                     <FiTriangle size={12} />
                                 </button>
                                 <button
-                                    className="text-gray-600 hover:text-black rotate-180"
-                                    onClick={() => setPrice((prev) => Math.max(prev - 1, 0))}
+                                    className="text-gray-600  rotate-180"
+                                    onClick={() => setPrice((prev) => Math.max(Number(prev) - 1, 0))}
                                 >
                                     <FiTriangle size={12} />
                                 </button>
@@ -53,25 +59,29 @@ const CreateSubscription = () => {
                 </div>
 
                 {/* Discount Section */}
+                <h1 className="text-[18px] font-[500]">Discount</h1>
                 <div className="mt-4 w-1/2 pr-[7px]">
-                    <label className="text-sm font-medium">Package Price</label>
-                    <div className="flex items-center border border-[#8CAB91] text-[#8CAB91]  mt-1 relative bg-white">
+                    <label className="text-sm font-medium">Amount</label>
+                    <div className="flex items-center border border-[#8CAB91] text-[#8CAB91] mt-1 relative bg-white">
+                        <div className="absolute left-2 text-[#8CAB91]">%
+                        </div>
                         <input
                             type="text"
-                            value={`$${price}`}
-                            readOnly
-                            className="w-full  p-2 border-none bg-transparent focus:outline-none"
+                            value={number}
+                            onChange={(e) => setNumber(e.target.value)}
+                            className="w-full p-2 pl-6 border-none bg-transparent focus:outline-none"
                         />
+
                         <div className="absolute right-2 flex space-x-1 text-[#8CAB91]">
                             <button
                                 className="text-gray-600 hover:text-black"
-                                onClick={() => setPrice((prev) => prev + 1)}
+                                onClick={() => setNumber((prev) => Number(prev) + 1)}
                             >
                                 <FiTriangle size={12} />
                             </button>
                             <button
                                 className="text-gray-600 hover:text-black rotate-180"
-                                onClick={() => setPrice((prev) => Math.max(prev - 1, 0))}
+                                onClick={() => setNumber((prev) => Math.max(Number(prev) - 1, 0))}
                             >
                                 <FiTriangle size={12} />
                             </button>
