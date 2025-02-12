@@ -111,7 +111,7 @@ const EditSubscription = () => {
                 </div>
 
                 {/* Create Button */}
-                <button className=" w-96 ml-32  bg-[#8CAB91] text-white py-2  mt-28  rounded-full hover:bg-[#6f8673] ">
+                <button className=" w-96 ml-32  bg-[#8CAB91] text-white py-2  mt-20  rounded-full hover:bg-[#6f8673] ">
                     UPDATE
                 </button>
             </div>

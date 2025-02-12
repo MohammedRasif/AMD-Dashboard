@@ -30,10 +30,12 @@ const Sidebar = () => {
 
     return (
         <div className="">
+            <NavLink to="/">
             <div className="flex fixed items-center justify-center w-[249.99px] h-[73px] pt-[12px]">
                 <img src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738995829/Group_1000004237_awy135.png" className="w-[53.99px] h-[53.99px] pt-[4.86]" alt="" />
                 <h1 className="font-[500] text-[14px] text-[#8CAB91]">una historia para siempre</h1>
             </div>
+            </NavLink>
 
             <div className="text-[#364636] pt-24 fixed ">
                 {/* Dashboard */}
