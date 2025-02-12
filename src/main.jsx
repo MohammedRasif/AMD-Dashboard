@@ -22,6 +22,7 @@ import Question from './assets/component/Shared/Question.jsx';
 import CuponCode from './assets/component/Shared/CuponCode.jsx';
 import CreateSubscription from './assets/component/Shared/CreateSubscription.jsx';
 import Subscription from './assets/component/Shared/Subscription.jsx';
+import EditSubscription from './assets/component/Shared/EditSubscription.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path:"/createSubcription",
         element:<CreateSubscription/>
+      },
+      {
+        path:"/editSubcription",
+        element:<EditSubscription/>
       },
       {
         path:"/coupon-code",

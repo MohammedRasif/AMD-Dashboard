@@ -89,7 +89,7 @@ const Subscription = () => {
                 <table className="table w-full bg-white">
                     <thead>
                         <tr className="text-gray-700">
-                            <th className="p-3">S.   ID</th>
+                            <th className="p-3">S.ID</th>
                             <th className="p-3 text-left">Name</th>
                             <th className="p-3 pl-10">Action</th>
                             <th className="p-3 pl-10">Action</th>
@@ -111,9 +111,11 @@ const Subscription = () => {
                                     <span className="text-gray-700 font-semibold">{user.name}</span>
                                 </td>
                                 <th className="p-3">
-                                    <button onClick={() => setIsModalOpen(true)} className="text-xl text-[#8CAB91]">
+                                    <NavLink to="/editSubcription">
+                                    <button  className="text-xl text-[#8CAB91]">
                                         <FaRegEdit className="ml-10" />
                                     </button>
+                                    </NavLink>
                                 </th>
                                 <th className="p-3">
                                     <button onClick={() => setIsModalOpen(true)} className="text-xl">
