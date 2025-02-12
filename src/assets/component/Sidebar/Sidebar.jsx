@@ -10,13 +10,23 @@ import { NavLink, useLocation } from "react-router-dom";
 const Sidebar = () => {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
+    const [isSetting, setIsSetting] = useState(false)
 
     // Checking for routes
     const isActiveo = location.pathname.startsWith("/addquestionnaire") || location.pathname.startsWith("/question");
     const isActiveb = location.pathname.startsWith("/odermanagement") || location.pathname.startsWith("/oderDetails");
-    const isActivec = location.pathname.startsWith("/subscription") || location.pathname.startsWith("/createSubcription")  || location.pathname.startsWith("/editSubcription");
-    const isActived = location.pathname.startsWith("/coupon-code") || location.pathname.startsWith("/AddCoupon")  ;
-    const isManageSubscriptionActive = location.pathname === '/subscription' || location.pathname === '/coupon-code';
+    const isActivec = location.pathname.startsWith("/subscription") || location.pathname.startsWith("/createSubcription") || location.pathname.startsWith("/editSubcription");
+    const isActived = location.pathname.startsWith("/coupon-code") || location.pathname.startsWith("/AddCoupon");
+    const isActivee = location.pathname.startsWith("/termsCondition") || location.pathname.startsWith("/porivacyPolicy");
+    const isManageSubscriptionActive =
+        location.pathname.startsWith('/subscription') ||
+        location.pathname.startsWith('/createSubcription') ||
+        location.pathname.startsWith('/editSubcription') ||
+        location.pathname.startsWith('/coupon-code') ||
+        location.pathname.startsWith('/AddCoupon');
+    const isSettingActive = location.pathname.startsWith('/termsCondition') || location.pathname.startsWith('/porivacyPolicy');
+
+
     return (
         <div className="">
             <div className="flex fixed items-center justify-center w-[249.99px] h-[73px] pt-[12px]">
@@ -115,7 +125,7 @@ const Sidebar = () => {
                 </div>
 
                 {/* Settings */}
-                <NavLink to="/setting" className={({ isActive }) => "flex items-center justify-between w-[280px]"}>
+                {/* <NavLink to="/setting" className={({ isActive }) => "flex items-center justify-between w-[280px]"}>
                     {({ isActive }) => (
                         <div className="flex items-center justify-between w-[280px] mt-2">
                             <div className={`p-[3px] h-[70px] rounded-r-2xl ${isActive ? "bg-[#8CAB91]" : ""}`}></div>
@@ -125,7 +135,45 @@ const Sidebar = () => {
                             </div>
                         </div>
                     )}
-                </NavLink>
+                </NavLink> */}
+                <div className={`${isSettingActive ? 'bg-[#8CAB91] rounded-r-2xl w-[6px]' : ''}`}>
+                    <div className="pl-[30px]">
+                        <button
+                            className="flex items-center justify-between w-[280px]"
+                            onClick={() => setIsSetting(!isSetting)}
+                        >
+                            <div
+                                className={`flex items-center space-x-2 w-[250px] h-[72px] pl-[30px] transition-all duration-300 ${isSettingActive ? 'bg-[#8CAB91] text-[#FAF1E6]' : ''}`}
+                            >
+                                <MdElectricBolt className="text-[18px]" />
+                                <h1 className="text-[16px] font-[500]">Setting</h1>
+                                {isSetting ? <GoChevronUp className="ml-[110px]" /> : <GoChevronDown className="ml-[110px]" />}
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Submenu (Animated Expand) */}
+                <div
+                    className={`ml-[30px] w-[250px] overflow-hidden transition-all bg-white duration-300 ${isSetting ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'}`}
+                >
+                    <NavLink
+                        to="/termsCondition"
+                        className={({ isActive }) =>
+                            `h-[70px] flex items-center w-[300px] pl-16 mr-[30px] text-gray-700 hover:bg-[#8CAB91] hover:text-white font-[500] transition ${isActive ? 'bg-[#CBD9CC] text-[#FAF1E6]' : ''}`
+                        }
+                    >
+                        Terms & condition
+                    </NavLink>
+                    <NavLink
+                        to="/porivacyPolicy"
+                        className={({ isActive }) =>
+                            `flex items-center h-[70px] w-[300px] pl-16 mr-[30px] text-gray-700 hover:bg-[#8CAB91] hover:text-white font-[500] transition ${isActive ? 'bg-[#CBD9CC] text-[#FAF1E6]' : ''}`
+                        }
+                    >
+                        Privacy policy
+                    </NavLink>
+                </div>
             </div>
         </div>
     );

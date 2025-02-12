@@ -24,6 +24,8 @@ import CreateSubscription from './assets/component/Shared/CreateSubscription.jsx
 import Subscription from './assets/component/Shared/Subscription.jsx';
 import EditSubscription from './assets/component/Shared/EditSubscription.jsx';
 import AddCupon from './assets/component/Shared/AddCupon.jsx';
+import TermCondition from './assets/component/Shared/TermCondition.jsx';
+import Privacy from './assets/component/Shared/Privacy.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -100,6 +102,14 @@ const router = createBrowserRouter([
       {
         path:"/AddCoupon",
         element:<AddCupon/>
+      },
+      {
+        path:"/termsCondition",
+        element:<TermCondition/>
+      },
+      {
+        path:"/porivacyPolicy",
+        element:<Privacy/>
       },
     ],
   },
