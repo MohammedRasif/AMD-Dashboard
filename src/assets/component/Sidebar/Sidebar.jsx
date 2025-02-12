@@ -73,25 +73,29 @@ const Sidebar = () => {
                 </NavLink>
 
                 {/* Manage Subscription */}
-                <div className="pl-[30px]">
-                    <button
-                        className="flex items-center justify-between w-[280px]"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
 
-                        <div
-                            className={`flex items-center space-x-2 justify-between w-[250px] h-[72px] pl-[30px] transition-all duration-300 ${isManageSubscriptionActive ? 'bg-[#8CAB91] text-[#FAF1E6]' : ''}`}
+                <div className={`${isManageSubscriptionActive ? 'bg-[#8CAB91] rounded-r-2xl w-[6px]' : ''}`}>
+                    <div className="pl-[30px]">
+                        <button
+                            className="flex items-center justify-between w-[280px]"
+                            onClick={() => setIsOpen(!isOpen)}
                         >
-                            <MdElectricBolt className="text-[18px]" />
-                            <h1 className="text-[16px] font-[500]">Manage Subscription</h1>
-                            {isOpen ? <GoChevronUp className="ml-3" /> : <GoChevronDown className="ml-3" />}
-                        </div>
-                    </button>
 
+                            <div
+                                className={`flex items-center space-x-2 justify-between w-[250px] h-[72px] pl-[30px] transition-all duration-300 ${isManageSubscriptionActive ? 'bg-[#8CAB91] text-[#FAF1E6]  ' : ''}`}
+                            >
+                                <MdElectricBolt className="text-[18px]" />
+                                <h1 className="text-[16px] font-[500]">Manage Subscription</h1>
+                                {isOpen ? <GoChevronUp className="mr-2" /> : <GoChevronDown className="mr-2" />}
+                            </div>
+                        </button>
+
+                    </div>
                 </div>
+
                 {/* Submenu (Animated Expand) */}
                 <div
-                    className={` ml-[30px] overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'}`}
+                    className={` ml-[30px] w-[280px] overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'}`}
                 >
                     <NavLink
                         to="/subscription"
