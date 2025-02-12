@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdOutlineCancel } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -10,9 +11,14 @@ const Navbar = () => {
         <div className="pr-10">
             <div className="flex items-center justify-end pt-6 space-x-2">
                 {/* Notification Icon */}
-                <div className="w-[39.33px] h-[40px] rounded-full bg-[#F2F2F2] flex items-center justify-center">
+                <NavLink to="/notification">
+                <div className=" relative w-[39.33px] h-[40px] rounded-full bg-[#F2F2F2] flex items-center justify-center">
                     <IoMdNotificationsOutline className=" " />
                 </div>
+                <div className="absolute bg-[#8CAB91]  rounded-full px-1 top-[28px] right-[183px]">
+                    <h1 className="text-[10px] text-[#FAF1E6]">5</h1>
+                </div>
+                </NavLink>
 
                 {/* Profile Section - Click to Open Modal */}
                 <div
@@ -24,7 +30,7 @@ const Navbar = () => {
                         className="h-[48px] w-[48px]"
                         alt=""
                     />
-                    <h1 className="font-[600] text-[18px]">Md Rasif</h1>
+                    <h1 className="font-[600] text-[18px] ">Md Rasif</h1>
                 </div>
             </div>
 

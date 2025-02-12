@@ -119,12 +119,12 @@ const Question = () => {
                                             <label className="block text-sm font-medium text-gray-700">Question</label>
                                             <input
                                                 type="text"
-                                               
+
                                                 className="w-full mt-3   border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                             />
                                         </div>
 
-                                        
+
 
                                         {/* Publish Button */}
                                         <button

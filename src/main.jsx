@@ -26,6 +26,7 @@ import EditSubscription from './assets/component/Shared/EditSubscription.jsx';
 import AddCupon from './assets/component/Shared/AddCupon.jsx';
 import TermCondition from './assets/component/Shared/TermCondition.jsx';
 import Privacy from './assets/component/Shared/Privacy.jsx';
+import Notification from './assets/component/Shared/Notification.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path:"/oderDetails",
         element:<OderDetails/>
+      },
+      {
+        path:"/notification",
+        element:<Notification/>
       },
       {
         path:"/question",

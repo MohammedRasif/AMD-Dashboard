@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CiSettings } from "react-icons/ci";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { IoSettingsSharp } from "react-icons/io5";
 import { LiaAddressCardSolid } from "react-icons/lia";
@@ -145,7 +146,7 @@ const Sidebar = () => {
                             <div
                                 className={`flex items-center space-x-2 w-[250px] h-[72px] pl-[30px] transition-all duration-300 ${isSettingActive ? 'bg-[#8CAB91] text-[#FAF1E6]' : ''}`}
                             >
-                                <MdElectricBolt className="text-[18px]" />
+                                <CiSettings className="text-[18px]" />
                                 <h1 className="text-[16px] font-[500]">Setting</h1>
                                 {isSetting ? <GoChevronUp className="ml-[110px]" /> : <GoChevronDown className="ml-[110px]" />}
                             </div>
