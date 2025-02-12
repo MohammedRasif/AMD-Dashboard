@@ -14,8 +14,9 @@ const Sidebar = () => {
     // Checking for routes
     const isActiveo = location.pathname.startsWith("/addquestionnaire") || location.pathname.startsWith("/question");
     const isActiveb = location.pathname.startsWith("/odermanagement") || location.pathname.startsWith("/oderDetails");
+    const isActivec = location.pathname.startsWith("/subscription") || location.pathname.startsWith("/createSubcription")  || location.pathname.startsWith("/editSubcription");
+    const isActived = location.pathname.startsWith("/coupon-code") || location.pathname.startsWith("/AddCoupon")  ;
     const isManageSubscriptionActive = location.pathname === '/subscription' || location.pathname === '/coupon-code';
-    console.log(isManageSubscriptionActive);
     return (
         <div className="">
             <div className="flex fixed items-center justify-center w-[249.99px] h-[73px] pt-[12px]">
@@ -80,7 +81,6 @@ const Sidebar = () => {
                             className="flex items-center justify-between w-[280px]"
                             onClick={() => setIsOpen(!isOpen)}
                         >
-
                             <div
                                 className={`flex items-center space-x-2 justify-between w-[250px] h-[72px] pl-[30px] transition-all duration-300 ${isManageSubscriptionActive ? 'bg-[#8CAB91] text-[#FAF1E6]  ' : ''}`}
                             >
@@ -89,18 +89,17 @@ const Sidebar = () => {
                                 {isOpen ? <GoChevronUp className="mr-2" /> : <GoChevronDown className="mr-2" />}
                             </div>
                         </button>
-
                     </div>
                 </div>
 
                 {/* Submenu (Animated Expand) */}
                 <div
-                    className={` ml-[30px] w-[280px] overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'}`}
+                    className={` ml-[30px] w-[250px] overflow-hidden transition-all bg-white  duration-300 ${isOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'}`}
                 >
                     <NavLink
                         to="/subscription"
                         className={({ isActive }) =>
-                            ` h-[70px] flex items-center pl-16 mr-[30px]   text-gray-700 hover:bg-[#8CAB91] hover:text-white transition  ${isActive ? 'bg-[#CBD9CC]' : ''}`
+                            ` h-[70px] flex items-center w-[300px] pl-16 mr-[30px]   text-gray-700 hover:bg-[#8CAB91] hover:text-white font-[500] transition  ${isActivec ? 'bg-[#CBD9CC]' : ''}`
                         }
                     >
                         Subscription
@@ -108,7 +107,7 @@ const Sidebar = () => {
                     <NavLink
                         to="/coupon-code"
                         className={({ isActive }) =>
-                            `flex items-center h-[70px] pl-16 mr-[30px] text-gray-700 hover:bg-[#8CAB91] hover:text-white transition  ${isActive ? 'bg-[#CBD9CC]' : ''}`
+                            `flex items-center h-[70px] w-[300px] pl-16 mr-[30px] text-gray-700 hover:bg-[#8CAB91] hover:text-white font-[500] transition  ${isActived ? 'bg-[#CBD9CC]' : ''}`
                         }
                     >
                         Coupon Code
