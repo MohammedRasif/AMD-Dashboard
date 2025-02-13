@@ -8,6 +8,12 @@ import { NavLink } from 'react-router-dom';
 const AddQuestionnaire = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false)
+    const [isOpenDelete, setIsOpenDelete] = useState(false);
+    const handleDelete = () => {
+
+        setIsOpenDelete(false);
+    };
+
 
     const categories = [
         { name: "Childhood", questionsAdded: 5, totalQuestions: 10 },
@@ -94,7 +100,43 @@ const AddQuestionnaire = () => {
                                 <NavLink to="/question">
                                 <IoEyeOutline className="cursor-pointer hover:text-green-500 transition" />
                                 </NavLink>
-                                <MdDeleteOutline className="cursor-pointer hover:text-red-500 transition" />
+                                <button
+                                onClick={() => setIsOpenDelete(true)}
+                                >
+                                    <MdDeleteOutline className="cursor-pointer hover:text-red-500 transition" />
+                                </button>
+                                {/* Modal Popup */}
+                                {isOpenDelete && (
+                                            <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                                                <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
+                                                    {/* Close (Cancel) Icon */}
+                                                    <button
+                                                        className="absolute top-2 right-2   bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
+                                                        onClick={() => setIsOpenDelete(false)}
+                                                    >
+                                                        <FaTimes size={18} />
+                                                    </button>
+
+                                                    {/* Modal Heading */}
+                                                    <h2 className="text-[14px] font-[500] text-center">Are you sure?</h2>
+                                                    <p className="text-[16px] text-[#997D00] text-center my-5">
+                                                        Do you want to delete this content?
+                                                    </p>
+
+                                                    {/* Buttons */}
+                                                    <div className="flex text-[16px] font-[500] justify-center space-x-4 mt-4">
+                                                        <button
+                                                            className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
+                                                            onClick={handleDelete}
+                                                        // onClick={handleClickDelete}
+                                                        >
+                                                            Delete
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
                                 <button
                                     onClick={() => setEditModalOpen(true)}
                                 >

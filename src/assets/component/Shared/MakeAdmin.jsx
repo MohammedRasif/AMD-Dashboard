@@ -11,11 +11,11 @@ const MakeAdmin = () => {
 
 
     const handleDelete = () => {
-       
+
         setIsOpenDelete(false);
     };
 
-  
+
 
 
     // Sample user data
@@ -185,7 +185,7 @@ const MakeAdmin = () => {
                                                         <button
                                                             className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
                                                             onClick={handleDelete}
-                                                            // onClick={handleClickDelete}
+                                                        // onClick={handleClickDelete}
                                                         >
                                                             Delete
                                                         </button>
