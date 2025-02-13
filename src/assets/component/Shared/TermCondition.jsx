@@ -43,7 +43,7 @@ const TermCondition = () => {
                 Submit
             </button>
             </div>
-            <div className="editor-container">
+            <div className="editor-container ">
                 <JoditEditor
                     ref={editor}
                     value={content}

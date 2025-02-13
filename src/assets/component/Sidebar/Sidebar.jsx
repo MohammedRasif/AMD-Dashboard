@@ -17,14 +17,15 @@ const Sidebar = () => {
     const isActiveo = location.pathname.startsWith("/addquestionnaire") || location.pathname.startsWith("/question");
     const isActiveb = location.pathname.startsWith("/odermanagement") || location.pathname.startsWith("/oderDetails") || location.pathname.startsWith("/viewPage");
     const isActivec = location.pathname.startsWith("/subscription") || location.pathname.startsWith("/createSubcription") || location.pathname.startsWith("/editSubcription");
-    const isActived = location.pathname.startsWith("/coupon-code") || location.pathname.startsWith("/AddCoupon");
+    const isActived = location.pathname.startsWith("/coupon-code") || location.pathname.startsWith("/AddCoupon") || location.pathname.startsWith("/editCupon") ;
     const isActivee = location.pathname.startsWith("/termsCondition") || location.pathname.startsWith("/porivacyPolicy");
     const isManageSubscriptionActive =
         location.pathname.startsWith('/subscription') ||
         location.pathname.startsWith('/createSubcription') ||
         location.pathname.startsWith('/editSubcription') ||
         location.pathname.startsWith('/coupon-code') ||
-        location.pathname.startsWith('/AddCoupon');
+        location.pathname.startsWith('/AddCoupon') ||
+        location.pathname.startsWith('/editCupon');
     const isSettingActive = location.pathname.startsWith('/termsCondition') || location.pathname.startsWith('/porivacyPolicy');
 
 

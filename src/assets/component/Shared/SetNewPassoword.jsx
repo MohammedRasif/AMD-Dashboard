@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"; // Import eye icons
 
-const SetNewPassword = ({ setIsProfileOpen }) => {
+const SetNewPassword = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
@@ -34,18 +33,7 @@ const SetNewPassword = ({ setIsProfileOpen }) => {
     };
 
     return (
-        <AnimatePresence>
-            <motion.div
-                className="fixed inset-0 flex justify-end bg-white min-h-screen items-center z-50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsProfileOpen(false)} // Close when clicking outside
-            >
-                <motion.div
-                    className="relative w-full bg-white rounded-lg"
-                    onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
-                >
+        
                     <div className="flex items-center pl-80 pt-36 space-x-10">
                         <div className="w-[573px] h-[810px] pt-20">
                             <img
@@ -119,7 +107,7 @@ const SetNewPassword = ({ setIsProfileOpen }) => {
                                 <button
                                     onClick={handlePasswordChange}
                                     disabled={loading}
-                                    className={`w-full h-[48px] mt-16 bg-[#8CAB91] text-[#FAF1E6] font-medium text-base rounded-full hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                                    className={`w-full h-[48px] mt-16 bg-[#8CAB91] text-[#FAF1E6] font-medium text-base rounded-full hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer ${
                                         loading ? "opacity-50 cursor-not-allowed" : ""
                                     }`}
                                 >
@@ -128,9 +116,7 @@ const SetNewPassword = ({ setIsProfileOpen }) => {
                             </div>
                         </div>
                     </div>
-                </motion.div>
-            </motion.div>
-        </AnimatePresence>
+               
     );
 };
 

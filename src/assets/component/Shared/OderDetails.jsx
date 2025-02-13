@@ -1,3 +1,4 @@
+import jsPDF from 'jspdf';
 import { MdArrowBack } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 
@@ -26,6 +27,35 @@ const OrderDetails = () => {
                     "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1739423923/images_oupakv.jpg",
             },
         ],
+    };
+
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+
+        // Add title
+        doc.setFontSize(18);
+        doc.text('Order Details', 14, 20);
+
+        // Add user details
+        doc.setFontSize(12);
+        doc.text(`Name: ${user.name}`, 14, 30);
+        doc.text(`Email: ${user.email}`, 14, 40);
+        doc.text(`Contact No: ${user.contactNumber}`, 14, 50);
+        doc.text(`Date of Birth: ${user.dob}`, 14, 60);
+        doc.text(`Subscription Type: ${user.subscriptionType}`, 14, 70);
+        doc.text(`Address: ${user.address}`, 14, 80);
+
+        // Add book collection details
+        doc.text('Dindiya’s Book Collection:', 14, 100);
+        user.collection.forEach((book, index) => {
+            const startY = 110 + (index * 40);  // Adjust the Y position for each book
+            doc.text(`Title: ${book.title}`, 14, startY);
+            doc.text(`Order Date: ${book.orderDate}`, 14, startY + 10);
+            doc.addImage(book.image, 'JPEG', 14, startY + 20, 50, 50);  // Add book image
+        });
+
+        // Save PDF
+        doc.save(`${user.name}_Order_Details.pdf`);
     };
 
     return (
@@ -85,11 +115,13 @@ const OrderDetails = () => {
                                     <div className="mt-2 flex flex-col gap-1">
                                         {/* Pass ID as a URL Parameter */}
                                         <NavLink to={`/viewPage/${book.id}`}>
-                                            <button className="bg-[#8CAB91] text-[#FAF1E6] hover:text-[#8CAB91] px-3 py-1 rounded-full w-full text-xs hover:bg-[#FAF1E6] transition">
+                                            <button className="bg-[#8CAB91] text-[#FAF1E6] hover:text-[#8CAB91] px-3 py-1 rounded-full w-full text-xs hover:bg-[#FAF1E6] transition cursor-pointer">
                                                 VIEW BOOK
                                             </button>
                                         </NavLink>
-                                        <button className="border border-[#8CAB91] text-[#8CAB91] font-bold px-3 py-1 rounded-full text-xs hover:bg-[#8CAB91] hover:text-white transition">
+                                        <button
+                                            onClick={downloadPDF}
+                                            className="border border-[#8CAB91] text-[#8CAB91] font-bold px-3 py-1 rounded-full text-xs hover:bg-[#8CAB91] hover:text-white transition cursor-pointer">
                                             PDF DOWNLOAD
                                         </button>
                                     </div>

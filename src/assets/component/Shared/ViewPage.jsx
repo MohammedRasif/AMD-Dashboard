@@ -60,10 +60,10 @@ const ViewPage = () => {
                     </div>
                     <h2 className="mt-4 text-gray-700">{book.description}</h2>
 
-                    <button className="text-[#FAF1E6] text-[16px] w-full bg-[#8CAB91] py-3 uppercase rounded-full mt-5">
+                    <button className="text-[#FAF1E6] text-[16px] w-full bg-[#8CAB91] py-3 uppercase rounded-full mt-5 cursor-pointer">
                         Confirm Order
                     </button>
-                    <button className="bg-[#FAF1E6] text-[16px] w-full text-[#8CAB91] py-3 uppercase border border-[#8CAB91] rounded-full mt-3">
+                    <button className="bg-[#FAF1E6] text-[16px] w-full text-[#8CAB91] py-3 uppercase border border-[#8CAB91] rounded-full mt-3 cursor-pointer">
                         Cancel Order
                     </button>
                 </div>

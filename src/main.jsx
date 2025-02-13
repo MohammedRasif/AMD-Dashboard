@@ -29,111 +29,116 @@ import Privacy from './assets/component/Shared/Privacy.jsx';
 import Notification from './assets/component/Shared/Notification.jsx';
 import AdminProfile from './assets/component/Shared/AdminProfile.jsx';
 import ViewPage from './assets/component/Shared/ViewPage.jsx';
+import EditCupon from './assets/component/Shared/EditCupon.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Roots/>,
+    element: <Roots />,
     children: [
       {
         path: "/",
-        element:<Home/> ,
+        element: <Home />,
       },
       {
         path: "/odermanagement",
-        element:<OderManagement/> ,
+        element: <OderManagement />,
       },
       {
         path: "/addquestionnaire",
-        element:<AddQuestionnaire/> ,
+        element: <AddQuestionnaire />,
       },
       {
         path: "/makeadmin",
-        element:<MakeAdmin/> ,
+        element: <MakeAdmin />,
       },
       {
         path: "/managesubscription",
-        element:<ManaageSubscription/> ,
+        element: <ManaageSubscription />,
       },
       {
         path: "/setting",
-        element:<Settings/> ,
+        element: <Settings />,
       },
       {
-        path:"/login",
-        element:<Login/>
+        path: "/oderDetails",
+        element: <OderDetails />
       },
       {
-        path:"/forgetPassword",
-        element:<ForgetPassword/>
+        path: "/notification",
+        element: <Notification />
       },
       {
-        path:"/verification",
-        element:<Verification/>
+        path: "/question",
+        element: <Question />
       },
       {
-        path:"/setNewPassoword",
-        element:<SetNewPassword/>
+        path: "/subscription",
+        element: <Subscription />
       },
       {
-        path:"/congratulation",
-        element:<Congratulation/>
+        path: "/createSubcription",
+        element: <CreateSubscription />
       },
       {
-        path:"/oderDetails",
-        element:<OderDetails/>
+        path: "/editSubcription",
+        element: <EditSubscription />
       },
       {
-        path:"/notification",
-        element:<Notification/>
+        path: "/coupon-code",
+        element: <CuponCode />
       },
       {
-        path:"/question",
-        element:<Question/>
+        path: "/AddCoupon",
+        element: <AddCupon />
       },
       {
-        path:"/subscription",
-        element:<Subscription/>
+        path: "/editCupon",
+        element: <EditCupon />
       },
       {
-        path:"/createSubcription",
-        element:<CreateSubscription/>
+        path: "/termsCondition",
+        element: <TermCondition />
       },
       {
-        path:"/editSubcription",
-        element:<EditSubscription/>
+        path: "/porivacyPolicy",
+        element: <Privacy />
       },
       {
-        path:"/coupon-code",
-        element:<CuponCode/>
+        path: "/adminProfile",
+        element: <AdminProfile />
       },
       {
-        path:"/AddCoupon",
-        element:<AddCupon/>
-      },
-      {
-        path:"/termsCondition",
-        element:<TermCondition/>
-      },
-      {
-        path:"/porivacyPolicy",
-        element:<Privacy/>
-      },
-      {
-        path:"/adminProfile",
-        element:<AdminProfile/>
-      },
-      {
-        path:"/viewPage/:id",
-        element:<ViewPage/>
+        path: "/viewPage/:id",
+        element: <ViewPage />
       },
     ],
   },
-  
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/forgetPassword",
+    element: <ForgetPassword />
+  },
+  {
+    path: "/verification",
+    element: <Verification />
+  },
+  {
+    path: "/setNewPassoword",
+    element: <SetNewPassword />
+  },
+  {
+    path: "/congratulation",
+    element: <Congratulation />
+  },
+
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-        <RouterProvider router={router} />
+    <RouterProvider router={router} />
 
   </StrictMode>,
 )

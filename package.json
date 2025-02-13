@@ -19,6 +19,7 @@
     "@tailwindcss/vite": "^4.0.4",
     "framer-motion": "^12.4.1",
     "jodit-react": "^5.2.6",
+    "jspdf": "^2.5.2",
     "react": "^19.0.0",
     "react-calendar": "^5.1.0",
     "react-datepicker": "^8.0.0",

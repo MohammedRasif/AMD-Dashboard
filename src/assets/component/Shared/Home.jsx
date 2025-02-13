@@ -309,7 +309,7 @@ const Home = () => {
                             <select
                                 value={selectedSubscriberYear}
                                 onChange={handleSubscriberYearChange}
-                                className="text-[#595D62] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
+                                className="text-[#595D62] bg-[#F1F1F1] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
                             >
                                 <option value="2022">2022</option>
                                 <option value="2023">2023</option>
@@ -335,7 +335,7 @@ const Home = () => {
                                 <select
                                     value={selectedUserYear}
                                     onChange={handleUserYearChange}
-                                    className="text-[#595D62] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
+                                    className="text-[#595D62] bg-[#F1F1F1] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
                                 >
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
@@ -362,7 +362,7 @@ const Home = () => {
                         <select
                             value={selectedIncomeYear}
                             onChange={handleIncomeYearChange}
-                            className="text-[#595D62] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
+                            className="text-[#595D62] bg-[#F1F1F1] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
                         >
                             <option value="2022">2022</option>
                             <option value="2023">2023</option>

@@ -89,7 +89,7 @@ const CuponCode = () => {
                                     <span className="text-gray-700 font-semibold">{user.name}</span>
                                 </td>
                                 <th className="p-3">
-                                    <NavLink >
+                                    <NavLink to="/editCupon" >
                                         <button className="text-xl text-[#8CAB91] cursor-pointer">
                                             <FaRegEdit className="ml-10" />
                                         </button>
