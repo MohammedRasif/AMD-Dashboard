@@ -29,7 +29,7 @@ const Question = () => {
                 </div>
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="w-[185px] h-[38px] bg-[#8CAB91] text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl">
+                    className="w-[185px] h-[38px] bg-[#8CAB91] text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl cursor-pointer">
                     <FaPlus className="text-sm" />
                     <h1>Add New Section</h1>
                 </button>
@@ -39,7 +39,7 @@ const Question = () => {
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                             {/* Close Button */}
                             <button
-                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
+                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
                                 onClick={() => setIsOpen(false)}
                             >
                                 <FaTimes size={18} />
@@ -97,7 +97,7 @@ const Question = () => {
                             <button
                                 onClick={() => setEditModalOpen(true)}
                             >
-                                <FaRegEdit className="cursor-pointer hover:text-blue-500 transition" />
+                                <FaRegEdit className="cursor-pointer hover:text-blue-500 transition " />
                             </button>
                             {editModalOpen && (
                                 <div className="fixed  inset-0 flex items-center justify-center   bg-opacity-30 backdrop-blur-sm">
@@ -105,7 +105,7 @@ const Question = () => {
                                     <div className="bg-white p-5 rounded-lg shadow-lg w-[400px] relative">
                                         {/* Close Button */}
                                         <button
-                                            className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
+                                            className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
                                             onClick={() => setEditModalOpen(false)}
                                         >
                                             <FaTimes size={18} />

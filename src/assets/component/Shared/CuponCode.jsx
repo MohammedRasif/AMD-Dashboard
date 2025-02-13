@@ -83,7 +83,7 @@ const CuponCode = () => {
                                 </td>
                                 <th className="p-3">
                                     <NavLink >
-                                    <button  className="text-xl text-[#8CAB91]">
+                                    <button  className="text-xl text-[#8CAB91] cursor-pointer">
                                         <FaRegEdit className="ml-10" />
                                     </button>
                                     </NavLink>
@@ -92,7 +92,7 @@ const CuponCode = () => {
                                     <button 
                                     
                                      className="text-xl">
-                                        <RiDeleteBin6Line className="ml-10 text-red-500" />
+                                        <RiDeleteBin6Line className="ml-10 text-red-500 cursor-pointer" />
                                     </button>
                                 </th>
                             </tr>

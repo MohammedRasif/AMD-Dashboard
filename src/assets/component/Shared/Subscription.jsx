@@ -112,13 +112,13 @@ const Subscription = () => {
                                 </td>
                                 <th className="p-3">
                                     <NavLink to="/editSubcription">
-                                    <button  className="text-xl text-[#8CAB91]">
+                                    <button  className="text-xl text-[#8CAB91] cursor-pointer">
                                         <FaRegEdit className="ml-10" />
                                     </button>
                                     </NavLink>
                                 </th>
                                 <th className="p-3">
-                                    <button onClick={() => setIsModalOpen(true)} className="text-xl">
+                                    <button onClick={() => setIsModalOpen(true)} className="text-xl cursor-pointer">
                                         <RiDeleteBin6Line className="ml-10 text-red-500" />
                                     </button>
                                 </th>

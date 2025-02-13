@@ -28,6 +28,7 @@ import TermCondition from './assets/component/Shared/TermCondition.jsx';
 import Privacy from './assets/component/Shared/Privacy.jsx';
 import Notification from './assets/component/Shared/Notification.jsx';
 import AdminProfile from './assets/component/Shared/AdminProfile.jsx';
+import ViewPage from './assets/component/Shared/ViewPage.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -120,6 +121,10 @@ const router = createBrowserRouter([
       {
         path:"/adminProfile",
         element:<AdminProfile/>
+      },
+      {
+        path:"/viewPage",
+        element:<ViewPage/>
       },
     ],
   },

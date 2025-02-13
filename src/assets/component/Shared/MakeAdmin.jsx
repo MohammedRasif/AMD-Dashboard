@@ -11,9 +11,11 @@ const MakeAdmin = () => {
 
 
     const handleDelete = () => {
-        alert("Content deleted successfully!");
-        setIsOpen(false);
+       
+        setIsOpenDelete(false);
     };
+
+  
 
 
     // Sample user data
@@ -54,7 +56,7 @@ const MakeAdmin = () => {
                 <h1 className="text-[24px] font-bold  ">Ouestionnaire</h1>
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="w-[160px] uppercase h-[38px] bg-[#8CAB91] mt-2 text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl">
+                    className="w-[160px] uppercase h-[38px] bg-[#8CAB91] mt-2 text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl cursor-pointer">
                     <FaPlus className="text-sm" />
                     <h1>Make Admin</h1>
                 </button>
@@ -64,7 +66,7 @@ const MakeAdmin = () => {
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                             {/* Close Button */}
                             <button
-                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
+                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer "
                                 onClick={() => setIsOpen(false)}
                             >
                                 <FaTimes size={18} />
@@ -107,7 +109,7 @@ const MakeAdmin = () => {
                                 <select
                                     value={selectedRole}
                                     onChange={(e) => setSelectedRole(e.target.value)}
-                                    className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none cursor-pointer"
+                                    className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none "
                                 >
                                     <option value="" disabled>Select a role</option>
                                     <option value="Admin">Admin</option>
@@ -154,7 +156,7 @@ const MakeAdmin = () => {
                                     <div>
                                         {/* Delete Button (Triggers Modal) */}
                                         <button
-                                            className="text-xl text-red-500 hover:text-blue-500"
+                                            className="text-xl text-red-500 hover:text-blue-500 cursor-pointer"
                                             onClick={() => setIsOpenDelete(true)}
                                         >
                                             <MdDeleteOutline />
@@ -166,7 +168,7 @@ const MakeAdmin = () => {
                                                 <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
                                                     {/* Close (Cancel) Icon */}
                                                     <button
-                                                        className="absolute top-2 right-2   bg-[#8CAB91] rounded-full text-[#FAF1E6]"
+                                                        className="absolute top-2 right-2   bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
                                                         onClick={() => setIsOpenDelete(false)}
                                                     >
                                                         <FaTimes size={18} />
@@ -181,8 +183,9 @@ const MakeAdmin = () => {
                                                     {/* Buttons */}
                                                     <div className="flex justify-center space-x-4 mt-4">
                                                         <button
-                                                            className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg"
+                                                            className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
                                                             onClick={handleDelete}
+                                                            // onClick={handleClickDelete}
                                                         >
                                                             Delete
                                                         </button>

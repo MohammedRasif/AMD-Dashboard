@@ -84,7 +84,7 @@ const OrderManagement = () => {
                     {/* Subscription Filter Button */}
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="border border-gray-300 px-4 py-2 rounded-lg text-gray-700 flex items-center hover:bg-gray-100 transition"
+                        className="border border-gray-300 px-4 py-2 rounded-lg text-gray-700 flex items-center hover:bg-gray-100 transition cursor-pointer "
                     >
                         {selectedSubscription || "Subscriber"} <span className="ml-2">▼</span>
                     </button>
@@ -150,7 +150,7 @@ const OrderManagement = () => {
                             <td className="p-3 text-gray-600">{user.subscription}</td>
                             <td className="p-3 text-center">
                                 <NavLink to="/oderDetails">
-                                <button className="text-xl text-gray-700 hover:text-blue-500">
+                                <button className="text-xl text-gray-700 hover:text-blue-500 cursor-pointer ">
                                     <IoEyeOutline />
                                 </button>
                                 </NavLink>

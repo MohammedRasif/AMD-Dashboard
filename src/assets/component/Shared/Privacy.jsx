@@ -36,7 +36,12 @@ const Privacy = () => {
 
     return (
          <div className="editor-wrapper ">
-            <h1 className="text-[24px] font-[500] pb-5">Privacy Policy</h1>
+            <div className="flex items-center justify-between mb-3">
+            <h1 className="text-[24px] font-[500] pb-5">Privacy Policys</h1>
+            <button className="text-[#FAF1E6] bg-[#8CAB91] font-[500]  text-[18px] px-4 py-2 rounded-md cursor-pointer">
+                Submit
+            </button>
+            </div>
             <div className="editor-container">
                 <JoditEditor
                     ref={editor}

@@ -81,9 +81,11 @@ const OrderDetails = () => {
                                         Order Date: <span className="text-[#707070]">{book.orderDate}</span>
                                     </p>
                                     <div className="mt-2 flex flex-col gap-1">
-                                        <button className="bg-[#8CAB91] text-[#FAF1E6] px-3 py-1 rounded-full text-xs hover:bg-[#7a9c82] transition">
+                                       <NavLink to="/viewPage">
+                                       <button className="bg-[#8CAB91] text-[#FAF1E6] hover:text-[#8CAB91] px-3 py-1 rounded-full w-full text-xs hover:bg-[#FAF1E6] transition">
                                             VIEW BOOK
                                         </button>
+                                       </NavLink>
                                         <button className="border border-[#8CAB91] text-[#8CAB91] font-bold px-3 py-1 rounded-full text-xs hover:bg-[#8CAB91] hover:text-white transition">
                                             PDF DOWNLOAD
                                         </button>

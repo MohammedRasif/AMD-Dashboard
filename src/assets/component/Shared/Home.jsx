@@ -165,10 +165,11 @@ const Home = () => {
             user.income.toLowerCase().includes(searchQuery.toLowerCase());
 
         // Filter by selected subscription type
-        const subscriptionMatch = selectedSubscription === '' || user.subscription === selectedSubscription;
+        const subscriptionMatch = selectedSubscription === 'All' || selectedSubscription === '' || user.subscription === selectedSubscription;
 
         return searchMatch && subscriptionMatch;
     });
+
 
     // Handle clicking on subscription type
     const handleSubscriptionSelect = (subscriptionType) => {
@@ -366,12 +367,21 @@ const Home = () => {
                         </div>
 
                         {/* Subscription Button */}
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="border border-gray-300 px-4 py-2 rounded-lg flex items-center text-gray-700"
-                        >
-                            Subscriber <span className="ml-2">▼</span>
-                        </button>
+                        <div className="border border-gray-300 py-2 px-2 rounded-md">
+                            <label className="form-control">
+
+                                <select
+                                    className=" "
+                                    value={selectedSubscription}
+                                    onChange={(e) => setSelectedSubscription(e.target.value)}
+                                >
+                                    <option value="All">All</option>
+                                    <option value="Premium">Premium</option>
+                                    <option value="Free">Free</option>
+                                </select>
+
+                            </label>
+                            </div>
 
                         {/* Calendar Icon */}
                         <div className="flex items-center border p-2 rounded-md border-gray-300">
@@ -408,33 +418,7 @@ const Home = () => {
                             </div>
                         )}
 
-                        {/* Modal for Subscription */}
-                        {isModalOpen && (
-                            <div className="fixed inset-0 flex justify-end right-72 items-center mt-64">
-                                <div ref={modalRef} className="bg-white p-6 rounded-lg shadow-lg">
-                                    <h2 className="text-xl font-semibold mb-3">Select Subscription</h2>
-                                    <h1
-                                        className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
-                                        onClick={() => handleSubscriptionSelect('')}
-                                    >
-                                        All
-                                    </h1>
-                                    <h1
-                                        className="border border-gray-400 rounded-md p-2 cursor-pointer mt-2"
-                                        onClick={() => handleSubscriptionSelect('Premium')}
-                                    >
-                                        Premium
-                                    </h1>
-                                    <h1
-                                        className="border border-gray-400 rounded-md p-2 mt-2 cursor-pointer"
-                                        onClick={() => handleSubscriptionSelect('Free')}
-                                    >
-                                        Free
-                                    </h1>
-
-                                </div>
-                            </div>
-                        )}
+                        
                     </div>
                 </div>
 

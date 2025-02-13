@@ -23,7 +23,7 @@ const AddQuestionnaire = () => {
                 <h1 className="text-[24px] font-bold  ">Ouestionnaire</h1>
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="w-[185px] h-[38px] bg-[#8CAB91] mt-2 text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl">
+                    className="w-[185px] h-[38px] bg-[#8CAB91] mt-2 text-[#FAF1E6] flex items-center justify-between px-5 rounded-xl cursor-pointer">
                     <FaPlus className="text-sm" />
                     <h1>Add New Section</h1>
                 </button>
