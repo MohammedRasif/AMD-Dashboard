@@ -123,7 +123,7 @@ const router = createBrowserRouter([
         element:<AdminProfile/>
       },
       {
-        path:"/viewPage",
+        path:"/viewPage/:id",
         element:<ViewPage/>
       },
     ],

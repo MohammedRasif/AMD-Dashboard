@@ -28,8 +28,9 @@ const Home = () => {
     const modalRef = useRef(null);
     const [selectedSubscription, setSelectedSubscription] = useState(''); // Track selected subscription
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [selectedYear, setSelectedYear] = useState("2022");
 
-    // Handle date selection
+
     const handleDateChange = (date) => {
         if (!startDate || (startDate && endDate)) {
             // If no start date is selected or both start and end dates are selected, reset
@@ -41,14 +42,7 @@ const Home = () => {
         }
     };
 
-    // // Format the selected date range
-    // const formattedDateRange = startDate && endDate
-    //     ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
-    //     : startDate
-    //     ? `${startDate.toLocaleDateString()} - (Select End Date)`
-    //     : 'Select a date range';
 
-    // Initialize state to handle both single date or date range
     const [value, onChange] = useState(new Date());
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -178,55 +172,86 @@ const Home = () => {
     };
 
     // Charts data
-    const data = [
-        { name: "Jan", uv: 4000, pv: 2400, amt: 2400 },
-        { name: "Feb", uv: 3000, pv: 1398, amt: 2210 },
-        { name: "Mar", uv: 2000, pv: 9800, amt: 2290 },
-        { name: "Apr", uv: 2780, pv: 3908, amt: 2000 },
-        { name: "May", uv: 1890, pv: 4800, amt: 2181 },
-        { name: "Jun", uv: 2390, pv: 3800, amt: 2500 },
-        { name: "Jul", uv: 3490, pv: 4300, amt: 2100 },
-        { name: "Aug", uv: 3490, pv: 4300, amt: 2100 },
-        { name: "Sep", uv: 3140, pv: 4300, amt: 2100 },
-        { name: "Oct", uv: 1648, pv: 4300, amt: 2100 },
-        { name: "Nov", uv: 2344, pv: 4300, amt: 2100 },
-        { name: "Dec", uv: 1245, pv: 4300, amt: 2100 },
-    ];
 
-    // Chart 2 data
-    const secondData = [
-        { name: "Jan", subscribers: 70 },
-        { name: "Feb", subscribers: 60 },
-        { name: "Mar", subscribers: 40 },
-        { name: "Apr", subscribers: 55 },
-        { name: "May", subscribers: 45 },
-        { name: "Jun", subscribers: 20 },
-        { name: "Jul", subscribers: 75 },
-        { name: "Aug", subscribers: 40 },
-        { name: "Sep", subscribers: 65 },
-        { name: "Oct", subscribers: 80 },
-        { name: "Nov", subscribers: 70 },
-        { name: "Dec", subscribers: 50 },
-    ];
+    const subscriberDataByYear = {
+        2022: [
+            { month: "Jan", value: 90 },
+            { month: "Feb", value: 70 },
+            { month: "Mar", value: 30 },
+            { month: "Apr", value: 60 },
+            { month: "May", value: 40 },
+            { month: "Jun", value: 20 },
+            { month: "Jul", value: 75 },
+            { month: "Aug", value: 50 },
+            { month: "Sep", value: 80 },
+            { month: "Oct", value: 85 },
+            { month: "Nov", value: 80 },
+            { month: "Dec", value: 40 }
+        ],
+        2023: [
+            { month: "Jan", value: 120 },
+            { month: "Feb", value: 110 },
+            { month: "Mar", value: 95 },
+            { month: "Apr", value: 140 },
+            { month: "May", value: 130 },
+            { month: "Jun", value: 100 },
+            { month: "Jul", value: 150 },
+            { month: "Aug", value: 140 },
+            { month: "Sep", value: 110 },
+            { month: "Oct", value: 135 },
+            { month: "Nov", value: 125 },
+            { month: "Dec", value: 145 }
+        ],
+        2024: [
+            { month: "Jan", value: 80 },
+            { month: "Feb", value: 100 },
+            { month: "Mar", value: 105 },
+            { month: "Apr", value: 90 },
+            { month: "May", value: 120 },
+            { month: "Jun", value: 130 },
+            { month: "Jul", value: 115 },
+            { month: "Aug", value: 125 },
+            { month: "Sep", value: 110 },
+            { month: "Oct", value: 105 },
+            { month: "Nov", value: 140 },
+            { month: "Dec", value: 150 }
+        ]
+    };
 
-    // Chart 3 data
-    const theadData = [
-        { name: "Jan", subscribers: 70 },
-        { name: "Feb", subscribers: 60 },
-        { name: "Mar", subscribers: 40 },
-        { name: "Apr", subscribers: 55 },
-        { name: "May", subscribers: 45 },
-        { name: "Jun", subscribers: 20 },
-        { name: "Jul", subscribers: 75 },
-        { name: "Aug", subscribers: 40 },
-        { name: "Sep", subscribers: 65 },
-        { name: "Oct", subscribers: 80 },
-        { name: "Nov", subscribers: 70 },
-        { name: "Dec", subscribers: 50 },
-    ];
+    const [selectedSubscriberYear, setSelectedSubscriberYear] = useState("2022");
+    const [selectedUserYear, setSelectedUserYear] = useState("2022");
+    const [selectedIncomeYear, setSelectedIncomeYear] = useState("2022");
 
-    const maxValue = Math.max(...theadData.map((item) => item.subscribers));
+    // Handle year change for each chart
+    const handleSubscriberYearChange = (e) => setSelectedSubscriberYear(e.target.value);
+    const handleUserYearChange = (e) => setSelectedUserYear(e.target.value);
+    const handleIncomeYearChange = (e) => setSelectedIncomeYear(e.target.value);
 
+    const subscriberMaxValue = Math.max(...subscriberDataByYear[selectedSubscriberYear].map(item => item.value));
+    const normalizedSubscriberData = subscriberDataByYear[selectedSubscriberYear].map(item => ({
+        name: item.month,
+        uv: (item.value / subscriberMaxValue) * 100,
+    }));
+
+    // Calculate normalized data for User Growth
+    const maxValue = Math.max(...subscriberDataByYear[selectedUserYear].map(item => item.value));
+    const userGrowthData = subscriberDataByYear[selectedUserYear].map(item => ({
+        name: item.month,
+        subscribers: (item.value / maxValue) * 100,
+    }));
+
+    // Calculate Income Report data
+    const incomeData = subscriberDataByYear[selectedIncomeYear].map(item => ({
+        name: item.month,
+        subscribers: item.value * 10, // Just a scaling factor for illustration
+    }));
+
+
+    const handleYearChange = (event) => {
+        const year = event.target.value; // Get selected value
+        setSelectedYear(year); // Update state
+        console.log("Selected Year:", year); // Log the selected year
+    };
     return (
         <div className="min-h-full relative">
             {/* Top Cards */}
@@ -280,20 +305,23 @@ const Home = () => {
                 <div className="bg-white p-6 mt-5 shadow-lg grid grid-cols-2 items-center">
                     <div>
                         <div className="flex items-center justify-between px-8">
-                            <div>
-                                <h2 className="text-lg font-semibold text-center mb-4">Subscriber Growth</h2>
-                            </div>
-                            <div className="w-[84px] h-[34px] bg-[#F1F1F1] flex items-center justify-center space-x-2">
-                                <button>Yearly</button>
-                                <GoChevronDown />
-                            </div>
+                            <h2 className="text-lg font-semibold text-center mb-4">Subscriber Growth</h2>
+                            <select
+                                value={selectedSubscriberYear}
+                                onChange={handleSubscriberYearChange}
+                                className="text-[#595D62] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
+                            >
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                            </select>
                         </div>
                         <ResponsiveContainer width="100%" height={300}>
-                            <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
+                            <BarChart data={normalizedSubscriberData} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
                                 <YAxis tickFormatter={(value) => `${value}%`} domain={[0, 100]} />
-                                <Tooltip />
+                                <Tooltip formatter={(value) => `${value}%`} />
                                 <Bar dataKey="uv" fill="#8CAB91" barSize={40} />
                             </BarChart>
                         </ResponsiveContainer>
@@ -303,16 +331,19 @@ const Home = () => {
                     <div>
                         <div className="bg-white p-6 rounded-lg w-full">
                             <div className="flex items-center justify-between px-8">
-                                <div>
-                                    <h2 className="text-lg font-semibold text-center mb-4">User Growth</h2>
-                                </div>
-                                <div className="w-[84px] h-[34px] bg-[#F1F1F1] flex items-center justify-center space-x-2">
-                                    <button>Yearly</button>
-                                    <GoChevronDown />
-                                </div>
+                                <h2 className="text-lg font-semibold text-center mb-4">User Growth</h2>
+                                <select
+                                    value={selectedUserYear}
+                                    onChange={handleUserYearChange}
+                                    className="text-[#595D62] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
+                                >
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                </select>
                             </div>
                             <ResponsiveContainer width="100%" height={300}>
-                                <AreaChart data={secondData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                <AreaChart data={userGrowthData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
                                     <XAxis dataKey="name" tick={{ fill: "#555" }} />
                                     <YAxis tick={{ fill: "#555" }} domain={[0, 100]} tickFormatter={(value) => `${value}%`} />
@@ -327,25 +358,26 @@ const Home = () => {
                 {/* Income Report Chart */}
                 <div className="bg-white mt-5">
                     <div className="flex items-center justify-between px-5 py-5">
-                        <div>
-                            <h1 className="text-lg font-semibold text-center mb-4">Income Report</h1>
-                        </div>
-                        <div className="w-[84px] h-[34px] bg-[#F1F1F1] flex items-center justify-center space-x-2">
-                            <button>Yearly</button>
-                            <GoChevronDown />
-                        </div>
+                        <h1 className="text-lg font-semibold text-center mb-4">Income Report</h1>
+                        <select
+                            value={selectedIncomeYear}
+                            onChange={handleIncomeYearChange}
+                            className="text-[#595D62] text-sm font-[500] pl-2 pr-6 py-1 cursor-pointer"
+                        >
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select>
                     </div>
-                    <div>
-                        <ResponsiveContainer width="100%" height={300} className="">
-                            <AreaChart data={theadData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
-                                <XAxis dataKey="name" tick={{ fill: "#555" }} />
-                                <YAxis tick={{ fill: "#555" }} domain={[0, maxValue]} tickFormatter={(value) => `${(value).toFixed(0)}k`} />
-                                <Tooltip />
-                                <Area type="monotone" dataKey="subscribers" stroke="#8CAB91" fill="#8CAB91" />
-                            </AreaChart>
-                        </ResponsiveContainer>
-                    </div>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <AreaChart data={incomeData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+                            <XAxis dataKey="name" tick={{ fill: "#555" }} />
+                            <YAxis tick={{ fill: "#555" }} domain={[0, "dataMax"]} tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`} />
+                            <Tooltip />
+                            <Area type="monotone" dataKey="subscribers" stroke="#8CAB91" fill="#8CAB91" />
+                        </AreaChart>
+                    </ResponsiveContainer>
                 </div>
             </div>
 
@@ -381,7 +413,7 @@ const Home = () => {
                                 </select>
 
                             </label>
-                            </div>
+                        </div>
 
                         {/* Calendar Icon */}
                         <div className="flex items-center border p-2 rounded-md border-gray-300">
@@ -404,21 +436,24 @@ const Home = () => {
                                         const [start, end] = dates;
                                         setStartDate(start);
                                         setEndDate(end);
+
+                                        console.log("Selected Start Date:", start);
+                                        console.log("Selected End Date:", end);
+
                                         if (end) setOpen(false); // Close when date is selected
                                     }}
                                     startDate={startDate}
                                     endDate={endDate}
                                     selectsRange
-                                    monthsShown={1} // Show 2 months
+                                    monthsShown={1}
                                     inline
                                     className="p-2"
-                                    calendarClassName="gap-4 p-4 " // 👈 THIS MAKES MONTHS SHOW IN A ROW
-
+                                    calendarClassName="gap-4 p-4"
                                 /></div>
                             </div>
                         )}
 
-                        
+
                     </div>
                 </div>
 

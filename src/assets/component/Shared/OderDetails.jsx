@@ -12,16 +12,18 @@ const OrderDetails = () => {
         address: "68/ Joker Vila, Gotham City",
         collection: [
             {
+                id: "1",
                 title: "My Life",
                 orderDate: "05/12/2024",
                 image:
-                    "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529180/cld-sample-2.jpg",
+                    "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1739423923/istockphoto-1401314099-612x612_d1j4xi.jpg",
             },
             {
+                id: "2",
                 title: "My Life",
                 orderDate: "05/12/2024",
                 image:
-                    "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1737529176/samples/balloons.jpg",
+                    "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1739423923/images_oupakv.jpg",
             },
         ],
     };
@@ -74,18 +76,19 @@ const OrderDetails = () => {
                             Dindiya’s Book Collection
                         </label>
                         <div className="grid grid-cols-2 gap-4 mt-3">
-                            {user.collection.map((book, index) => (
-                                <div key={index} className="p-2 h-[164.89px] text-center">
+                            {user.collection.map((book) => (
+                                <div key={book.id} className="p-2 h-[164.89px] text-center">
                                     <img src={book.image} alt={book.title} className="w-full h-full rounded-md object-cover" />
                                     <p className="text-xs font-semibold text-[#364636] text-left mt-2">
                                         Order Date: <span className="text-[#707070]">{book.orderDate}</span>
                                     </p>
                                     <div className="mt-2 flex flex-col gap-1">
-                                       <NavLink to="/viewPage">
-                                       <button className="bg-[#8CAB91] text-[#FAF1E6] hover:text-[#8CAB91] px-3 py-1 rounded-full w-full text-xs hover:bg-[#FAF1E6] transition">
-                                            VIEW BOOK
-                                        </button>
-                                       </NavLink>
+                                        {/* Pass ID as a URL Parameter */}
+                                        <NavLink to={`/viewPage/${book.id}`}>
+                                            <button className="bg-[#8CAB91] text-[#FAF1E6] hover:text-[#8CAB91] px-3 py-1 rounded-full w-full text-xs hover:bg-[#FAF1E6] transition">
+                                                VIEW BOOK
+                                            </button>
+                                        </NavLink>
                                         <button className="border border-[#8CAB91] text-[#8CAB91] font-bold px-3 py-1 rounded-full text-xs hover:bg-[#8CAB91] hover:text-white transition">
                                             PDF DOWNLOAD
                                         </button>
