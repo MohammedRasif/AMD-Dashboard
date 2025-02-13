@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CiSettings } from "react-icons/ci";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
+import { HiLogout } from "react-icons/hi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { LiaAddressCardSolid } from "react-icons/lia";
 import { LuUserPlus } from "react-icons/lu";
@@ -17,7 +18,7 @@ const Sidebar = () => {
     const isActiveo = location.pathname.startsWith("/addquestionnaire") || location.pathname.startsWith("/question");
     const isActiveb = location.pathname.startsWith("/odermanagement") || location.pathname.startsWith("/oderDetails") || location.pathname.startsWith("/viewPage");
     const isActivec = location.pathname.startsWith("/subscription") || location.pathname.startsWith("/createSubcription") || location.pathname.startsWith("/editSubcription");
-    const isActived = location.pathname.startsWith("/coupon-code") || location.pathname.startsWith("/AddCoupon") || location.pathname.startsWith("/editCupon") ;
+    const isActived = location.pathname.startsWith("/coupon-code") || location.pathname.startsWith("/AddCoupon") || location.pathname.startsWith("/editCupon");
     const isActivee = location.pathname.startsWith("/termsCondition") || location.pathname.startsWith("/porivacyPolicy");
     const isManageSubscriptionActive =
         location.pathname.startsWith('/subscription') ||
@@ -32,10 +33,10 @@ const Sidebar = () => {
     return (
         <div className="">
             <NavLink to="/">
-            <div className="flex fixed items-center justify-center w-[249.99px] h-[73px] pt-[12px]">
-                <img src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738995829/Group_1000004237_awy135.png" className="w-[53.99px] h-[53.99px] pt-[4.86]" alt="" />
-                <h1 className="font-[500] text-[14px] text-[#8CAB91]">una historia para siempre</h1>
-            </div>
+                <div className="flex fixed items-center justify-center w-[249.99px] h-[73px] pt-[12px]">
+                    <img src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738995829/Group_1000004237_awy135.png" className="w-[53.99px] h-[53.99px] pt-[4.86]" alt="" />
+                    <h1 className="font-[500] text-[14px] text-[#8CAB91]">una historia para siempre</h1>
+                </div>
             </NavLink>
 
             <div className="text-[#364636] pt-24 fixed ">
@@ -177,6 +178,10 @@ const Sidebar = () => {
                     >
                         Privacy policy
                     </NavLink>
+                </div>
+                <div className="ml-[65px] w-[250px] pt-80 cursor-pointer flex items-center space-x-2 font-[600] text-[16px] overflow-hidden transition-all  duration-300">
+                    <HiLogout className="text-xl" />
+                    <h1>Logout</h1>
                 </div>
             </div>
         </div>
