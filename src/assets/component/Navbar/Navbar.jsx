@@ -7,8 +7,8 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
 
     return (
-        <div className="pr-10">
-            <div className="flex items-center justify-end pt-6 space-x-2">
+        <div className="pr-10 pb-2 ">
+            <div className="flex items-center w-full justify-end pt-6 space-x-2 ">
                 {/* Notification Icon */}
                 <NavLink to="/notification">
                     <div className=" relative w-[39.33px] h-[40px] rounded-full bg-[#F2F2F2] flex items-center justify-center">

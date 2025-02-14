@@ -23,18 +23,21 @@ const AdminProfile = () => {
             <h1 className="text-[24px] font-[500] pb-2">Admin Profile(Super Admin)</h1>
             <div className="flex items-center justify-center pb-10">
                 <div className="w-[715px] h-[815px]">
-                    <div className="w-[715px] h-[184px] shadow-2xl bg-[#8CAB91] flex items-center justify-center space-x-3">
-                        <div>
+                    <div className="w-[715px] h-[184px] shadow-2xl bg-[#8CAB91] flex items-center justify-center space-x-3 relative">
+                        {/* Profile Image */}
+                        <div className="relative">
                             <img
                                 src="https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738148405/fotor-2025010923230_1_u9l6vi.png"
-                                className="w-[122px] relative h-[122px] rounded-full "
-                                alt=""
+                                className="w-[122px] h-[122px] rounded-full"
+                                alt="Profile"
                             />
+                            {/* Fixed Camera Button */}
+                            <button className="bg-[#FAF1E6] p-2 rounded-full absolute bottom-0 right-0 cursor-pointer ">
+                                <IoCameraReverseOutline size={20} />
+                            </button>
                         </div>
-                        <button className="bg-[#FAF1E6] p-1 rounded-full mt-16 -ml-16 absolute">
-                            <IoCameraReverseOutline />
 
-                        </button>
+                        {/* Profile Info */}
                         <div className="text-[20px] text-[#FAF1E6]">
                             <h1>Mohammed Rasif</h1>
                             <h1>Admin</h1>

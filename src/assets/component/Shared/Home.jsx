@@ -253,11 +253,11 @@ const Home = () => {
         console.log("Selected Year:", year); // Log the selected year
     };
     return (
-        <div className="min-h-full relative">
+        <div className="min-h-full relative mt-3">
             {/* Top Cards */}
             <div className="grid grid-cols-3 gap-10 px-7 py-5 bg-white">
                 {/* Card 1 */}
-                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5">
+                <div className="w-[1,206px] h-[130px] border border-gray-100 rounded-md  flex items-center justify-center space-x-16 shadow-2xl pl-5">
                     <div>
                         <HiOutlineUserGroup className="text-[36px]" />
                     </div>
@@ -268,7 +268,7 @@ const Home = () => {
                 </div>
 
                 {/* Card 2 */}
-                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5">
+                <div className="w-[1,206px] h-[130px] border border-gray-100 rounded-md  flex items-center justify-center space-x-16 shadow-2xl pl-5">
                     <div>
                         <FiUsers className="text-[36px]" />
                     </div>
@@ -283,7 +283,7 @@ const Home = () => {
                 </div>
 
                 {/* Card 3 */}
-                <div className="w-[1,206px] h-[130px] flex items-center justify-center space-x-16 shadow-2xl pl-5">
+                <div className="w-[1,206px] h-[130px] border border-gray-100 rounded-md  flex items-center justify-center space-x-16 shadow-2xl pl-5">
                     <div>
                         <FaSackDollar className="text-[36px]" />
                     </div>

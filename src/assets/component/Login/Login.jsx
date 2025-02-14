@@ -1,6 +1,16 @@
 
+
 const Login = () => {
-    return (
+    // const dispatch = useDispatch();
+    // const handleLogin = () => {
+    //     dispatch(setUser({
+    //         user: {
+    //             name: "Shaishab"
+    //         },
+    //         token: "dlkajflkajsl;kfjlk;"
+    //     }))
+    // }
+     return (
 
         <div className="flex items-center pl-80 pt-36 space-x-10 ">
             <div className="w-[573px] h-[810px] pt-20">
@@ -42,7 +52,7 @@ const Login = () => {
                         Forgot password?
                     </a>
                 </div>
-                <button className="mt-10 bg-[#8CAB91] w-full px-7 rounded-full h-12 text-[16px] text-[#FAF1E6] cursor-pointer"> SIGN IN</button>
+                <button onClick={handleLogin} className="mt-10 bg-[#8CAB91] w-full px-7 rounded-full h-12 text-[16px] text-[#FAF1E6] cursor-pointer"> SIGN IN</button>
             </div>
         </div>
 
