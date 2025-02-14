@@ -32,6 +32,7 @@ import ViewPage from './assets/component/Shared/ViewPage.jsx';
 import EditCupon from './assets/component/Shared/EditCupon.jsx';
 import { Provider } from 'react-redux';
 import store from './redux/store.js';
+import PrivateRoute from './assets/Root/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,79 +41,79 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <PrivateRoute><Home /></PrivateRoute>,
       },
       {
         path: "/odermanagement",
-        element: <OderManagement />,
+        element: <PrivateRoute><OderManagement /></PrivateRoute>,
       },
       {
         path: "/addquestionnaire",
-        element: <AddQuestionnaire />,
+        element: <PrivateRoute><AddQuestionnaire /></PrivateRoute>,
       },
       {
         path: "/makeadmin",
-        element: <MakeAdmin />,
+        element: <PrivateRoute><MakeAdmin /></PrivateRoute>,
       },
       {
         path: "/managesubscription",
-        element: <ManaageSubscription />,
+        element: <PrivateRoute><ManaageSubscription /></PrivateRoute>,
       },
       {
         path: "/setting",
-        element: <Settings />,
+        element: <PrivateRoute><Settings /></PrivateRoute>,
       },
       {
         path: "/oderDetails",
-        element: <OderDetails />
+        element: <PrivateRoute><OderDetails /></PrivateRoute>
       },
       {
         path: "/notification",
-        element: <Notification />
+        element: <PrivateRoute><Notification /></PrivateRoute>
       },
       {
         path: "/question",
-        element: <Question />
+        element: <PrivateRoute><Question /></PrivateRoute>
       },
       {
         path: "/subscription",
-        element: <Subscription />
+        element: <PrivateRoute><Subscription /></PrivateRoute>
       },
       {
         path: "/createSubcription",
-        element: <CreateSubscription />
+        element: <PrivateRoute><CreateSubscription /></PrivateRoute>
       },
       {
         path: "/editSubcription",
-        element: <EditSubscription />
+        element: <PrivateRoute><EditSubscription /></PrivateRoute>
       },
       {
         path: "/coupon-code",
-        element: <CuponCode />
+        element: <PrivateRoute><CuponCode /></PrivateRoute>
       },
       {
         path: "/AddCoupon",
-        element: <AddCupon />
+        element: <PrivateRoute><AddCupon /></PrivateRoute>
       },
       {
         path: "/editCupon",
-        element: <EditCupon />
+        element: <PrivateRoute><EditCupon /></PrivateRoute>
       },
       {
         path: "/termsCondition",
-        element: <TermCondition />
+        element: <PrivateRoute><TermCondition /></PrivateRoute>
       },
       {
         path: "/porivacyPolicy",
-        element: <Privacy />
+        element: <PrivateRoute><Privacy /></PrivateRoute>
       },
       {
         path: "/adminProfile",
-        element: <AdminProfile />
+        element: <PrivateRoute><AdminProfile /></PrivateRoute>
       },
       {
         path: "/viewPage/:id",
-        element: <ViewPage />
+        element: <PrivateRoute><ViewPage /></PrivateRoute>
       },
     ],
   },
@@ -126,7 +127,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/verification",
-    element: <Verification />
+    element: <PrivateRoute><Verification /></PrivateRoute>
   },
   {
     path: "/setNewPassoword",

@@ -425,9 +425,9 @@ const Home = () => {
                         </div>
 
                         {isCalendarOpen && (
-                            <div ref={calendarRef} className="absolute bottom-0 right-14">
+                            <div ref={calendarRef} className="absolute bottom-0 right-96">
 
-                                <div className="calender"> <DatePicker
+                                <div className="calender "> <DatePicker
                                     showIcon
                                     selected={startDate}
                                     onChange={(dates) => {
@@ -446,7 +446,7 @@ const Home = () => {
                                     monthsShown={1}
                                     inline
                                     className="p-2"
-                                    calendarClassName="gap-4 p-4"
+                                    calendarClassName=" gap-4 p-4"
                                 /></div>
                             </div>
                         )}

@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 const Verification = () => {
     const [otp, setOtp] = useState(["", "", "", ""]); // State for OTP input values
@@ -44,6 +45,9 @@ const Verification = () => {
         }
     };
 
+
+  
+
     return (
 
         <div className="flex items-center pl-80 pt-36 space-x-10">
@@ -85,9 +89,9 @@ const Verification = () => {
                 {/* Resend Option */}
                 <p className="text-center text-sm mt-5">
                     You have not received the email?{" "}
-                    <a href="/resend" className="text-blue-400 hover:underline cursor-pointer">
+                    <NavLink to="/forgetPassword" className="text-blue-400 hover:underline cursor-pointer">
                         Resend
-                    </a>
+                    </NavLink>
                 </p>
             </div>
         </div>

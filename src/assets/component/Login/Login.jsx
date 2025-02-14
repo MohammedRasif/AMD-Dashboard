@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";  // Import Axios
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,14 @@ const Login = () => {
     const [loading, setLoading] = useState(false); // Loading state to show button text change
     const navigate = useNavigate();
 
+
+    // useEffect(() => {
+    //     const token = localStorage.getItem("accessToken");
+    //     if (token) {
+    //         navigate("/");
+    //     }
+    // }, [navigate]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -20,14 +28,21 @@ const Login = () => {
                 email,
                 password,
             });
+
             console.log("Login successful:", response.data);
-            // Store token in localStorage
-            if (response.data.accessToken) {
-                localStorage.setItem("accessToken", response.data.accessToken);
+
+            // ✅ Access & Refresh Token 
+            console.log("Access Token:", response.data.access);
+            console.log("Refresh Token:", response.data.refresh);
+            "accessToken"
+            if (response.data.access && response.data.refresh) {
+                localStorage.setItem("accessToken", response.data.access);
+                localStorage.setItem("refreshToken", response.data.refresh);
             } else {
-                console.error("No access token received!");
+                console.error("No access or refresh token received!");
             }
-            // Navigate to verification page
+
+            // ✅ Verification 
             navigate("/Verification");
 
         } catch (error) {

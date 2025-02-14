@@ -20,7 +20,7 @@ const Notification = () => {
     };
 
     return (
-        <div>
+        <div className="mt-3">
             <div className="flex justify-end text-[#FAF1E6]">
                 <div className="flex items-center w-[110px] pl-2 py-2 border-2 rounded-md mb-3 space-x-2 border-[#8CAB91] text-[#8CAB91]">
                     <FaPlus />
@@ -28,11 +28,11 @@ const Notification = () => {
                 </div>
             </div>
 
-            <div className=" mt-6">
+            <div className=" mt-4 ">
                 {categories.map((category, index) => (
                     <div
                         key={index}
-                        className={`flex h-[65px] justify-between items-center p-4 mb-5 ${
+                        className={`flex h-[65px] justify-between items-center p-4 mb-5 shadow-md ${
                             activeNotification === index ? "bg-[#FAF1E6]" : "bg-white"
                         }`} // Apply bg color based on active state
                         onClick={() => handleNotificationClick(index)} // Handle click event
