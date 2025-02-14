@@ -1,7 +1,4 @@
-import { useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { MdOutlineCancel } from "react-icons/md";
-import { motion, AnimatePresence } from "framer-motion";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {

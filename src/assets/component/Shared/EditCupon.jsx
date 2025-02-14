@@ -4,7 +4,7 @@ const EditCupon = () => {
      const [price, setPrice] = useState(30);
         const [amount, setAmount] = useState(30);
     return (
-         <div className="flex items-center justify-center">
+         <div className="flex items-center justify-center mt-3">
                     <div className="w-[651px] h-[823px] bg-white p-2 shadow-lg">
                         {/* Header Section */}
                         <div className="w-full h-[178px] bg-[#FAF1E6] flex  items-center justify-center space-x-5 ">

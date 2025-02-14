@@ -56,7 +56,7 @@ const CuponCode = () => {
 
     ];
     return (
-        <div>
+        <div className="mt-3"> 
             <NavLink to="/AddCoupon" className="flex justify-end text-[#FAF1E6]">
                 <div className="flex  items-center  w-[80px] pl-2 py-2 rounded-md mb-3 space-x-2 bg-[#8CAB91] ">
                     <FaPlus />
@@ -102,7 +102,7 @@ const CuponCode = () => {
                                         <RiDeleteBin6Line className="ml-10 text-red-500 cursor-pointer" />
                                     </button>
                                     {isOpenDelete && (
-                                        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                                        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
                                             <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
                                                 {/* Close (Cancel) Icon */}
                                                 <button

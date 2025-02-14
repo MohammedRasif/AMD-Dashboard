@@ -1,5 +1,5 @@
 import JoditEditor from "jodit-react";
-import React, { useMemo, useRef, useState } from "react";
+import  { useMemo, useRef, useState } from "react";
 import "./Term.css"; // Import custom styles
 
 const TermCondition = () => {

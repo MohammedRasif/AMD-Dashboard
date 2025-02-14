@@ -61,7 +61,7 @@ const MakeAdmin = () => {
                     <h1>Make Admin</h1>
                 </button>
                 {isOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
                         {/* Modal Content */}
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                             {/* Close Button */}
@@ -164,7 +164,7 @@ const MakeAdmin = () => {
 
                                         {/* Modal Popup */}
                                         {isOpenDelete && (
-                                            <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                                            <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
                                                 <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
                                                     {/* Close (Cancel) Icon */}
                                                     <button

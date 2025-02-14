@@ -25,7 +25,7 @@ const Question = () => {
     return (
         <div>
             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-4 mb-4 mt-2">
                     <NavLink to="/addquestionnaire">
                         <div className="text-white bg-[#8CAB91]  px-4 py-2 hover:bg-[#7a9c82] transition">
                             <MdArrowBack className="text-xl" />
@@ -40,7 +40,7 @@ const Question = () => {
                     <h1>Add New Section</h1>
                 </button>
                 {isOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
                         {/* Modal Content */}
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                             {/* Close Button */}
@@ -105,7 +105,7 @@ const Question = () => {
                                 <MdDeleteOutline className="cursor-pointer hover:text-red-500 transition" />
                             </button>
                             {isOpenDelete && (
-                                <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                                <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
                                     <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
                                         {/* Close (Cancel) Icon */}
                                         <button
@@ -141,7 +141,7 @@ const Question = () => {
                                 <FaRegEdit className="cursor-pointer hover:text-blue-500 transition " />
                             </button>
                             {editModalOpen && (
-                                <div className="fixed  inset-0 flex items-center justify-center   bg-opacity-30 backdrop-blur-sm">
+                                <div className="fixed  inset-0 flex items-center justify-center   bg-opacity-30 backdrop-blur-sm z-50">
                                     {/* Modal Content */}
                                     <div className="bg-white p-5 rounded-lg shadow-lg w-[400px] relative">
                                         {/* Close Button */}

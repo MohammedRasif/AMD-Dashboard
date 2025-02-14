@@ -37,7 +37,7 @@ const ViewPage = () => {
 
     return (
         <div>
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4 mb-4 mt-2">
                 <NavLink to="/oderDetails">
                     <div className="text-white bg-[#8CAB91] px-4 py-2 hover:bg-[#7a9c82] transition">
                         <MdArrowBack className="text-xl" />

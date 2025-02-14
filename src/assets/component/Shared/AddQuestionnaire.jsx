@@ -98,52 +98,52 @@ const AddQuestionnaire = () => {
                             {/* Right Section: Icons */}
                             <div className="flex items-center gap-3 text-green-700 text-[24px]">
                                 <NavLink to="/question">
-                                <IoEyeOutline className="cursor-pointer hover:text-green-500 transition" />
+                                    <IoEyeOutline className="cursor-pointer hover:text-green-500 transition" />
                                 </NavLink>
                                 <button
-                                onClick={() => setIsOpenDelete(true)}
+                                    onClick={() => setIsOpenDelete(true)}
                                 >
                                     <MdDeleteOutline className="cursor-pointer hover:text-red-500 transition" />
                                 </button>
                                 {/* Modal Popup */}
                                 {isOpenDelete && (
-                                            <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
-                                                <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
-                                                    {/* Close (Cancel) Icon */}
-                                                    <button
-                                                        className="absolute top-2 right-2   bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
-                                                        onClick={() => setIsOpenDelete(false)}
-                                                    >
-                                                        <FaTimes size={18} />
-                                                    </button>
+                                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50" >
+                                        <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
+                                            {/* Close (Cancel) Icon */}
+                                            <button
+                                                className="absolute top-2 right-2   bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
+                                                onClick={() => setIsOpenDelete(false)}
+                                            >
+                                                <FaTimes size={18} />
+                                            </button>
 
-                                                    {/* Modal Heading */}
-                                                    <h2 className="text-[14px] font-[500] text-center">Are you sure?</h2>
-                                                    <p className="text-[16px] text-[#997D00] text-center my-5">
-                                                        Do you want to delete this content?
-                                                    </p>
+                                            {/* Modal Heading */}
+                                            <h2 className="text-[14px] font-[500] text-center">Are you sure?</h2>
+                                            <p className="text-[16px] text-[#997D00] text-center my-5">
+                                                Do you want to delete this content?
+                                            </p>
 
-                                                    {/* Buttons */}
-                                                    <div className="flex text-[16px] font-[500] justify-center space-x-4 mt-4">
-                                                        <button
-                                                            className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
-                                                            onClick={handleDelete}
-                                                        // onClick={handleClickDelete}
-                                                        >
-                                                            Delete
-                                                        </button>
+                                            {/* Buttons */}
+                                            <div className="flex text-[16px] font-[500] justify-center space-x-4 mt-4">
+                                                <button
+                                                    className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
+                                                    onClick={handleDelete}
+                                                // onClick={handleClickDelete}
+                                                >
+                                                    Delete
+                                                </button>
 
-                                                    </div>
-                                                </div>
                                             </div>
-                                        )}
+                                        </div>
+                                    </div>
+                                )}
                                 <button
                                     onClick={() => setEditModalOpen(true)}
                                 >
                                     <FaRegEdit className="cursor-pointer hover:text-blue-500 transition" />
                                 </button>
                                 {editModalOpen && (
-                                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
+                                    <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
                                         {/* Modal Content */}
                                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                                             {/* Close Button */}
