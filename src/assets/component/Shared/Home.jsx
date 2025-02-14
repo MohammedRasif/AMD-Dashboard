@@ -7,7 +7,7 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { IoEyeOutline } from "react-icons/io5";
 import { PiCurrencyDollarSimple } from "react-icons/pi";
 import { FaSearch } from "react-icons/fa";
-import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend, CartesianGrid, AreaChart, Area } from "recharts";
+import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, AreaChart, Area } from "recharts";
 import "react-calendar/dist/Calendar.css";
 import "./Charts.css";
 import "./Celander.css";
@@ -425,7 +425,7 @@ const Home = () => {
                         </div>
 
                         {isCalendarOpen && (
-                            <div ref={calendarRef} className="absolute bottom-0 right-96">
+                            <div ref={calendarRef} className="absolute bottom-0 right-14">
 
                                 <div className="calender "> <DatePicker
                                     showIcon
