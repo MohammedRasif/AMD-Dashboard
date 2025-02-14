@@ -12,12 +12,12 @@ const Login = () => {
     const navigate = useNavigate();
 
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem("accessToken");
-    //     if (token) {
-    //         navigate("/");
-    //     }
-    // }, [navigate]);
+    useEffect(() => {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+            navigate("/");
+        }
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
