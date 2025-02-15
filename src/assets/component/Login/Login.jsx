@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";  // Import Axios
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../../redux/feature/authApi";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -10,8 +11,9 @@ const Login = () => {
     const [remember, setRemember] = useState(false); // Remember state
     const [loading, setLoading] = useState(false); // Loading state to show button text change
     const navigate = useNavigate();
+    const [login] = useLoginMutation();
 
-
+    // ✅ If token exists, redirect user
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
         if (token) {
@@ -21,36 +23,30 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-
         try {
-            const response = await axios.post("http://192.168.10.153:8081/api/user/login/email/", {
-                email,
-                password,
-            });
-
-            console.log("Login successful:", response.data);
-
-            // ✅ Access & Refresh Token 
-            console.log("Access Token:", response.data.access);
-            console.log("Refresh Token:", response.data.refresh);
-            "accessToken"
-            if (response.data.access && response.data.refresh) {
-                localStorage.setItem("accessToken", response.data.access);
-                localStorage.setItem("refreshToken", response.data.refresh);
-            } else {
-                console.error("No access or refresh token received!");
+            const response = await login({ email, password }).unwrap();
+            
+            console.log("Login Response:", response); // ✅ Debugging
+    
+            if (response.access && response.refresh) {
+                localStorage.setItem("accessToken", response.access);
+                localStorage.setItem("refreshToken", response.refresh);
             }
-
-            // ✅ Verification 
-            navigate("/Verification");
-
-        } catch (error) {
-            console.error("Login error:", error.response?.data || error.message);
-        } finally {
-            setLoading(false);
+    
+            // ✅ Ensure user_profile exists before checking is_verified
+            if (response?.user_profile?.is_verified === false) {
+                console.log("User not verified, navigating to verification page...");
+                
+            } else {
+                console.log("User verified, navigating to home page...");
+                navigate("/verification");
+            }
+    
+        } catch (err) {
+            console.error("Login failed:", err?.data?.message || "Something went wrong");
         }
     };
+    
     return (
         <div className="flex items-center pl-80 pt-36 space-x-10">
             <div className="w-[573px] h-[810px] pt-20">
