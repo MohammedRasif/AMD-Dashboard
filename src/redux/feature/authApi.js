@@ -13,10 +13,24 @@ export const authApi = createApi({
                 body: data, // ✅ Sending email & password
             }),
         }),
-        
+        sendForgetPassword: builder.mutation({
+            query: (email) => ({
+                url: "/user/forget-password/otp/send/",
+                method: "POST",
+                body: email
+            })
+        }),
+        verifiyForgetPasswordOtp: builder.mutation({
+            query:({email ,otp })=>({
+                url:"/user/forget-password/otp/verify/",
+                method:"POST",
+                body:{email,otp}
+            })
+        })
+
     }),
 });
 
 // ✅ Export hooks for usage in components
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation , useSendForgetPasswordMutation,useVerifiyForgetPasswordOtpMutation } = authApi;
 export default authApi;

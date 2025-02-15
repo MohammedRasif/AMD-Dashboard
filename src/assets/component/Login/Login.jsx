@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";  // Import Axios
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../redux/feature/authApi";
 
 const Login = () => {
@@ -39,7 +39,7 @@ const Login = () => {
                 
             } else {
                 console.log("User verified, navigating to home page...");
-                navigate("/verification");
+                navigate("/");
             }
     
         } catch (err) {
@@ -102,9 +102,9 @@ const Login = () => {
                                 Remember me
                             </label>
                         </div>
-                        <a href="#" className="text-sm text-red-600 hover:text-red-700">
+                        <NavLink to="/forgetPassword" className="text-sm text-red-600 hover:text-red-700">
                             Forgot password?
-                        </a>
+                        </NavLink>
                     </div>
                     <button
                         type="submit"

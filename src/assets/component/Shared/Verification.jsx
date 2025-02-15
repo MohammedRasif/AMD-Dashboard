@@ -1,9 +1,25 @@
 import { useState, useRef, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useVerifiyForgetPasswordOtpMutation } from "../../../redux/feature/authApi";
 
 const Verification = () => {
     const [otp, setOtp] = useState(["", "", "", ""]); // State for OTP input values
     const inputs = useRef([]); // Ref array for input fields
+    const [email, setEmail] = useState(""); // Store the email retrieved from localStorage
+    const [verifyOtp] = useVerifiyForgetPasswordOtpMutation(); // Mutation for verifying OTP
+    const navigate = useNavigate(); // For navigation after successful verification
+
+    useEffect(() => {
+        const storedEmail = localStorage.getItem("email");
+        if (storedEmail) {
+            setEmail(storedEmail); // Set the email from localStorage
+        }
+
+        const storedOtp = localStorage.getItem("otp");
+        if (storedOtp) {
+            setOtp(storedOtp.split("")); // Populate OTP from localStorage (if present)
+        }
+    }, []);
 
     // Handle input change
     const handleInputChange = (e, index) => {
@@ -13,6 +29,9 @@ const Verification = () => {
         const newOtp = [...otp];
         newOtp[index] = value;
         setOtp(newOtp);
+
+        // Save OTP to localStorage whenever the user enters a value
+        localStorage.setItem("otp", newOtp.join(""));
 
         // Move to next input field if filled
         if (value && index < 3) {
@@ -38,6 +57,9 @@ const Verification = () => {
         });
         setOtp(newOtp);
 
+        // Save OTP to localStorage whenever the user pastes a value
+        localStorage.setItem("otp", newOtp.join(""));
+
         // Move focus to the last filled input
         const lastFilledIndex = pasteData.length - 1;
         if (lastFilledIndex < 3) {
@@ -45,11 +67,20 @@ const Verification = () => {
         }
     };
 
-
-  
+    const handleVerify = async () => {
+        const otpValue = otp.join(""); // Combine OTP values into a single string
+        try {
+            // Send email and OTP to the API for verification
+            const response = await verifyOtp({ email, otp: otpValue }).unwrap();
+            console.log("OTP verified successfully:", response);
+            navigate("/setNewPassoword"); // Navigate on success (you can change the target route)
+        } catch (err) {
+            console.error("Error verifying OTP:", err?.data?.message || "Something went wrong");
+            alert("Failed to verify OTP. Please try again.");
+        }
+    };
 
     return (
-
         <div className="flex items-center pl-80 pt-36 space-x-10">
             <div className="w-[573px] h-[810px] pt-20">
                 <img
@@ -59,8 +90,10 @@ const Verification = () => {
                 />
             </div>
             <div className="w-[573px] h-[810px] pt-36">
-                <p className="text-[14px] font-[500] text-center pt-10 text-[#364636] ">Congratulations! <br />
-                    Pleas enter your 4 digit code </p>
+                <p className="text-[14px] font-[500] text-center pt-10 text-[#364636]">
+                    Congratulations! <br />
+                    Please enter your 4-digit code.
+                </p>
 
                 {/* OTP Inputs */}
                 <div className="flex justify-center mt-10 space-x-4">
@@ -81,7 +114,8 @@ const Verification = () => {
 
                 {/* Verify Button */}
                 <button
-                    className="w-full mt-8 h-[48px] rounded-full bg-[#8CAB91] text-[#FAF1E6] font-medium text-base leading-[24px] hover:opacity-90 cursor-pointer  focus:outline-none focus:ring-2 focus:ring-blue-400 "
+                    onClick={handleVerify}
+                    className="w-full mt-8 h-[48px] rounded-full bg-[#8CAB91] text-[#FAF1E6] font-medium text-base leading-[24px] hover:opacity-90 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
                     VERIFY
                 </button>
@@ -95,7 +129,6 @@ const Verification = () => {
                 </p>
             </div>
         </div>
-
     );
 };
 

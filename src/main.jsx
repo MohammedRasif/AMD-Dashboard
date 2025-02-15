@@ -127,7 +127,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/verification",
-    element: <PrivateRoute><Verification /></PrivateRoute>
+    element: <Verification />
   },
   {
     path: "/setNewPassoword",
