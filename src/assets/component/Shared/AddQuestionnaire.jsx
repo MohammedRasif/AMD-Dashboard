@@ -3,25 +3,51 @@ import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
+import { useCreateQuestionMutation, useGetQuestionQuery } from "../../../redux/feature/ApiSlice";
 
 
 const AddQuestionnaire = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [isOpenDelete, setIsOpenDelete] = useState(false);
+    const [createQuestion] = useCreateQuestionMutation()
+    const { data, isLoading, isError } = useGetQuestionQuery()
+    const [sectionName, setSectionName] = useState('');
+    const [questionCount, setQuestionCount] = useState(0);
+
+
+
+    const handlePublish = () => {
+        if (!sectionName || !questionCount) {
+            alert("Please enter both section name and number of questions.");
+            return;
+        }
+
+        const questionData = {
+            name: sectionName,
+            question_count: parseInt(questionCount), // Ensure question_count is an integer
+        };
+
+        const response = createQuestion(questionData).unwrap();
+        console.log("Section created successfully:", response);
+        setIsOpen(false);
+
+
+    };
+
+
+    console.log("data", data);
+    console.log("isError", isError);
+    console.log("isLoading", isLoading);
+
+
     const handleDelete = () => {
 
         setIsOpenDelete(false);
     };
 
 
-    const categories = [
-        { name: "Childhood", questionsAdded: 5, totalQuestions: 10 },
-        { name: "Family", questionsAdded: 5, totalQuestions: 10 },
-        { name: "Love", questionsAdded: 5, totalQuestions: 10 },
-        { name: "Friends", questionsAdded: 5, totalQuestions: 10 },
-        { name: "Others", questionsAdded: 5, totalQuestions: 10 },
-    ];
+   
 
     return (
         <div>
@@ -34,10 +60,8 @@ const AddQuestionnaire = () => {
                     <h1>Add New Section</h1>
                 </button>
                 {isOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
-                        {/* Modal Content */}
+                    <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
-                            {/* Close Button */}
                             <button
                                 className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
                                 onClick={() => setIsOpen(false)}
@@ -45,32 +69,33 @@ const AddQuestionnaire = () => {
                                 <FaTimes size={18} />
                             </button>
 
-                            {/* Modal Heading */}
                             <h2 className="text-lg font-semibold mb-4">ADD New Section</h2>
 
-                            {/* Input Fields */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Section Name</label>
                                 <input
                                     type="text"
                                     placeholder="Type here"
                                     className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                    value={sectionName}
+                                    onChange={(e) => setSectionName(e.target.value)}
                                 />
                             </div>
 
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Number of question</label>
+                                <label className="block text-sm font-medium text-gray-700">Number of questions</label>
                                 <input
                                     type="number"
                                     placeholder="Type here"
                                     className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                    value={questionCount}
+                                    onChange={(e) => setQuestionCount(parseInt(e.target.value, 10))}
                                 />
                             </div>
 
-                            {/* Publish Button */}
                             <button
                                 className="px-3 py-2 bg-[#8CAB91] text-white rounded-md hover:bg-[#7A9B80] transition"
-                                onClick={() => setIsOpen(false)}
+                                onClick={handlePublish}
                             >
                                 Publish
                             </button>
@@ -80,7 +105,7 @@ const AddQuestionnaire = () => {
             </div>
             <div>
                 <div className="bg-white p-10   mt-6">
-                    {categories.map((category, index) => (
+                    {data.map((category, index) => (
                         <div
                             key={index}
                             className="flex h-[103px] justify-between items-center p-4 border border-green-300 rounded-lg bg-[#FAFAF5] mb-5"
@@ -91,7 +116,7 @@ const AddQuestionnaire = () => {
                                     {category.name}
                                 </h3>
                                 <p className="text-sm text-gray-500">
-                                    {category.questionsAdded}/{category.totalQuestions} Questions Added
+                                    {category.question_count} 
                                 </p>
                             </div>
 

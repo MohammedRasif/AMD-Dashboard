@@ -23,11 +23,8 @@ const Sidebar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        
+    const handleLogout = () => {   
         dispatch(logout());
-
-        // ✅ Login page-এ রিডাইরেক্ট
         navigate("/login");
     };
 
@@ -166,7 +163,7 @@ const Sidebar = () => {
                 <div className={`${isSettingActive ? 'bg-[#8CAB91] rounded-r-2xl w-[6px] ' : ''}`}>
                     <div className="pl-[30px]">
                         <button
-                            className="flex items-center justify-between w-[280px]"
+                            className="flex items-center justify-between w-[280px] -mt-2"
                             onClick={() => setIsSetting(!isSetting)}
                         >
                             <div
