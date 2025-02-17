@@ -3,6 +3,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";  // Import Axios
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../redux/feature/authApi";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../redux/authSlice"; // Import Redux action
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -12,6 +14,9 @@ const Login = () => {
     const [loading, setLoading] = useState(false); // Loading state to show button text change
     const navigate = useNavigate();
     const [login] = useLoginMutation();
+    const dispatch = useDispatch(); // Initialize Redux dispatch
+
+
 
     // ✅ If token exists, redirect user
     useEffect(() => {
@@ -25,28 +30,22 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await login({ email, password }).unwrap();
-            
+
             console.log("Login Response:", response); // ✅ Debugging
-    
-            if (response.access && response.refresh) {
+
+            if (response.access) {
+                // ✅ Store access token in Redux
+                dispatch(setUser({
+                    accessToken: response.access, // Store accessToken in Redux
+                }));
                 localStorage.setItem("accessToken", response.access);
-                localStorage.setItem("refreshToken", response.refresh);
-            }
-    
-            // ✅ Ensure user_profile exists before checking is_verified
-            if (response?.user_profile?.is_verified === false) {
-                console.log("User not verified, navigating to verification page...");
-                
-            } else {
-                console.log("User verified, navigating to home page...");
                 navigate("/");
             }
-    
         } catch (err) {
             console.error("Login failed:", err?.data?.message || "Something went wrong");
         }
     };
-    
+
     return (
         <div className="flex items-center pl-80 pt-36 space-x-10">
             <div className="w-[573px] h-[810px] pt-20">

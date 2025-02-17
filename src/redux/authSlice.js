@@ -1,27 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Load accessToken from localStorage when Redux initializes
+const storedAccessToken = localStorage.getItem("accessToken");
+
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        user: null,
-        token: null
+        token: storedAccessToken || null  // ✅ Reload করলে Redux state reset হলেও, token localStorage থেকে restore হবে
     },
     reducers: {
         setUser: (state, action) => {
-            state.user = action.payload.user;
-            state.token = action.payload.token;
+            console.log("Setting Token:", action?.payload?.accessToken);
+            state.token = action.payload.accessToken;
         },
         logout: (state) => {
-            state.user = null;
             state.token = null;
-
-             // Remove tokens from localStorage when logging out
-             localStorage.removeItem("access_token");
-             localStorage.removeItem("refresh_token");
+            localStorage.removeItem("accessToken"); // ✅ Logout করলে localStorage থেকেও remove হবে
         }
     }
-})
+});
 
-export const {logout,setUser} = authSlice.actions;
-
+export const { logout, setUser } = authSlice.actions;
 export default authSlice.reducer;
