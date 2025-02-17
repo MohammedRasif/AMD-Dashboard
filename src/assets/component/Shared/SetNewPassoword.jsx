@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"; // Import eye icons
 import { useResetPasswordMutation } from "../../../redux/feature/authApi";
+import { useNavigate } from "react-router-dom";
 
 const SetNewPassword = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState(""); 
+    const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [resetPassword] = useResetPasswordMutation();
-
+    const navigate = useNavigate();
     // Retrieve email and OTP from local storage
     const email = localStorage.getItem("email");
     const otp = localStorage.getItem("otp");
-    console.log(newPassword, confirmPassword, email, otp);
 
     // Handle password change
     const handlePasswordChange = async () => {
@@ -34,7 +34,8 @@ const SetNewPassword = () => {
         setLoading(true);
 
         try {
-            console.log(email,otp, newPassword,confirmPassword);
+            console.log(email, otp, newPassword, confirmPassword);
+
             // Send email, OTP, password, and confirm_password to the API
             const response = await resetPassword({
                 email,  // Retaining email from localStorage
@@ -43,25 +44,23 @@ const SetNewPassword = () => {
                 confirm_password: confirmPassword  // Use 'confirm_password' instead of 'confirmPassword'
             }).unwrap();
 
-
             console.log(response);
 
             // Handle successful password reset
             if (response.success) {
-                alert("Password changed successfully!");
-                // Optionally, you can redirect the user or close a modal here
+                // alert("Password changed successfully!");
+                navigate("/congratulation"); // Redirect to the congratulation page
             } else {
                 // Handle cases where the API returns a success flag but the operation failed
                 setError(response.message || "Failed to reset password. Please try again.");
             }
-           
+
         } catch (err) {
             // Handle error
             setError(err.data?.message || "Failed to reset password. Please try again.");
         } finally {
             setLoading(false);
         }
-
     };
 
     return (

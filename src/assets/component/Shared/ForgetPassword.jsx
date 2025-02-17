@@ -20,7 +20,7 @@ const ForgetPassword = () => {
         try {
             const response = await forgetPassword({ email }).unwrap(); // ✅ Send request
             console.log("Password reset email sent:", response);
-            alert("A password reset link has been sent to your email.");
+            // alert("A password reset link has been sent to your email.");
             localStorage.setItem("email", email);
             navigate("/verification");
         } catch (err) {

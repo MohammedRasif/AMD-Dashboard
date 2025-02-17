@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 const Congratulation = () => {
     return (
         <div>
-
             <div className="flex items-center pl-80 pt-36 space-x-10">
                 <div className="w-[573px] h-[810px] pt-20">
                     <img
@@ -22,7 +21,6 @@ const Congratulation = () => {
                             Congratulations
                         </h1>
                     </div>
-
                     {/* Login Button */}
                     <div className=" mt-10 mb-12 ">
                         <NavLink to="/login">
@@ -35,7 +33,6 @@ const Congratulation = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
