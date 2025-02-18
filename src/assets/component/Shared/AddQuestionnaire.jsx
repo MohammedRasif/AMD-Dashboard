@@ -58,8 +58,6 @@ const AddQuestionnaire = () => {
         const response = createQuestion(questionData).unwrap();
         console.log("Section created successfully:", response);
         setIsOpen(false);
-
-
     };
 
     // Open delete modal for selected category
@@ -78,10 +76,6 @@ const AddQuestionnaire = () => {
             console.error("Failed to delete question:", error);
         }
     };
-
-
-
-
 
     return (
         <div>

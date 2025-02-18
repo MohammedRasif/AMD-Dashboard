@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-    tagTypes: ["question" , "addQuestion"],
+    tagTypes: ["question", "addQuestion"],
     endpoints: (builder) => ({
 
         //createQuestion
@@ -66,29 +66,39 @@ export const ApiSlice = createApi({
             invalidatesTags: ["question"]
         }),
         // create question section
-        createQuestionSetion:builder.mutation({
-            query:(addQuestion) =>({
-                url:"/question/create/admin/",
-                method:"POST",
-                body:addQuestion
+        createQuestionSetion: builder.mutation({
+            query: (addQuestion) => ({
+                url: "/question/create/admin/",
+                method: "POST",
+                body: addQuestion
             }),
-            providesTags:["question"]
+            providesTags: ["question"]
         }),
-
+        // delete question section
         deleteQuestionSection: builder.mutation({
-            query:(id) =>({
-                url:`/question/${id}/admin/`,
-                method:"DELETE",
-               
+            query: (id) => ({
+                url: `/question/${id}/admin/`,
+                method: "DELETE",
+
             }),
-            invalidatesTags:["question"]
+            invalidatesTags: ["question"]
+        }),
+        // edite question section
+        editQuestionSection: builder.mutation({
+            query: ({ id, question }) => ({
+                url: `/question/${id}/admin/`,
+                method: "PATCH",
+                body: question
+            }),
+            invalidatesTags: ["question"]
         })
+
 
     }),
 });
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery ,useCreateQuestionSetionMutation , useDeleteQuestionSectionMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation } = ApiSlice;
 
 export default ApiSlice;
 

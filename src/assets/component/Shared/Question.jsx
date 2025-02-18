@@ -3,7 +3,7 @@ import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdArrowBack, MdDeleteOutline } from "react-icons/md";
 import { data, NavLink, useParams } from "react-router-dom";
-import { useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation } from "../../../redux/feature/ApiSlice";
+import { useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionMutation } from "../../../redux/feature/ApiSlice";
 
 const Question = () => {
     const [editModalOpen, setEditModalOpen] = useState(false);
@@ -13,6 +13,7 @@ const Question = () => {
     const [createQuestionSetion, { error }] = useCreateQuestionSetionMutation(); // API Hook
     const [deleteQuestionSection] = useDeleteQuestionSectionMutation();
     const [selectedQuestionId, setSelectedQuestionId] = useState(null); // <-- Store selected question ID
+    const [editQuestionSection] = useEditQuestionMutation()
 
 
     const { id } = useParams() || {};
