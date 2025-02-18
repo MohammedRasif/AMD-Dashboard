@@ -3,26 +3,30 @@ import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdArrowBack, MdDeleteOutline } from "react-icons/md";
 import { data, NavLink, useParams } from "react-router-dom";
-import { useGetQuestionDataQuery } from "../../../redux/feature/ApiSlice";
+import { useGetQuestionDataQuery,useCreateQuestionSetionMutation } from "../../../redux/feature/ApiSlice";
 
 const Question = () => {
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDelete, setIsOpenDelete] = useState(false);
+    const [questions, setQuestions] = useState([""]);
+    const [createQuestionSetion, {  error } ]  = useCreateQuestionSetionMutation(); // API Hook
+
+
     const { id } = useParams() || {};
     const qusId = parseInt(id)
 
-    const {data : questionData, isLoading, isError} = useGetQuestionDataQuery(qusId, {
+    const { data: questionData, isLoading, isError } = useGetQuestionDataQuery(qusId, {
         skip: !qusId
     })
 
     // Log the fetched data if it exists
     console.log("Fetched Data:", questionData);
-    if(isLoading){
+    if (isLoading) {
         return <div>Loading ....</div>
     }
 
-    if(isError){
+    if (isError) {
         return <div>Error</div>
     }
 
@@ -30,13 +34,52 @@ const Question = () => {
         setIsOpenDelete(false);
     };
 
-    const categories = [
-        { question: " What’s one of your earliest memories, and why does it stand out to you?", },
-        { question: " What’s one of your earliest memories, and why does it stand out to you?", },
-        { question: " What’s one of your earliest memories, and why does it stand out to you?", },
-        { question: " What’s one of your earliest memories, and why does it stand out to you?", },
-        { question: " What’s one of your earliest memories, and why does it stand out to you?", },
-    ];
+
+
+    // add a new input feld
+    const handleAddQuestion = () => {
+        setQuestions([...questions, ""]);
+    };
+
+    // ইনপুট আপডেট করার ফাংশন
+    const handleInputChange = (index, value) => {
+        const updatedQuestions = [...questions];
+        updatedQuestions[index] = value;
+        setQuestions(updatedQuestions);
+    };
+    // remove input feld
+    const handleRemoveQuestion = (index) => {
+        const updatedQuestions = questions.filter((_, i) => i !== index);
+        setQuestions(updatedQuestions);
+    };
+
+        // **Submit Function**
+        const handleSubmit = async () => {
+            const formattedQuestions = questions
+                .filter((q) => q.trim() !== "") // ফাঁকা ইনপুট বাদ দেওয়া
+                .map((q) => ({ question: q })); // প্রশ্ন ফরম্যাট করা
+    
+            if (formattedQuestions.length === 0) {
+                alert("Please add at least one question!");
+                return;
+            }
+    
+            const payload = {
+                section: qusId, // section ID useParams() থেকে
+                questions: formattedQuestions,
+            };
+    
+            console.log("Submitting Data:", payload);
+    
+            try {
+                await createQuestionSetion(payload).unwrap();
+               
+                setIsOpen(false); // Modal বন্ধ করা
+            } catch (err) {
+                console.error("Error submitting data:", err);
+                alert("Failed to add questions!");
+            }
+        };
 
     return (
         <div>
@@ -58,45 +101,62 @@ const Question = () => {
                 </button>
                 {isOpen && (
                     <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
-                        {/* Modal Content */}
-                        <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
-                            {/* Close Button */}
-                            <button
-                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                <FaTimes size={18} />
-                            </button>
-
-                            {/* Modal Heading */}
-                            <h2 className="text-lg font-semibold mb-4">ADD New Section</h2>
-
-                            {/* Input Fields */}
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Section Name</label>
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
+                        {/* Close Button */}
+                        <button
+                            className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <FaTimes size={18} />
+                        </button>
+        
+                        {/* Modal Heading */}
+                        <h2 className="text-lg font-semibold mb-4">ADD New Section</h2>
+        
+                        {/* Questions Dynamic Input Fields */}
+                        {questions.map((question, index) => (
+                            <div key={index} className="mb-2 flex items-center gap-2">
                                 <input
                                     type="text"
-                                    placeholder="Type here"
+                                    value={question}
+                                    onChange={(e) => handleInputChange(index, e.target.value)}
+                                    placeholder={`Question ${index + 1}`}
                                     className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                 />
+                                {index > 0 && ( // প্রথম ইনপুট রিমুভ করা যাবে না
+                                    <button
+                                        className="text-red-500 hover:text-red-700"
+                                        onClick={() => handleRemoveQuestion(index)}
+                                    >
+                                        <FaTimes />
+                                    </button>
+                                )}
                             </div>
-
-                            <div className="mb-4">
-                                <div className="flex items-center justify-between px-2 border border-gray-200 rounded-md">
-                                    <button className="w-full text-sm font-[100] text-start py-2 pl-2 rounded-md">Add more question</button>
-                                    <FaPlus className="text-[10px]" />
-                                </div>
-                            </div>
-
-                            {/* Publish Button */}
+                        ))}
+        
+                        {/* Add More Question Button */}
+                        <div className="mb-4">
                             <button
-                                className="px-3 py-2 bg-[#8CAB91] text-white rounded-md hover:bg-[#7A9B80] transition"
-                                onClick={() => setIsOpen(false)}
+                                className="w-full flex items-center justify-between px-3 py-2 border border-gray-200 rounded-md text-sm font-[100] text-start"
+                                onClick={handleAddQuestion}
                             >
-                                Publish
+                                Add more question <FaPlus className="text-[10px]" />
                             </button>
                         </div>
+        
+                        {/* Publish Button */}
+                        <button
+                            className="px-3 py-2 bg-[#8CAB91] text-white rounded-md hover:bg-[#7A9B80] transition"
+                            onClick={handleSubmit}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? "Submitting..." : "Publish"}
+                        </button>
+        
+                        {/* Error Message */}
+                        {error && <p className="text-red-500 mt-2">Failed to submit data!</p>}
                     </div>
+                </div>
                 )}
             </div>
             <div className="bg-white p-10 mt-2">

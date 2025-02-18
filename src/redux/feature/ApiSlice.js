@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-    tagTypes: ["question"],
+    tagTypes: ["question" , "addQuestion"],
     endpoints: (builder) => ({
 
         //createQuestion
@@ -58,27 +58,29 @@ export const ApiSlice = createApi({
             invalidatesTags: ["question"]
         }),
 
-        // view question section
-        // getQuestionData: builder.mutation({
-        //     query:({id })=>({
-        //         url:`/question/list/${id}/admin/`,
-        //         method:"GET",
-
-        //     })
-        // })
         getQuestionData: builder.query({
             query: (id) => ({
                 url: `/question/list/${id}/admin/`,
                 method: "GET",
             }),
-            providesTags: ["question"]
+            invalidatesTags: ["question"]
         }),
+        // create question section
+        createQuestionSetion:builder.mutation({
+            query:(addQuestion) =>({
+                url:"/question/create/admin/",
+                method:"POST",
+                body:addQuestion
+            }),
+            providesTags:["addQuestion"]
+
+        })
 
     }),
 });
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery ,useCreateQuestionSetionMutation } = ApiSlice;
 
 export default ApiSlice;
 
