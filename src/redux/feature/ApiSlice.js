@@ -72,15 +72,23 @@ export const ApiSlice = createApi({
                 method:"POST",
                 body:addQuestion
             }),
-            providesTags:["addQuestion"]
+            providesTags:["question"]
+        }),
 
+        deleteQuestionSection: builder.mutation({
+            query:(id) =>({
+                url:`/question/${id}/admin/`,
+                method:"DELETE",
+               
+            }),
+            invalidatesTags:["question"]
         })
 
     }),
 });
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery ,useCreateQuestionSetionMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery ,useCreateQuestionSetionMutation , useDeleteQuestionSectionMutation } = ApiSlice;
 
 export default ApiSlice;
 
