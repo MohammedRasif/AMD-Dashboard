@@ -14,12 +14,14 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
+
+
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-
+tagTypes:["question"],
     endpoints: (builder) => ({
-        
+
         //createQuestion
         createQuestion: builder.mutation({
             query: (data) => ({
@@ -34,12 +36,24 @@ export const ApiSlice = createApi({
             query: () => ({
                 url: "/question/section/list/",
                 method: "GET",
-            })
+                providesTags:["question"]
+            }),
+            
+        }),
+
+        // edite question
+        editQuestion: builder.mutation({
+            query: ({ id, question }) => ({
+                url: `/question/section/${id}/admin/`,
+                method: "PATCH",
+                body: question 
+            }),
+            invalidatesTags:["question"]
         })
     }),
 });
 
 // Export hooks for usage in components
-export const {  useCreateQuestionMutation, useGetQuestionQuery } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation } = ApiSlice;
 
 export default ApiSlice;

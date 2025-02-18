@@ -3,7 +3,7 @@ import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
-import { useCreateQuestionMutation, useGetQuestionQuery } from "../../../redux/feature/ApiSlice";
+import { useCreateQuestionMutation, useEditQuestionMutation, useGetQuestionQuery } from "../../../redux/feature/ApiSlice";
 
 
 const AddQuestionnaire = () => {
@@ -11,11 +11,34 @@ const AddQuestionnaire = () => {
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [isOpenDelete, setIsOpenDelete] = useState(false);
     const [createQuestion] = useCreateQuestionMutation()
-    const { data, isLoading, isError } = useGetQuestionQuery()
+    const { data = [], isLoading, isError } = useGetQuestionQuery()
     const [sectionName, setSectionName] = useState('');
     const [questionCount, setQuestionCount] = useState(0);
+    const [editQuestion, { isLoading: isUpdating }] = useEditQuestionMutation()
 
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [editedData, setEditedData] = useState({ name: "", question_count: "" });
+    // Use the mutation hook
+    const handleEditClick = (category) => {
+        setSelectedCategory(category);
+        setEditedData({ name: category.name, question_count: category.question_count });
+        setEditModalOpen(true);
+    };
 
+    const handleUpdate = async () => {
+        try {
+            // Call the mutation with the selected ID and updated data
+            await editQuestion({
+                id: selectedCategory.id,
+                question: editedData,
+            }).unwrap(); // unwrap() to handle the result properly
+
+            // Close the modal after successful update
+            setEditModalOpen(false);
+        } catch (error) {
+            console.error("Failed to update the question:", error);
+        }
+    };
 
     const handlePublish = () => {
         if (!sectionName || !questionCount) {
@@ -47,7 +70,7 @@ const AddQuestionnaire = () => {
     };
 
 
-   
+
 
     return (
         <div>
@@ -116,7 +139,7 @@ const AddQuestionnaire = () => {
                                     {category.name}
                                 </h3>
                                 <p className="text-sm text-gray-500">
-                                    {category.question_count} 
+                                    {category.question_count}
                                 </p>
                             </div>
 
@@ -163,15 +186,13 @@ const AddQuestionnaire = () => {
                                     </div>
                                 )}
                                 <button
-                                    onClick={() => setEditModalOpen(true)}
-                                >
+                                    onClick={() => handleEditClick(category)}>
+
                                     <FaRegEdit className="cursor-pointer hover:text-blue-500 transition" />
                                 </button>
                                 {editModalOpen && (
-                                    <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm">
-                                        {/* Modal Content */}
+                                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-30 backdrop-blur-sm">
                                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
-                                            {/* Close Button */}
                                             <button
                                                 className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6]"
                                                 onClick={() => setEditModalOpen(false)}
@@ -179,31 +200,34 @@ const AddQuestionnaire = () => {
                                                 <FaTimes size={18} />
                                             </button>
 
-                                            {/* Modal Heading */}
                                             <h2 className="text-lg text-black font-semibold mb-4">Edit Section</h2>
 
-                                            {/* Input Fields */}
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700">Section Name</label>
+                                                <label className="block text-[14px]  font-medium text-gray-700">Section Name</label>
                                                 <input
                                                     type="text"
-                                                    className="w-full   border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                                    value={editedData.name}
+                                                    onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
+                                                    className="w-full text-[16px] pl-2 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                                 />
                                             </div>
 
                                             <div className="mb-4">
-                                                <label className="block text-sm font-medium text-gray-700">Number of question</label>
+                                                <label className="block text-sm font-medium text-gray-700">Number of questions</label>
                                                 <input
-                                                    className="w-full  border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                                    type="text"
+                                                    value={editedData.question_count}
+                                                    onChange={(e) => setEditedData({ ...editedData, question_count: e.target.value })}
+                                                    className="w-full text-[16px] pl-2 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                                 />
                                             </div>
 
-                                            {/* Publish Button */}
                                             <button
                                                 className="px-3 py-2 bg-[#8CAB91] text-[18px] text-white rounded-md hover:bg-[#7A9B80] transition"
-                                                onClick={() => setIsOpen(false)}
+                                                onClick={handleUpdate}
+                                                disabled={isUpdating} // Disable the button while the mutation is in progress
                                             >
-                                                Publish
+                                                {isUpdating ? "Updating..." : "Publish"}
                                             </button>
                                         </div>
                                     </div>
