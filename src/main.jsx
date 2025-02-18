@@ -72,7 +72,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute><Notification /></PrivateRoute>
       },
       {
-        path: "/question",
+        path: "/question/:id",
         element: <PrivateRoute><Question /></PrivateRoute>
       },
       {

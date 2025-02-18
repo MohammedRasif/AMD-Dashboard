@@ -14,12 +14,10 @@ const baseQuery = fetchBaseQuery({
     },
 });
 
-
-
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-tagTypes:["question"],
+    tagTypes: ["question"],
     endpoints: (builder) => ({
 
         //createQuestion
@@ -36,9 +34,10 @@ tagTypes:["question"],
             query: () => ({
                 url: "/question/section/list/",
                 method: "GET",
-                providesTags:["question"]
+                providesTags: ["question"]
             }),
-            
+            providesTags: ["question"]
+
         }),
 
         // edite question
@@ -46,14 +45,40 @@ tagTypes:["question"],
             query: ({ id, question }) => ({
                 url: `/question/section/${id}/admin/`,
                 method: "PATCH",
-                body: question 
+                body: question
             }),
-            invalidatesTags:["question"]
-        })
+            invalidatesTags: ["question"]
+        }),
+        // question delete
+        deleteQuestion: builder.mutation({
+            query: (id) => ({
+                url: `/question/section/${id}/admin/`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["question"]
+        }),
+
+        // view question section
+        // getQuestionData: builder.mutation({
+        //     query:({id })=>({
+        //         url:`/question/list/${id}/admin/`,
+        //         method:"GET",
+
+        //     })
+        // })
+        getQuestionData: builder.query({
+            query: (id) => ({
+                url: `/question/list/${id}/admin/`,
+                method: "GET",
+            }),
+            providesTags: ["question"]
+        }),
+
     }),
 });
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery } = ApiSlice;
 
 export default ApiSlice;
+

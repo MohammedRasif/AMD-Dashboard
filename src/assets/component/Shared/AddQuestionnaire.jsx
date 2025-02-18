@@ -3,7 +3,7 @@ import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
-import { useCreateQuestionMutation, useEditQuestionMutation, useGetQuestionQuery } from "../../../redux/feature/ApiSlice";
+import { useCreateQuestionMutation, useEditQuestionMutation, useGetQuestionQuery, useDeleteQuestionMutation } from "../../../redux/feature/ApiSlice";
 
 
 const AddQuestionnaire = () => {
@@ -15,9 +15,15 @@ const AddQuestionnaire = () => {
     const [sectionName, setSectionName] = useState('');
     const [questionCount, setQuestionCount] = useState(0);
     const [editQuestion, { isLoading: isUpdating }] = useEditQuestionMutation()
-
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [editedData, setEditedData] = useState({ name: "", question_count: "" });
+    const [deleteQuestion] = useDeleteQuestionMutation();
+    const [selectedDeleteCategory, setSelectedDeleteCategory] = useState(null); // Store the category to be deleted
+
+
+    //delete question
+
+
     // Use the mutation hook
     const handleEditClick = (category) => {
         setSelectedCategory(category);
@@ -45,12 +51,10 @@ const AddQuestionnaire = () => {
             alert("Please enter both section name and number of questions.");
             return;
         }
-
         const questionData = {
             name: sectionName,
             question_count: parseInt(questionCount), // Ensure question_count is an integer
         };
-
         const response = createQuestion(questionData).unwrap();
         console.log("Section created successfully:", response);
         setIsOpen(false);
@@ -58,16 +62,23 @@ const AddQuestionnaire = () => {
 
     };
 
-
-    console.log("data", data);
-    console.log("isError", isError);
-    console.log("isLoading", isLoading);
-
-
-    const handleDelete = () => {
-
-        setIsOpenDelete(false);
+    // Open delete modal for selected category
+    const handleOpenDeleteModal = (category) => {
+        setSelectedDeleteCategory(category);
     };
+
+    // Handle delete action
+    const handleDelete = async () => {
+        if (!selectedDeleteCategory) return;
+
+        try {
+            await deleteQuestion(selectedDeleteCategory.id).unwrap();
+            setSelectedDeleteCategory(null); // Close modal after delete
+        } catch (error) {
+            console.error("Failed to delete question:", error);
+        }
+    };
+
 
 
 
@@ -145,42 +156,35 @@ const AddQuestionnaire = () => {
 
                             {/* Right Section: Icons */}
                             <div className="flex items-center gap-3 text-green-700 text-[24px]">
-                                <NavLink to="/question">
+                                <NavLink to={`/question/${category.id}`}>
                                     <IoEyeOutline className="cursor-pointer hover:text-green-500 transition" />
                                 </NavLink>
-                                <button
-                                    onClick={() => setIsOpenDelete(true)}
-                                >
+                                <button onClick={() => handleOpenDeleteModal(category)}>
                                     <MdDeleteOutline className="cursor-pointer hover:text-red-500 transition" />
                                 </button>
                                 {/* Modal Popup */}
-                                {isOpenDelete && (
-                                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50" >
+                                {selectedDeleteCategory && (
+                                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
                                         <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
-                                            {/* Close (Cancel) Icon */}
                                             <button
-                                                className="absolute top-2 right-2   bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
-                                                onClick={() => setIsOpenDelete(false)}
+                                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
+                                                onClick={() => setSelectedDeleteCategory(null)}
                                             >
                                                 <FaTimes size={18} />
                                             </button>
 
-                                            {/* Modal Heading */}
                                             <h2 className="text-[14px] font-[500] text-center">Are you sure?</h2>
                                             <p className="text-[16px] text-[#997D00] text-center my-5">
-                                                Do you want to delete this content?
+                                                Do you want to delete "{selectedDeleteCategory.name}"?
                                             </p>
 
-                                            {/* Buttons */}
                                             <div className="flex text-[16px] font-[500] justify-center space-x-4 mt-4">
                                                 <button
                                                     className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
                                                     onClick={handleDelete}
-                                                // onClick={handleClickDelete}
                                                 >
                                                     Delete
                                                 </button>
-
                                             </div>
                                         </div>
                                     </div>

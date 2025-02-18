@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdArrowBack, MdDeleteOutline } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { data, NavLink, useParams } from "react-router-dom";
+import { useGetQuestionDataQuery } from "../../../redux/feature/ApiSlice";
 
 const Question = () => {
-    const [editModalOpen, setEditModalOpen] = useState(false)
+    const [editModalOpen, setEditModalOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDelete, setIsOpenDelete] = useState(false);
+    const { id } = useParams() || {};
+    const qusId = parseInt(id)
+
+    const {data : questionData, isLoading, isError} = useGetQuestionDataQuery(qusId, {
+        skip: !qusId
+    })
+
+    // Log the fetched data if it exists
+    console.log("Fetched Data:", questionData);
+    if(isLoading){
+        return <div>Loading ....</div>
+    }
+
+    if(isError){
+        return <div>Error</div>
+    }
 
     const handleDelete = () => {
-
         setIsOpenDelete(false);
     };
-
 
     const categories = [
         { question: " What’s one of your earliest memories, and why does it stand out to you?", },
@@ -22,12 +37,14 @@ const Question = () => {
         { question: " What’s one of your earliest memories, and why does it stand out to you?", },
         { question: " What’s one of your earliest memories, and why does it stand out to you?", },
     ];
+
     return (
         <div>
+
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 mb-4 mt-2">
                     <NavLink to="/addquestionnaire">
-                        <div className="text-white bg-[#8CAB91]  px-4 py-2 hover:bg-[#7a9c82] transition">
+                        <div className="text-white bg-[#8CAB91] px-4 py-2 hover:bg-[#7a9c82] transition">
                             <MdArrowBack className="text-xl" />
                         </div>
                     </NavLink>
@@ -40,7 +57,7 @@ const Question = () => {
                     <h1>Add New Section</h1>
                 </button>
                 {isOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
+                    <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
                         {/* Modal Content */}
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
                             {/* Close Button */}
@@ -66,7 +83,7 @@ const Question = () => {
 
                             <div className="mb-4">
                                 <div className="flex items-center justify-between px-2 border border-gray-200 rounded-md">
-                                    <button className="w-full   text-sm font-[100] text-start py-2 pl-2 rounded-md ">Add more question</button>
+                                    <button className="w-full text-sm font-[100] text-start py-2 pl-2 rounded-md">Add more question</button>
                                     <FaPlus className="text-[10px]" />
                                 </div>
                             </div>
@@ -81,10 +98,9 @@ const Question = () => {
                         </div>
                     </div>
                 )}
-
             </div>
-            <div className=" bg-white p-10 mt-2">
-                {categories.map((category, index) => (
+            <div className="bg-white p-10 mt-2">
+                {questionData.map((category, index) => (
                     <div
                         key={index}
                         className="flex h-[70px] justify-between items-center p-4 border border-green-300 rounded-lg bg-[#FAF1E6] mb-5"
@@ -94,22 +110,21 @@ const Question = () => {
                             <h3 className="text-lg font-semibold text-gray-800">
                                 {category.question}
                             </h3>
-
                         </div>
 
                         {/* Right Section: Icons */}
-                        <div className="flex items-center gap-3 text-green-700  text-[24px]">
+                        <div className="flex items-center gap-3 text-green-700 text-[24px]">
                             <button
                                 onClick={() => setIsOpenDelete(true)}
                             >
                                 <MdDeleteOutline className="cursor-pointer hover:text-red-500 transition" />
                             </button>
                             {isOpenDelete && (
-                                <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
+                                <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
                                     <div className="bg-white p-6 rounded-lg shadow-lg w-[350px] relative">
                                         {/* Close (Cancel) Icon */}
                                         <button
-                                            className="absolute top-2 right-2   bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
+                                            className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
                                             onClick={() => setIsOpenDelete(false)}
                                         >
                                             <FaTimes size={18} />
@@ -126,11 +141,9 @@ const Question = () => {
                                             <button
                                                 className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
                                                 onClick={handleDelete}
-                                            // onClick={handleClickDelete}
                                             >
                                                 Delete
                                             </button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +154,7 @@ const Question = () => {
                                 <FaRegEdit className="cursor-pointer hover:text-blue-500 transition " />
                             </button>
                             {editModalOpen && (
-                                <div className="fixed  inset-0 flex items-center justify-center   bg-opacity-30 backdrop-blur-sm z-50">
+                                <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
                                     {/* Modal Content */}
                                     <div className="bg-white p-5 rounded-lg shadow-lg w-[400px] relative">
                                         {/* Close Button */}
@@ -160,12 +173,9 @@ const Question = () => {
                                             <label className="block text-sm font-medium text-gray-700">Question</label>
                                             <input
                                                 type="text"
-
-                                                className="w-full mt-3   border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
+                                                className="w-full mt-3 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                             />
                                         </div>
-
-
 
                                         {/* Publish Button */}
                                         <button
