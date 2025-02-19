@@ -98,6 +98,14 @@ export const ApiSlice = createApi({
                 body: question
             }),
             invalidatesTags: ["question"]
+        }),
+
+        //show admin data
+        adminData:builder.query({
+            query:() =>({
+                url:"/admin-user/list/admin/",
+                method:"GET"
+            })
         })
 
     }),
@@ -105,7 +113,7 @@ export const ApiSlice = createApi({
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery } = ApiSlice;
 
 export default ApiSlice;
 

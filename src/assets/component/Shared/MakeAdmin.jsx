@@ -3,11 +3,17 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { useAdminDataQuery } from "../../../redux/feature/ApiSlice";
 
 const MakeAdmin = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDelete, setIsOpenDelete] = useState(false);
     const [selectedRole, setSelectedRole] = useState("");
+    const { data: adminData, isLoading, isError } = useAdminDataQuery();
+    const [selectedUserId, setSelectedUserId] = useState(null);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>Error fetching data</p>;
 
 
     const handleDelete = () => {
@@ -139,13 +145,13 @@ const MakeAdmin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user, index) => (
+                        {adminData.map((user, index) => (
                             <tr key={user.id} className="hover:bg-gray-100 transition-all duration-200">
                                 <td className="p-3 text-center">{index + 1}</td>
                                 <td className="p-3 flex items-center gap-3">
 
                                     <div>
-                                        <div className="font-bold">{user.name}</div>
+                                        <div className="font-bold">{user.full_name}</div>
                                         <div className="text-sm text-gray-500">{user.country}</div>
                                     </div>
                                 </td>
