@@ -116,7 +116,7 @@ export const ApiSlice = createApi({
             method: "POST",
             body: addAdmin,
         }),
-        invalidatesTags: ["Admin"], // 👈 Auto refetch after create
+        invalidatesTags: ["Admin"], 
     }),
 
     // Delete admin data (DELETE)
@@ -128,12 +128,23 @@ export const ApiSlice = createApi({
         invalidatesTags: ["Admin"], // 👈 Auto refetch after delete
     }),
 
+
+    // create Cupon
+    createCupon:builder.mutation({
+        query:(AddCopun) =>({
+            url:"/order/coupon/admin/",
+            method:"POST",
+            body:AddCopun,
+        }),
+        invalidatesTags:["Copun"]
+    })
+
     }),
 });
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery , useCreateAdminDataMutation , useDeleteAdminDataMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery , useCreateAdminDataMutation , useDeleteAdminDataMutation , useCreateCuponMutation } = ApiSlice;
 
 export default ApiSlice;
 
