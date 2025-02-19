@@ -33,6 +33,7 @@ import EditCupon from './assets/component/Shared/EditCupon.jsx';
 import { Provider } from 'react-redux';
 import store from './redux/store.js';
 import PrivateRoute from './assets/Root/PrivateRoute.jsx';
+import VerificationRoute from './assets/Root/VerificationRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -127,7 +128,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/verification",
-    element: <Verification />
+    element: <VerificationRoute><Verification /></VerificationRoute>
   },
   {
     path: "/setNewPassoword",
