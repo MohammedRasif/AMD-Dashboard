@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-    tagTypes: ["question", "addQuestion" , "Admin"],
+    tagTypes: ["question", "addQuestion", "Admin" ,"Copun"],
     endpoints: (builder) => ({
 
         // Create Question
@@ -27,7 +27,7 @@ export const ApiSlice = createApi({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["question"]  
+            invalidatesTags: ["question"]
         }),
 
         // Get Question
@@ -37,8 +37,8 @@ export const ApiSlice = createApi({
                 method: "GET"
             }),
             providesTags: ["question"],
-            keepUnusedDataFor: 0,  
-            refetchOnMountOrArgChange: true  
+            keepUnusedDataFor: 0,
+            refetchOnMountOrArgChange: true
         }),
 
         // Edit Question
@@ -100,59 +100,68 @@ export const ApiSlice = createApi({
             invalidatesTags: ["question"]
         }),
 
-       // Show admin data (GET)
-       adminData: builder.query({
-        query: () => ({
-            url: "/admin-user/list/admin/",
-            method: "GET",
+        // Show admin data (GET)
+        adminData: builder.query({
+            query: () => ({
+                url: "/admin-user/list/admin/",
+                method: "GET",
+            }),
+            providesTags: ["Admin"], // 👈 Keeps cache updated
         }),
-        providesTags: ["Admin"], // 👈 Keeps cache updated
-    }),
 
-    // Create admin data (POST)
-    createAdminData: builder.mutation({
-        query: (addAdmin) => ({
-            url: "/admin-user/create/admin/",
-            method: "POST",
-            body: addAdmin,
+        // Create admin data (POST)
+        createAdminData: builder.mutation({
+            query: (addAdmin) => ({
+                url: "/admin-user/create/admin/",
+                method: "POST",
+                body: addAdmin,
+            }),
+            invalidatesTags: ["Admin"],
         }),
-        invalidatesTags: ["Admin"], 
-    }),
 
-    // Delete admin data (DELETE)
-    deleteAdminData: builder.mutation({
-        query: (id) => ({
-            url: `/admin-user/${id}/admin/`,
-            method: "DELETE",
+        // Delete admin data (DELETE)
+        deleteAdminData: builder.mutation({
+            query: (id) => ({
+                url: `/admin-user/${id}/admin/`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Admin"], // 👈 Auto refetch after delete
         }),
-        invalidatesTags: ["Admin"], // 👈 Auto refetch after delete
-    }),
 
 
-    // create Coupon
-    createCupon:builder.mutation({
-        query:(AddCopun) =>({
-            url:"/order/coupon/admin/",
-            method:"POST",
-            body:AddCopun,
+        // create Coupon
+        createCupon: builder.mutation({
+            query: (AddCopun) => ({
+                url: "/order/coupon/admin/",
+                method: "POST",
+                body: AddCopun,
+            }),
+            invalidatesTags: ["Copun"]
         }),
-        invalidatesTags:["Copun"]
-    }),
 
-    // show coupon
-    cuponData:builder.query({
-        query:()=>({
-            url:"/order/coupon/admin/",
-            method:"GET"
+        // show coupon
+        cuponData: builder.query({
+            query: () => ({
+                url: "/order/coupon/admin/",
+                method: "GET"
+            })
+        }),
+
+        cuponDelete:builder.mutation({
+            query:(id) => ({
+                url:`/order/coupon/${id}/admin/`,
+                method:"DELETE"
+            }),
+            invalidatesTags:["Copun"]
         })
-    })
+        
 
     }),
 });
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery , useCreateAdminDataMutation , useDeleteAdminDataMutation , useCreateCuponMutation , useCuponDataQuery } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery , useCuponDeleteMutation } = ApiSlice;
 
 export default ApiSlice;
 
