@@ -129,7 +129,7 @@ export const ApiSlice = createApi({
     }),
 
 
-    // create Cupon
+    // create Coupon
     createCupon:builder.mutation({
         query:(AddCopun) =>({
             url:"/order/coupon/admin/",
@@ -137,6 +137,14 @@ export const ApiSlice = createApi({
             body:AddCopun,
         }),
         invalidatesTags:["Copun"]
+    }),
+
+    // show coupon
+    cuponData:builder.query({
+        query:()=>({
+            url:"/order/coupon/admin/",
+            method:"GET"
+        })
     })
 
     }),
@@ -144,7 +152,7 @@ export const ApiSlice = createApi({
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery , useCreateAdminDataMutation , useDeleteAdminDataMutation , useCreateCuponMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery , useCreateAdminDataMutation , useDeleteAdminDataMutation , useCreateCuponMutation , useCuponDataQuery } = ApiSlice;
 
 export default ApiSlice;
 
