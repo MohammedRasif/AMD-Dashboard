@@ -16,7 +16,11 @@
     background-color: #8CAB91;
     background: #8CAB91;
 }
-
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name{
+    line-height:normal !important;
+    margin: 0rem !important;
+    
+}
 
 
 /* .button, input, select, optgroup, textarea,{

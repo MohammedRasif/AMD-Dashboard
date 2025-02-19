@@ -12,7 +12,7 @@ const AddQuestionnaire = () => {
     const [isOpenDelete, setIsOpenDelete] = useState(false);
     const [createQuestion] = useCreateQuestionMutation()
     const { data = [], isLoading, isError } = useGetQuestionQuery()
-    const [sectionName, setSectionName] = useState('');
+    const [sectionName, setSectionName] = useState();
     const [questionCount, setQuestionCount] = useState(0);
     const [editQuestion, { isLoading: isUpdating }] = useEditQuestionMutation()
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -20,8 +20,6 @@ const AddQuestionnaire = () => {
     const [deleteQuestion] = useDeleteQuestionMutation();
     const [selectedDeleteCategory, setSelectedDeleteCategory] = useState(null); // Store the category to be deleted
 
-
-    //delete question
 
 
     // Use the mutation hook
@@ -57,7 +55,10 @@ const AddQuestionnaire = () => {
         };
         const response = createQuestion(questionData).unwrap();
         console.log("Section created successfully:", response);
+        setSectionName(null)
+        setQuestionCount(0)
         setIsOpen(false);
+
     };
 
     // Open delete modal for selected category
@@ -144,7 +145,7 @@ const AddQuestionnaire = () => {
                                     {category.name}
                                 </h3>
                                 <p className="text-sm text-gray-500">
-                                    {category.added_question_count} /10 Question Added
+                                    {category.added_question_count} /{category.question_count} Question Added
                                 </p>
                             </div>
 

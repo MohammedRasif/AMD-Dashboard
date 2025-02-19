@@ -67,6 +67,7 @@ const Question = () => {
 
         try {
             await createQuestionSetion(payload).unwrap();
+            // setEditedQuestion(null)
             setIsOpen(false);
         } catch (err) {
             console.error("Error submitting data:", err);

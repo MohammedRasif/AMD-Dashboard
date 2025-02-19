@@ -63,7 +63,7 @@ export const ApiSlice = createApi({
         // Get Question Data
         getQuestionData: builder.query({
             query: (id) => ({
-                url: `/question/list/${id}/admin/`,
+                url: `/question/list/admin/?section=${id}`,
                 method: "GET",
             }),
             providesTags: ["question"],

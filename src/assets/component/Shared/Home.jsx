@@ -425,7 +425,7 @@ const Home = () => {
                         </div>
 
                         {isCalendarOpen && (
-                            <div ref={calendarRef} className="absolute bottom-0 right-14">
+                            <div ref={calendarRef} className="absolute bottom-28 right-14">
 
                                 <div className="calender "> <DatePicker
                                     showIcon
