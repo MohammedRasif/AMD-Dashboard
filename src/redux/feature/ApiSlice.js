@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-    tagTypes: ["question", "addQuestion"],
+    tagTypes: ["question", "addQuestion" , "Admin"],
     endpoints: (builder) => ({
 
         // Create Question
@@ -100,20 +100,40 @@ export const ApiSlice = createApi({
             invalidatesTags: ["question"]
         }),
 
-        //show admin data
-        adminData:builder.query({
-            query:() =>({
-                url:"/admin-user/list/admin/",
-                method:"GET"
-            })
-        })
+       // Show admin data (GET)
+       adminData: builder.query({
+        query: () => ({
+            url: "/admin-user/list/admin/",
+            method: "GET",
+        }),
+        providesTags: ["Admin"], // 👈 Keeps cache updated
+    }),
+
+    // Create admin data (POST)
+    createAdminData: builder.mutation({
+        query: (addAdmin) => ({
+            url: "/admin-user/create/admin/",
+            method: "POST",
+            body: addAdmin,
+        }),
+        invalidatesTags: ["Admin"], // 👈 Auto refetch after create
+    }),
+
+    // Delete admin data (DELETE)
+    deleteAdminData: builder.mutation({
+        query: (id) => ({
+            url: `/admin-user/${id}/admin/`,
+            method: "DELETE",
+        }),
+        invalidatesTags: ["Admin"], // 👈 Auto refetch after delete
+    }),
 
     }),
 });
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation ,useAdminDataQuery , useCreateAdminDataMutation , useDeleteAdminDataMutation } = ApiSlice;
 
 export default ApiSlice;
 

@@ -3,57 +3,59 @@ import { FaPlus, FaTimes } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { useAdminDataQuery } from "../../../redux/feature/ApiSlice";
+import { useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation } from "../../../redux/feature/ApiSlice";
 
 const MakeAdmin = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenDelete, setIsOpenDelete] = useState(false);
     const [selectedRole, setSelectedRole] = useState("");
     const { data: adminData, isLoading, isError } = useAdminDataQuery();
-    const [selectedUserId, setSelectedUserId] = useState(null);
+    const [deleteAdminData] = useDeleteAdminDataMutation();
+    const [selectedAdminId, setSelectedAdminId] = useState(null);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("Admin");
 
+    const [addAdmin] = useCreateAdminDataMutation();
+
+    const handleSubmit = async () => {
+        if (!name || !email || !password) {
+            alert("Please fill all the fields!");
+            return;
+        }
+
+        const newAdmin = { full_name: name, email, password, role };
+
+        try {
+            await addAdmin(newAdmin).unwrap();
+            alert("Admin Created Successfully!");
+            setIsOpen(false);
+            setName("");
+            setEmail("");
+            setPassword("");
+        } catch (error) {
+            console.error("Error creating admin:", error);
+            alert("Failed to create admin!");
+        }
+    };
+
+
+    const handleDelete = async () => {
+        if (!selectedAdminId) return;
+
+        try {
+            await deleteAdminData(selectedAdminId);
+            alert("Admin deleted successfully!");
+            setIsOpenDelete(false);
+        } catch (error) {
+            console.error("Error deleting admin:", error);
+        }
+    };
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>Error fetching data</p>;
 
 
-    const handleDelete = () => {
-
-        setIsOpenDelete(false);
-    };
-
-
-
-
-    // Sample user data
-    const users = [
-        {
-            id: 1,
-            name: "Hart Hagerty",
-            country: "United States",
-            email: "hart@example.com",
-            role: "admin",
-            subscription: "Premium",
-            income: "$20",
-        },
-        {
-            id: 2,
-            name: "Brice Swyre",
-            country: "China",
-            email: "brice@example.com",
-            role: "user",
-            subscription: "Free",
-            income: "$15",
-        },
-        {
-            id: 5,
-            name: "Mohammad Rasif",
-            country: "Bangladesh",
-            email: "mohammadrasif001@gmail.com",
-            role: "admin",
-            subscription: "Premium",
-            income: "$30",
-        },
-    ];
 
 
     return (
@@ -67,43 +69,45 @@ const MakeAdmin = () => {
                     <h1>Make Admin</h1>
                 </button>
                 {isOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center  bg-opacity-30 backdrop-blur-sm z-50">
-                        {/* Modal Content */}
+                    <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm z-50">
                         <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
-                            {/* Close Button */}
                             <button
-                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer "
+                                className="absolute top-2 right-2 bg-[#8CAB91] rounded-full text-[#FAF1E6] cursor-pointer"
                                 onClick={() => setIsOpen(false)}
                             >
                                 <FaTimes size={18} />
                             </button>
 
-                            {/* Modal Heading */}
                             <h2 className="text-lg font-semibold mb-4">Make Admin</h2>
 
-                            {/* Input Fields */}
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Name</label>
                                 <input
                                     type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                     placeholder="Type Name"
                                     className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                 />
                             </div>
-                            {/* Input email */}
+
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Email</label>
                                 <input
-                                    type="text"
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Type Email"
                                     className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                 />
                             </div>
-                            {/* Input passwod */}
+
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Password</label>
                                 <input
-                                    type="text"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="**********"
                                     className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                 />
@@ -111,24 +115,24 @@ const MakeAdmin = () => {
 
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Select Role</label>
-
                                 <select
-                                    value={selectedRole}
-                                    onChange={(e) => setSelectedRole(e.target.value)}
-                                    className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none "
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-[#8CAB91] outline-none"
                                 >
-                                    <option value="" disabled>Select a role</option>
                                     <option value="Admin">Admin</option>
-                                    <option value="User">User</option>
                                 </select>
                             </div>
-                            {/* Publish Button */}
+
                             <button
                                 className="px-3 py-2 bg-[#8CAB91] text-white rounded-md hover:bg-[#7A9B80] transition"
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleSubmit}
+                                disabled={isLoading}
                             >
-                                Publish
+                                {isLoading ? "Creating..." : "Publish"}
                             </button>
+
+                            {isError && <p className="text-red-500 mt-2">Failed to create admin!</p>}
                         </div>
                     </div>
                 )}
@@ -156,14 +160,17 @@ const MakeAdmin = () => {
                                     </div>
                                 </td>
                                 <td className="p-3 text-gray-700">{user.email}</td>
-                                <td className="p-3 text-gray-600">{user.role}</td>
+                                <td className="p-3 text-gray-600">{user.user_type}</td>
                                 <td className="p-3 text-center">
 
                                     <div>
                                         {/* Delete Button (Triggers Modal) */}
                                         <button
                                             className="text-xl text-red-500 hover:text-blue-500 cursor-pointer"
-                                            onClick={() => setIsOpenDelete(true)}
+                                            onClick={() => {
+                                                setSelectedAdminId(user.id);
+                                                setIsOpenDelete(true);
+                                            }}
                                         >
                                             <MdDeleteOutline />
                                         </button>
@@ -191,7 +198,6 @@ const MakeAdmin = () => {
                                                         <button
                                                             className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer"
                                                             onClick={handleDelete}
-                                                        // onClick={handleClickDelete}
                                                         >
                                                             Delete
                                                         </button>
