@@ -29,7 +29,6 @@ const MakeAdmin = () => {
 
         try {
             await addAdmin(newAdmin).unwrap();
-            alert("Admin Created Successfully!");
             setIsOpen(false);
             setName("");
             setEmail("");
@@ -46,7 +45,6 @@ const MakeAdmin = () => {
 
         try {
             await deleteAdminData(selectedAdminId);
-            alert("Admin deleted successfully!");
             setIsOpenDelete(false);
         } catch (error) {
             console.error("Error deleting admin:", error);
