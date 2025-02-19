@@ -20,27 +20,28 @@ export const ApiSlice = createApi({
     tagTypes: ["question", "addQuestion"],
     endpoints: (builder) => ({
 
-        //createQuestion
+        // Create Question
         createQuestion: builder.mutation({
             query: (data) => ({
                 url: "/question/section/create/admin/",
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags: ["question"]  
         }),
 
-        // get question 
+        // Get Question
         getQuestion: builder.query({
             query: () => ({
-                url: "/question/section/list/",
-                method: "GET",
-                providesTags: ["question"]
+                url: "/question/section/list/with-added-q/admin/",
+                method: "GET"
             }),
-            providesTags: ["question"]
-
+            providesTags: ["question"],
+            keepUnusedDataFor: 0,  
+            refetchOnMountOrArgChange: true  
         }),
 
-        // edite question
+        // Edit Question
         editQuestion: builder.mutation({
             query: ({ id, question }) => ({
                 url: `/question/section/${id}/admin/`,
@@ -49,7 +50,8 @@ export const ApiSlice = createApi({
             }),
             invalidatesTags: ["question"]
         }),
-        // question delete
+
+        // Delete Question
         deleteQuestion: builder.mutation({
             query: (id) => ({
                 url: `/question/section/${id}/admin/`,
@@ -58,32 +60,37 @@ export const ApiSlice = createApi({
             invalidatesTags: ["question"]
         }),
 
+        // Get Question Data
         getQuestionData: builder.query({
             query: (id) => ({
                 url: `/question/list/${id}/admin/`,
                 method: "GET",
             }),
-            invalidatesTags: ["question"]
+            providesTags: ["question"],
+            keepUnusedDataFor: 0,
+            refetchOnMountOrArgChange: true
         }),
-        // create question section
+
+        // Create Question Section
         createQuestionSetion: builder.mutation({
             query: (addQuestion) => ({
                 url: "/question/create/admin/",
                 method: "POST",
                 body: addQuestion
             }),
-            providesTags: ["question"]
+            invalidatesTags: ["question"]
         }),
-        // delete question section
+
+        // Delete Question Section
         deleteQuestionSection: builder.mutation({
             query: (id) => ({
                 url: `/question/${id}/admin/`,
                 method: "DELETE",
-
             }),
             invalidatesTags: ["question"]
         }),
-        // edite question section
+
+        // Edit Question Section
         editQuestionSection: builder.mutation({
             query: ({ id, question }) => ({
                 url: `/question/${id}/admin/`,
@@ -93,9 +100,9 @@ export const ApiSlice = createApi({
             invalidatesTags: ["question"]
         })
 
-
     }),
 });
+
 
 // Export hooks for usage in components
 export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation , useEditQuestionSectionMutation } = ApiSlice;

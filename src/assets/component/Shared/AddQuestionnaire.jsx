@@ -144,7 +144,7 @@ const AddQuestionnaire = () => {
                                     {category.name}
                                 </h3>
                                 <p className="text-sm text-gray-500">
-                                    {category.question_count}
+                                    {category.added_question_count} /10 Question Added
                                 </p>
                             </div>
 
