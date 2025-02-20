@@ -38,7 +38,7 @@ const EditCupon = () => {
                 setStartDate(startDateFormatted);
                 setEndDate(endDateFormatted);
 
-                console.log("Coupon Data:", matchedCoupon);  // Log the coupon data to verify it's correct
+                console.log("Coupon Data:", matchedCoupon); 
             } else {
                 console.error("No coupon found with the given ID.");
             }
