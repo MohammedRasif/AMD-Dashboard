@@ -11,7 +11,7 @@ const AddQuestionnaire = () => {
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [isOpenDelete, setIsOpenDelete] = useState(false);
     const [createQuestion] = useCreateQuestionMutation()
-    const { data = [], isLoading, isError } = useGetQuestionQuery()
+    const { data = [], isLoading } = useGetQuestionQuery()
     const [sectionName, setSectionName] = useState();
     const [questionCount, setQuestionCount] = useState(0);
     const [editQuestion, { isLoading: isUpdating }] = useEditQuestionMutation()

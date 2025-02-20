@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute><AddCupon /></PrivateRoute>
       },
       {
-        path: "/editCupon",
+        path: "/editCupon/:id",
         element: <PrivateRoute><EditCupon /></PrivateRoute>
       },
       {

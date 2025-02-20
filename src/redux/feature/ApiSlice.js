@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-    tagTypes: ["question", "addQuestion", "Admin" ,"Copun"],
+    tagTypes: ["question", "addQuestion", "Admin", "Copun"],
     endpoints: (builder) => ({
 
         // Create Question
@@ -144,24 +144,35 @@ export const ApiSlice = createApi({
             query: () => ({
                 url: "/order/coupon/admin/",
                 method: "GET"
-            })
+            }),
+            providesTags: ["Copun"]
         }),
 
-        cuponDelete:builder.mutation({
-            query:(id) => ({
-                url:`/order/coupon/${id}/admin/`,
-                method:"DELETE"
+        // delete coupon
+        cuponDelete: builder.mutation({
+            query: (id) => ({
+                url: `/order/coupon/${id}/admin/`,
+                method: "DELETE"
             }),
-            invalidatesTags:["Copun"]
+            invalidatesTags: ["Copun"]
+        }),
+
+        eidtCupon: builder.mutation({
+            query: ({ id, updatedCoupon }) => ({
+                url: `/order/coupon/${id}/admin/`,
+                method: "PATCH",
+                body: updatedCoupon
+            }),
+            invalidatesTags: ["Copun"]
         })
-        
+
 
     }),
 });
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery , useCuponDeleteMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation } = ApiSlice;
 
 export default ApiSlice;
 
