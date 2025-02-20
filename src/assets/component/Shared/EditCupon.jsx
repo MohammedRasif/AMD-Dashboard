@@ -22,7 +22,6 @@ const EditCupon = () => {
 
     useEffect(() => {
         if (coupons && Array.isArray(coupons)) {
-            // Find the coupon that matches the qusId
             const matchedCoupon = coupons.find(coupon => coupon.id === qusId);
 
             if (matchedCoupon) {
