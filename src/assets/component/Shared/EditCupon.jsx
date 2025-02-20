@@ -66,7 +66,6 @@ const EditCupon = () => {
 
             console.log("Coupon updated successfully:", response);  // Log the success response
 
-            // Redirect after successful update
             navigate("/coupon-code");
         } catch (error) {
             // Log the error if the mutation fails
