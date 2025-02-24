@@ -16,7 +16,7 @@ const Terms = () => {
 
     useEffect(() => {
         if (data) {
-            setContent(data?.privacy ?? defaultText); // `terms` null হলে defaultText সেট হবে
+            setContent(data?.privacy ?? defaultText); 
         }
     }, [data]);
 
@@ -43,7 +43,7 @@ const Terms = () => {
             </div>
 
             {isLoading ? (
-                <p>Loading...</p> // ✅ লোডিং UI
+                <p>Loading...</p> // 
             ) : (
                 <div className="editor-container">
                     <JoditEditor
@@ -51,7 +51,7 @@ const Terms = () => {
                         value={content}
                         config={config}
                         tabIndex={1}
-                        onBlur={(newContent) => setContent(newContent)} // Update state on blur
+                        onBlur={(newContent) => setContent(newContent)} 
                     />
                 </div>
             )}
