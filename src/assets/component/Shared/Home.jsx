@@ -382,7 +382,7 @@ const Home = () => {
             {/* User Information Table */}
             <div className="overflow-x-auto p-6 bg-white shadow-lg mt-5">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-[18px]">Subscriber</h1>
+                    <h1 className="text-[18px] font-[500]">Subscriber</h1>
                     <div className="flex items-center space-x-4 bg-white p-4 rounded-lg">
                         {/* Search Input */}
                         <div className="relative flex items-center border border-gray-300 rounded-lg px-3 py-2 w-72">
