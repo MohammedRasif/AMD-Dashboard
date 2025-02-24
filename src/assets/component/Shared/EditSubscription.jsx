@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiTriangle } from "react-icons/fi";
-import { useSubscriptionDataQuery } from "../../../redux/feature/ApiSlice";
+import { useSubscriptionDataQuery, useEditsubcriptionMutation } from "../../../redux/feature/ApiSlice";
+import { useNavigate } from "react-router-dom";
 
 const EditSubscription = () => {
     const [price, setPrice] = useState(30);
@@ -14,20 +15,20 @@ const EditSubscription = () => {
         pdf: false,
         discount: false,
     });
-    console.log(startDate,endDate);
 
     // Fetch subscription data
     const { data: subscriptions, isLoading, error } = useSubscriptionDataQuery();
-    console.log(subscriptions);
+    const [editSubscription, { isLoading: isUpdating }] = useEditsubcriptionMutation();
+    const navigate = useNavigate()
+    const [packageName, setPackageName] = useState("");
 
-    // Update state with fetched data
     useEffect(() => {
         if (subscriptions && subscriptions.length > 0) {
             const subscription = subscriptions[0]; // Assuming you want to edit the first subscription
-            
+    
             setPrice(subscription.price);
             setDiscount(subscription.discount);
-            
+    
             // Format dates to "YYYY-MM-DD"
             setStartDate(subscription.start_at.split("T")[0]);
             setEndDate(subscription.expires_at.split("T")[0]);
@@ -39,8 +40,12 @@ const EditSubscription = () => {
                 pdf: subscription.allow_soft_copy_access,
                 discount: subscription.discount_on_physical_book > 0,
             });
+    
+            // Set the package name
+            setPackageName(subscription.name);  // Set the default package name here
         }
     }, [subscriptions]);
+    
 
     // Function to toggle the checked status
     const toggleCheck = (key) => {
@@ -48,6 +53,35 @@ const EditSubscription = () => {
             ...prev,
             [key]: !prev[key],
         }));
+    };
+
+    // Function to handle the update
+    const handleUpdate = async () => {
+        const updatedSubscription = {
+            name: packageName,
+            price: Number(price),
+            discount: Number(discount),
+            start_at: startDate,
+            expires_at: endDate,
+            unlimited_ai_chat: checkedItems.chat,
+            allow_full_book_access: checkedItems.fullBook,
+            allowed_images: checkedItems.images ? 200 : 0, // Assuming 200 images if checked
+            allow_soft_copy_access: checkedItems.pdf,
+            discount_on_physical_book: checkedItems.discount ? 10 : 0, // Assuming $10 discount if checked
+        };
+
+        try {
+            const response = await editSubscription({
+                id: subscriptions[0].id, // Assuming you're editing the first subscription
+                updateSubcription: updatedSubscription,
+            }).unwrap();
+
+            console.log("Subscription updated successfully:", response);
+            navigate("/subscription")
+        } catch (error) {
+            console.error("Failed to update subscription:", error);
+            // Handle error (e.g., show an error message)
+        }
     };
 
     if (isLoading) return <div>Loading...</div>;
@@ -66,11 +100,15 @@ const EditSubscription = () => {
                 <div className="flex items-center space-x-3">
                     <div className="mt-4 w-1/2">
                         <label className="text-sm font-medium">Package Name</label>
-                        <select className="w-full p-2 border border-[#8CAB91] text-[#8CAB91] mt-1 hover:bg-[#758f79]">
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Order Hard Copy</option>
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Digital Copy</option>
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Premium Package</option>
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Limited Edition</option>
+                        <select
+                            className="w-full p-2 border border-[#8CAB91] text-[#8CAB91] mt-1 hover:bg-[#758f79]"
+                            value={packageName} // Bind the selected value to the state
+                            onChange={(e) => setPackageName(e.target.value)} // Update the state on change
+                        >
+                            <option value="Order Hard Copy" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Order Hard Copy</option>
+                            <option value="Digital Copy" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Digital Copy</option>
+                            <option value="Premium Package" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Premium Package</option>
+                            <option value="Limited Edition" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Limited Edition</option>
                         </select>
                     </div>
 
@@ -325,8 +363,12 @@ const EditSubscription = () => {
                 </div>
 
                 {/* Update Button */}
-                <button className="w-96 ml-32 bg-[#8CAB91] text-white py-2 mt-20 rounded-full hover:bg-[#6f8673]">
-                    UPDATE
+                <button
+                    className="w-96 ml-32 bg-[#8CAB91] text-white py-2 mt-20 rounded-full hover:bg-[#6f8673]"
+                    onClick={handleUpdate}
+                    disabled={isUpdating}
+                >
+                    {isUpdating ? "Updating..." : "UPDATE"}
                 </button>
             </div>
         </div>
