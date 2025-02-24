@@ -46,7 +46,7 @@ const TermCondition = () => {
             </div>
 
             {isLoading ? (
-                <p>Loading...</p> // ✅ লোডিং UI
+                <p>Loading...</p>
             ) : (
                 <div className="editor-container">
                     <JoditEditor
