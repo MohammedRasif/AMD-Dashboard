@@ -87,7 +87,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute><CreateSubscription /></PrivateRoute>
       },
       {
-        path: "/editSubcription",
+        path: "/editSubcription/:id",
         element: <PrivateRoute><EditSubscription /></PrivateRoute>
       },
       {

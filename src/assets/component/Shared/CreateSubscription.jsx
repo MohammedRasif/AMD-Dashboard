@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FiTriangle } from "react-icons/fi";
 import { useCreateSubcriptionMutation } from "../../../redux/feature/ApiSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateSubscription = () => {
     const [price, setPrice] = useState(30);
@@ -16,6 +17,9 @@ const CreateSubscription = () => {
     });
 
     const [createSubcription, { isLoading }] = useCreateSubcriptionMutation();
+    const navigate = useNavigate()
+    const [selectedPackage, setSelectedPackage] = useState("Order Hard Copy");
+
 
     // Function to toggle the checked status
     const toggleCheck = (key) => {
@@ -30,7 +34,7 @@ const CreateSubscription = () => {
         e.preventDefault();
 
         const subscriptionData = {
-            name: "Premium Package", // You can dynamically set this based on the selected package
+            name: selectedPackage,
             price: Number(price),
             discount: Number(discount),
             flat_discount: false, // Set this based on your logic
@@ -47,7 +51,7 @@ const CreateSubscription = () => {
         try {
             const response = await createSubcription(subscriptionData).unwrap();
             console.log("Subscription created successfully:", response);
-            // Handle success (e.g., show a success message or redirect)
+            navigate("/subscription")
         } catch (error) {
             console.error("Failed to create subscription:", error);
             // Handle error (e.g., show an error message)
@@ -67,12 +71,26 @@ const CreateSubscription = () => {
                 <div className="flex items-center space-x-3">
                     <div className="mt-4 w-1/2">
                         <label className="text-sm font-medium">Package Name</label>
-                        <select className="w-full p-2 border border-[#8CAB91] text-[#8CAB91] mt-1 hover:bg-[#758f79]">
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Order Hard Copy</option>
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Digital Copy</option>
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Premium Package</option>
-                            <option className="bg-[#8CAB91] text-white hover:bg-[#758f79]">Limited Edition</option>
+                        <select
+                            value={selectedPackage}
+                            onChange={(e) => setSelectedPackage(e.target.value)}
+                            className="w-full p-2 border border-[#8CAB91] text-[#8CAB91] mt-1 hover:bg-[#758f79]"
+                        >
+                            <option value="Order Hard Copy" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">
+                                Order Hard Copy
+                            </option>
+                            <option value="Digital Copy" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">
+                                Digital Copy
+                            </option>
+                            <option value="Premium Package" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">
+                                Premium Package
+                            </option>
+                            <option value="Limited Edition" className="bg-[#8CAB91] text-white hover:bg-[#758f79]">
+                                Limited Edition
+                            </option>
                         </select>
+
+
                     </div>
 
                     <div className="mt-4 w-1/2">
@@ -104,7 +122,7 @@ const CreateSubscription = () => {
                 </div>
 
                 {/* Discount Section */}
-                <h1 className="text-[18px] font-[500]">Discount</h1>
+                <h1 className="text-[18px] font-[500] mt-5">Discount</h1>
                 <div className="mt-4 w-1/2 pr-[7px]">
                     <label className="text-sm font-medium">Amount</label>
                     <div className="flex items-center border border-[#8CAB91] text-[#8CAB91] mt-1 relative bg-white">

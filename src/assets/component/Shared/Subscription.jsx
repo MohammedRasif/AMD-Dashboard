@@ -43,7 +43,7 @@ const Subscription = () => {
                                     <span className="text-gray-700 font-semibold">{subscription.name}</span>
                                 </td>
                                 <th className="p-3">
-                                    <NavLink to="/editSubcription">
+                                <NavLink to={`/editSubcription/${subscription.id}`}>
                                         <button className="text-xl text-[#8CAB91] cursor-pointer">
                                             <FaRegEdit className="ml-10" />
                                         </button>
