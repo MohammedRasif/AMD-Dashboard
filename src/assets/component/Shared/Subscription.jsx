@@ -2,14 +2,24 @@ import { useState } from "react";
 import { FaPlus, FaRegEdit, FaTimes } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
-import { useSubscriptionDataQuery } from "../../../redux/feature/ApiSlice";
+import { useSubscriptionDataQuery, useDeleteSubcriptionMutation } from "../../../redux/feature/ApiSlice";
 
 const Subscription = () => {
     const [isOpenDelete, setIsOpenDelete] = useState(false);
+    const [subscriptionIdToDelete, setSubscriptionIdToDelete] = useState(null);
     const { data: subscriptions, isLoading, error } = useSubscriptionDataQuery();
+    const [deleteSubscription, { isLoading: isDeleting }] = useDeleteSubcriptionMutation();
     
-    const handleDelete = () => {
-        setIsOpenDelete(false);
+    const handleDelete = async () => {
+        if (subscriptionIdToDelete) {
+            try {
+                await deleteSubscription(subscriptionIdToDelete).unwrap();
+                // Remove subscription from the UI after successful deletion
+                setIsOpenDelete(false);
+            } catch (error) {
+                console.error("Failed to delete subscription:", error);
+            }
+        }
     };
 
     if (isLoading) return <p>Loading subscriptions...</p>;
@@ -43,14 +53,20 @@ const Subscription = () => {
                                     <span className="text-gray-700 font-semibold">{subscription.name}</span>
                                 </td>
                                 <th className="p-3">
-                                <NavLink to={`/editSubcription/${subscription.id}`}>
+                                    <NavLink to={`/editSubcription/${subscription.id}`}>
                                         <button className="text-xl text-[#8CAB91] cursor-pointer">
                                             <FaRegEdit className="ml-10" />
                                         </button>
                                     </NavLink>
                                 </th>
                                 <th className="p-3">
-                                    <button onClick={() => setIsOpenDelete(true)} className="text-xl cursor-pointer">
+                                    <button 
+                                        onClick={() => {
+                                            setIsOpenDelete(true);
+                                            setSubscriptionIdToDelete(subscription.id);
+                                        }} 
+                                        className="text-xl cursor-pointer"
+                                    >
                                         <RiDeleteBin6Line className="ml-10 text-red-500" />
                                     </button>
                                     {isOpenDelete && (
@@ -67,8 +83,12 @@ const Subscription = () => {
                                                     Do you want to delete this content?
                                                 </p>
                                                 <div className="flex justify-center space-x-4 mt-4">
-                                                    <button className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer" onClick={handleDelete}>
-                                                        Delete
+                                                    <button 
+                                                        className="px-4 py-2 bg-[#8CAB91] text-white rounded-lg cursor-pointer" 
+                                                        onClick={handleDelete} 
+                                                        disabled={isDeleting}
+                                                    >
+                                                        {isDeleting ? "Deleting..." : "Delete"}
                                                     </button>
                                                 </div>
                                             </div>

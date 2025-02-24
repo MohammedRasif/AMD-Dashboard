@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { FiTriangle } from "react-icons/fi";
 import { useSubscriptionDataQuery, useEditsubcriptionMutation } from "../../../redux/feature/ApiSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditSubscription = () => {
+    const { id } = useParams(); // Get the subscription ID from URL
+    const navigate = useNavigate();
+
     const [price, setPrice] = useState(30);
     const [discount, setDiscount] = useState(0);
     const [startDate, setStartDate] = useState("");
@@ -15,37 +18,38 @@ const EditSubscription = () => {
         pdf: false,
         discount: false,
     });
+    const [packageName, setPackageName] = useState("");
 
     // Fetch subscription data
     const { data: subscriptions, isLoading, error } = useSubscriptionDataQuery();
     const [editSubscription, { isLoading: isUpdating }] = useEditsubcriptionMutation();
-    const navigate = useNavigate()
-    const [packageName, setPackageName] = useState("");
 
     useEffect(() => {
         if (subscriptions && subscriptions.length > 0) {
-            const subscription = subscriptions[0]; // Assuming you want to edit the first subscription
-    
-            setPrice(subscription.price);
-            setDiscount(subscription.discount);
-    
-            // Format dates to "YYYY-MM-DD"
-            setStartDate(subscription.start_at.split("T")[0]);
-            setEndDate(subscription.expires_at.split("T")[0]);
-    
-            setCheckedItems({
-                chat: subscription.unlimited_ai_chat,
-                fullBook: subscription.allow_full_book_access,
-                images: subscription.allowed_images > 0,
-                pdf: subscription.allow_soft_copy_access,
-                discount: subscription.discount_on_physical_book > 0,
-            });
-    
-            // Set the package name
-            setPackageName(subscription.name);  // Set the default package name here
+            // Find the subscription by the ID from URL (converted to number)
+            const subscription = subscriptions.find(sub => sub.id === parseInt(id));
+
+            if (subscription) {
+                setPackageName(subscription.name);
+                setPrice(subscription.price);
+                setDiscount(subscription.discount);
+
+                // Format dates to "YYYY-MM-DD"
+                setStartDate(subscription.start_at.split("T")[0]);
+                setEndDate(subscription.expires_at.split("T")[0]);
+
+                setCheckedItems({
+                    chat: subscription.unlimited_ai_chat,
+                    fullBook: subscription.allow_full_book_access,
+                    images: subscription.allowed_images > 0,
+                    pdf: subscription.allow_soft_copy_access,
+                    discount: subscription.discount_on_physical_book > 0,
+                });
+            } else {
+                console.error("Subscription not found");
+            }
         }
-    }, [subscriptions]);
-    
+    }, [subscriptions, id]); // Add `id` as dependency to ensure the effect runs when `id` changes
 
     // Function to toggle the checked status
     const toggleCheck = (key) => {
@@ -55,7 +59,6 @@ const EditSubscription = () => {
         }));
     };
 
-    // Function to handle the update
     const handleUpdate = async () => {
         const updatedSubscription = {
             name: packageName,
@@ -65,27 +68,27 @@ const EditSubscription = () => {
             expires_at: endDate,
             unlimited_ai_chat: checkedItems.chat,
             allow_full_book_access: checkedItems.fullBook,
-            allowed_images: checkedItems.images ? 200 : 0, // Assuming 200 images if checked
+            allowed_images: checkedItems.images ? 200 : 0,
             allow_soft_copy_access: checkedItems.pdf,
-            discount_on_physical_book: checkedItems.discount ? 10 : 0, // Assuming $10 discount if checked
+            discount_on_physical_book: checkedItems.discount ? 10 : 0,
         };
 
         try {
             const response = await editSubscription({
-                id: subscriptions[0].id, // Assuming you're editing the first subscription
+                id: parseInt(id), // Use the dynamic subscription ID (convert to number)
                 updateSubcription: updatedSubscription,
             }).unwrap();
 
             console.log("Subscription updated successfully:", response);
-            navigate("/subscription")
+            navigate("/subscription");
         } catch (error) {
             console.error("Failed to update subscription:", error);
-            // Handle error (e.g., show an error message)
         }
     };
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
+
 
     return (
         <div className="flex items-center justify-center mt-2">
