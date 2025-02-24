@@ -173,14 +173,26 @@ export const ApiSlice = createApi({
                 method:"GET"
             }),
             providesTags:["setting"]
-        })
+        }),
 
+        //create subcription
+
+        createSubcription:builder.mutation({
+            query:(AddSubcription)=>({
+                url:"/subscription/create/admin/",
+                method:"POST",
+                body: AddSubcription
+            }),
+            invalidatesTags:["subcription"]
+        }),
+
+       
     }),
 });
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery , useCreateSubcriptionMutation } = ApiSlice;
 
 export default ApiSlice;
 

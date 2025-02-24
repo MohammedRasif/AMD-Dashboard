@@ -5,19 +5,15 @@ import { useSettingQuery } from "../../../redux/feature/ApiSlice";
 const Privacy = () => {
     const editor = useRef(null);
 
-    // ✅ API থেকে data আনুন
     const { data, isLoading } = useSettingQuery();
 
-    // ✅ Default Content যদি API থেকে data না আসে
     const defaultText = `
         <h2 style="padding-top: 1rem; padding-bottom: 2.5rem;">Privacy Policy</h2>
         No privacy policy available. Please update the privacy terms.
     `;
 
-    // ✅ State তৈরি করা হয়েছে
     const [content, setContent] = useState(defaultText);
 
-    // ✅ API থেকে data পাওয়ার পর সেট করা
     useEffect(() => {
         if (data) {
             setContent(data?.privacy ?? defaultText); // `privacy` null হলে defaultText সেট হবে
