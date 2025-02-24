@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 export const ApiSlice = createApi({
     reducerPath: "ApiSlice",
     baseQuery,
-    tagTypes: ["question", "addQuestion", "Admin", "Copun","subscrption",],
+    tagTypes: ["question", "addQuestion", "Admin", "Copun","subscrption"],
     endpoints: (builder) => ({
 
         // Create Question
@@ -175,6 +175,16 @@ export const ApiSlice = createApi({
             providesTags:["setting"]
         }),
 
+        // upadate settting
+        editSetting: builder.mutation({
+            query:( updateSetting ) =>({
+                url:"/company/info/update/admin/",
+                method:"PATCH",
+                body: updateSetting
+            }),
+            invalidatesTags:["setting"]
+        }),
+
         //create subcription
         createSubcription:builder.mutation({
             query:(AddSubcription)=>({
@@ -219,7 +229,7 @@ export const ApiSlice = createApi({
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery , useCreateSubcriptionMutation , useSubscriptionDataQuery ,useEditsubcriptionMutation , useDeleteSubcriptionMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery , useCreateSubcriptionMutation , useSubscriptionDataQuery ,useEditsubcriptionMutation , useDeleteSubcriptionMutation ,useEditSettingMutation } = ApiSlice;
 
 export default ApiSlice;
 
