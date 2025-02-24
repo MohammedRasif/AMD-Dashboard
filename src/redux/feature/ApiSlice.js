@@ -164,15 +164,23 @@ export const ApiSlice = createApi({
                 body: updatedCoupon
             }),
             invalidatesTags: ["Copun"]
-        })
+        }),
 
+        //Teramsssssss
+        Setting:builder.query({
+            query:()=>({
+                url:"/company/info/public/",
+                method:"GET"
+            }),
+            providesTags:["setting"]
+        })
 
     }),
 });
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery } = ApiSlice;
 
 export default ApiSlice;
 
