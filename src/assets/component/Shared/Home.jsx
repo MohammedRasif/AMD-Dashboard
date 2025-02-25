@@ -285,8 +285,6 @@ const Home = () => {
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
-
-
                         </div>
 
                         {/* Subscription Button */}

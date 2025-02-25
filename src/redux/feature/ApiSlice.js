@@ -229,6 +229,23 @@ export const ApiSlice = createApi({
             method:"GET",
         }),
         providesTags:["subcriber"]
+       }),
+
+       adminProfileData:builder.query({
+        query:() =>({
+            url:"/user/profile/details/",
+            method:"GET"
+        }),
+        providesTags:["AdminProfileData"]
+       }),
+
+       editAdminProfileData:builder.mutation({
+        query:(updateAdminProfile) =>({
+            url:"/user/profile/update/",
+            method:"PATCH",
+            body:updateAdminProfile
+        }),
+        invalidatesTags:["AdminProfileData"]
        })
 
 
@@ -237,7 +254,7 @@ export const ApiSlice = createApi({
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery , useCreateSubcriptionMutation , useSubscriptionDataQuery ,useEditsubcriptionMutation , useDeleteSubcriptionMutation ,useEditSettingMutation,useSubscribeDataQuery } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery , useCreateSubcriptionMutation , useSubscriptionDataQuery ,useEditsubcriptionMutation , useDeleteSubcriptionMutation ,useEditSettingMutation,useSubscribeDataQuery , useAdminProfileDataQuery , useEditAdminProfileDataMutation } = ApiSlice;
 
 export default ApiSlice;
 
