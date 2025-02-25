@@ -221,6 +221,14 @@ export const ApiSlice = createApi({
             method:"DELETE"
         }),
         invalidatesTags:["subscrption"]
+       }),
+
+       subscribeData:builder.query({
+        query:(subscriptionType) =>({
+            url:`/subscriber/list/admin/?subscriber=${subscriptionType}`,
+            method:"GET",
+        }),
+        providesTags:["subcriber"]
        })
 
 
@@ -229,7 +237,7 @@ export const ApiSlice = createApi({
 
 
 // Export hooks for usage in components
-export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery , useCreateSubcriptionMutation , useSubscriptionDataQuery ,useEditsubcriptionMutation , useDeleteSubcriptionMutation ,useEditSettingMutation } = ApiSlice;
+export const { useCreateQuestionMutation, useGetQuestionQuery, useEditQuestionMutation, useDeleteQuestionMutation, useGetQuestionDataQuery, useCreateQuestionSetionMutation, useDeleteQuestionSectionMutation, useEditQuestionSectionMutation, useAdminDataQuery, useCreateAdminDataMutation, useDeleteAdminDataMutation, useCreateCuponMutation, useCuponDataQuery, useCuponDeleteMutation, useEidtCuponMutation , useSettingQuery , useCreateSubcriptionMutation , useSubscriptionDataQuery ,useEditsubcriptionMutation , useDeleteSubcriptionMutation ,useEditSettingMutation,useSubscribeDataQuery } = ApiSlice;
 
 export default ApiSlice;
 

@@ -16,6 +16,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { useSubscribeDataQuery } from "../../../redux/feature/ApiSlice";
 
 const Home = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -24,26 +25,15 @@ const Home = () => {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const calendarRef = useRef(null); // Reference for the calendar modal
     const modalRef = useRef(null);
-    const [selectedSubscription, setSelectedSubscription] = useState(''); // Track selected subscription
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const [selectedYear, setSelectedYear] = useState("2022");
-
-
-    const handleDateChange = (date) => {
-        if (!startDate || (startDate && endDate)) {
-            // If no start date is selected or both start and end dates are selected, reset
-            setStartDate(date);
-            setEndDate(null);
-        } else {
-            // If start date is selected, set the end date
-            setEndDate(date);
-        }
-    };
-
-
-    const [value, onChange] = useState(new Date());
-
     const [searchQuery, setSearchQuery] = useState("");
+    const [selectedSubscription, setSelectedSubscription] = useState('ALL');
+    const { data: subscriptionType = [] } = useSubscribeDataQuery("ALL");
+
+    // Filter users based on subscription type and search query
+    const filteredUsers = subscriptionType
+        .filter(user => selectedSubscription === 'ALL' || user.subscription_type === selectedSubscription)
+        .filter(user => user.full_name.toLowerCase().includes(searchQuery.toLowerCase()));
 
     // Close calendar when clicking outside
     useEffect(() => {
@@ -72,104 +62,6 @@ const Home = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-
-    // Sample user data
-    const users = [
-        {
-            id: 1,
-            name: "Hart Hagerty",
-            country: "United States",
-            company: "Zemlak, Daniel and Leannon",
-            role: "Desktop Support Technician",
-            favoriteColor: "Purple",
-            img: "https://img.daisyui.com/images/profile/demo/2@94.webp",
-            number: "#12333",
-            email: "mohammadrasif001@gmail.com",
-            contactNumber: "01607115111",
-            subscription: "Premium",
-            income: "$20",
-        },
-        {
-            id: 2,
-            name: "Brice Swyre",
-            country: "China",
-            company: "Carroll Group",
-            role: "Tax Accountant",
-            favoriteColor: "Red",
-            img: "https://img.daisyui.com/images/profile/demo/3@94.webp",
-            number: "#12333",
-            email: "mohammadrasif001@gmail.com",
-            contactNumber: "01607115111",
-            subscription: "Free",
-            income: "$20",
-        },
-        {
-            id: 3,
-            name: "Marjy Ferencz",
-            country: "Russia",
-            company: "Rowe-Schoen",
-            role: "Office Assistant I",
-            favoriteColor: "Crimson",
-            img: "https://img.daisyui.com/images/profile/demo/4@94.webp",
-            number: "#12333",
-            email: "mohammadrasif001@gmail.com",
-            contactNumber: "01607115111",
-            subscription: "Free",
-            income: "$20",
-        },
-        {
-            id: 4,
-            name: "Yancy Tear",
-            country: "Brazil",
-            company: "Wyman-Ledner",
-            role: "Community Outreach Specialist",
-            favoriteColor: "Indigo",
-            img: "https://img.daisyui.com/images/profile/demo/5@94.webp",
-            number: "#12333",
-            email: "mohammadrasif001@gmail.com",
-            contactNumber: "01607115111",
-            subscription: "Free",
-            income: "$20",
-        },
-        {
-            id: 5,
-            name: "Mohammad Rasif",
-            country: "Bangladesh",
-            company: "Wyman-Ledner",
-            role: "Community Outreach Specialist",
-            favoriteColor: "Indigo",
-            img: "https://res.cloudinary.com/dfsu0cuvb/image/upload/v1738148405/fotor-2025010923230_1_u9l6vi.png",
-            number: "#12333",
-            email: "mohammadrasif001@gmail.com",
-            contactNumber: "01607115111",
-            subscription: "Premium",
-            income: "$20",
-        },
-    ];
-
-    const filteredUsers = users.filter((user) => {
-        // Filter by search query
-        const searchMatch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.contactNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.subscription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.income.toLowerCase().includes(searchQuery.toLowerCase());
-
-        // Filter by selected subscription type
-        const subscriptionMatch = selectedSubscription === 'All' || selectedSubscription === '' || user.subscription === selectedSubscription;
-
-        return searchMatch && subscriptionMatch;
-    });
-
-
-    // Handle clicking on subscription type
-    const handleSubscriptionSelect = (subscriptionType) => {
-        setSelectedSubscription(subscriptionType);
-        setIsModalOpen(false); // Close the modal after selection
-    };
-
-    // Charts data
 
     const subscriberDataByYear = {
         2022: [
@@ -245,11 +137,7 @@ const Home = () => {
     }));
 
 
-    const handleYearChange = (event) => {
-        const year = event.target.value; // Get selected value
-        setSelectedYear(year); // Update state
-        console.log("Selected Year:", year); // Log the selected year
-    };
+
     return (
         <div className="min-h-full relative mt-3">
             {/* Top Cards */}
@@ -385,31 +273,34 @@ const Home = () => {
                     <h1 className="text-[18px] font-[500]">Subscriber</h1>
                     <div className="flex items-center space-x-4 bg-white p-4 rounded-lg">
                         {/* Search Input */}
-                        <div className="relative flex items-center border border-gray-300 rounded-lg px-3 py-2 w-72">
-                            <FaSearch className="text-gray-400 mr-2" />
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                className="outline-none w-full bg-transparent"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
+                        <div>
+                            {/* Search Input */}
+                            <div className="relative flex items-center border border-gray-300 rounded-lg px-3 py-2 w-72">
+                                <FaSearch className="text-gray-400 mr-2" />
+                                <input
+                                    type="text"
+                                    placeholder="Search"
+                                    className="outline-none w-full bg-transparent"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+
+
                         </div>
 
                         {/* Subscription Button */}
                         <div className="border border-gray-300 py-2 px-2 rounded-md">
                             <label className="form-control">
-
                                 <select
-                                    className=" "
+                                    className=""
                                     value={selectedSubscription}
                                     onChange={(e) => setSelectedSubscription(e.target.value)}
                                 >
-                                    <option value="All">All</option>
-                                    <option value="Premium">Premium</option>
-                                    <option value="Free">Free</option>
+                                    <option value="ALL">ALL</option>
+                                    <option value="Premium">PREMIUM</option>
+                                    <option value="Free">FREE</option>
                                 </select>
-
                             </label>
                         </div>
 
@@ -482,17 +373,9 @@ const Home = () => {
                                 </th>
                                 <td className="p-3">
                                     <div className="flex items-center gap-3">
-                                        <div className="avatar">
-                                            <div className="mask mask-squircle h-12 w-12">
-                                                <img
-                                                    src={user.img}
-                                                    className="rounded-2xl"
-                                                    alt={user.name}
-                                                />
-                                            </div>
-                                        </div>
+
                                         <div>
-                                            <div className="font-bold">{user.name}</div>
+                                            <div className="font-bold">{user.full_name}</div>
                                             <div className="text-sm text-gray-500">{user.country}</div>
                                         </div>
                                     </div>
@@ -500,10 +383,10 @@ const Home = () => {
                                 <td className="p-3">
                                     <span className="text-gray-700 font-semibold">{user.email}</span>
                                 </td>
-                                <td className="p-3 text-gray-600">{user.contactNumber}</td>
-                                <td className="p-3 text-gray-600">{user.country}</td>
-                                <td className="p-3 text-gray-600">{user.subscription}</td>
-                                <td className="p-3 text-gray-600">{user.income}</td>
+                                <td className="p-3 text-gray-600">{user.phone1 || 'N/A'}</td>
+                                <td className="p-3 text-gray-600">{user.country || 'N/A'}</td>
+                                <td className="p-3 text-gray-600">{user.subscription_type}</td>
+                                <td className="p-3 text-gray-600">{user.income_amount}</td>
                                 <th className="p-3">
                                     <button onClick={() => setIsProfileOpen(true)} className="text-xl cursor-pointer">
                                         <IoEyeOutline className="ml-10" />
