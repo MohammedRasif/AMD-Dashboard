@@ -86,7 +86,6 @@ const AdminProfile = () => {
                     method: "PATCH",
                     body: formData,
                     headers: {
-                        // Include the token in the Authorization header
                         Authorization: `Bearer ${token}`,
                     },
                 });
