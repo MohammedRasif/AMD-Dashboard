@@ -23,9 +23,7 @@
 }
 
 
-/* .button, input, select, optgroup, textarea,{
-    font: none;
-} */
+
  .react-calendar__tile--active{
     background-color: #8CAB91;
     background: #8CAB91;
