@@ -27,7 +27,7 @@ const Navbar = () => {
                     >
                         <img
                             src={adminProfile?.image}
-                            className="h-[48px] w-[48px]"
+                            className="h-[48px] w-[48px] rounded-full"
                             alt=""
                         />
                         <h1 className="font-[600] text-[18px] ">{adminProfile?.full_name}</h1>
